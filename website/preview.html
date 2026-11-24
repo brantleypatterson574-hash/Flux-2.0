@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UtilMod â€” Flux 2.0 Menu Mockup (all current modules)</title>
+<title>UtilMod — Flux 2.0 Menu Mockup (all current modules)</title>
 <style>
 /* ---------- Theme palettes (ported from GuiTheme.java) ---------- */
 :root {
@@ -411,7 +411,7 @@ body.embed .stage { margin: 12px auto 0; }
           <div class="desc" id="setDesc"></div>
           <div class="settings-list" id="settingsList"></div>
         </div>
-        <div class="set-hint">Click a row to toggle Â· double-click or click its arrow for settings</div>
+        <div class="set-hint">Click a row to toggle · double-click or click its arrow for settings</div>
       </div>
     </div>
   </div>
@@ -424,308 +424,744 @@ body.embed .stage { margin: 12px auto 0; }
 </div>
 
 <div class="footer-hint">
-  Preview of the <b>UtilMod click GUI</b> â€” 37 registered modules across 9 categories, original Prestige-inspired styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
+  Preview of the <b>UtilMod click GUI</b> — 82 registered modules across 10 categories, original Prestige-inspired styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
 </div>
 
 <script>
 /* Exact display names, categories and descriptions from the module constructors.
    Settings are representative subsets of the real settings in each module. */
 const MODULES = [
-  { n:"Mace Swap", c:"MACE", on:true, d:"Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback.", s:[
-    {t:"bool", n:"Require Key", v:false},
-    {t:"num", n:"Minimum Fall Distance", v:2.5, min:.5, max:20},
-    {t:"bool", n:"Auto Switch", v:true},
-    {t:"bool", n:"Swap Back", v:true},
-    {t:"num", n:"Snap Back Delay", v:3, min:0, max:20},
-    {t:"num", n:"Attack Range", v:5, min:1, max:10},
-    {t:"mode", n:"Target", v:"PLAYERS"},
-    {t:"bool", n:"Silent Aim", v:true, adv:true}
-  ]},
-  { n:"Density Assist", c:"MACE", on:false, d:"Shows your fall distance and the mace smash bonus damage it would deal.", s:[
-    {t:"num", n:"Ready Distance", v:1.5, min:.5, max:20},
-    {t:"bool", n:"Show Bonus Damage", v:true},
-    {t:"bool", n:"Background", v:true},
-    {t:"num", n:"X", v:4, min:0, max:1000, adv:true},
-    {t:"num", n:"Y", v:120, min:0, max:1000, adv:true}
-  ]},
-  { n:"Breach Swap", c:"MACE", on:false, d:"Same-tick Breach mace swap on attack (attribute swapping).", s:[
-    {t:"num", n:"Mace Slot", v:1, min:1, max:9},
-    {t:"bool", n:"Smart Switch", v:true},
-    {t:"bool", n:"Prefer Density", v:false},
-    {t:"bool", n:"Melee Only", v:true},
-    {t:"bool", n:"Swap Back", v:true},
-    {t:"num", n:"Swap Delay", v:2, min:0, max:10},
-    {t:"num", n:"Click Pacing (Ms)", v:3, min:0, max:12, adv:true}
-  ]},
   { n:"Auto Totem", c:"CRYSTAL", on:true, d:"Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
-    {t:"num", n:"Health Threshold", v:10, min:1, max:20},
-    {t:"bool", n:"Include Absorption", v:true},
-    {t:"bool", n:"Equip After Pop", v:true},
-    {t:"bool", n:"Pop Alert", v:true},
-    {t:"bool", n:"Fall Threat", v:true},
-    {t:"num", n:"Fall Distance", v:8, min:1, max:40},
-    {t:"num", n:"Delay", v:0, min:0, max:40},
-    {t:"num", n:"Reserve Totems", v:0, min:0, max:8},
-    {t:"bool", n:"Pop Counter", v:true, adv:true}
+    {t:"mode",n:"Mode",v:"SMART"},
+    {t:"num",n:"Health Threshold",v:10.0,min:1.0,max:20.0},
+    {t:"bool",n:"Include Absorption",v:true},
+    {t:"bool",n:"Equip After Pop",v:true},
+    {t:"bool",n:"Pop Alert",v:true},
+    {t:"bool",n:"Fall Threat",v:true},
+    {t:"num",n:"Fall Distance",v:8.0,min:1.0,max:40.0},
+    {t:"bool",n:"Elytra Threat",v:true},
+    {t:"num",n:"Elytra Speed",v:1.2,min:0.2,max:5.0},
+    {t:"num",n:"Delay",v:0.0,min:0.0,max:40.0},
+    {t:"mode",n:"Search Order",v:"INVENTORY FIRST"},
+    {t:"num",n:"Reserve Totems",v:0.0,min:0.0,max:8.0},
+    {t:"bool",n:"Fill Hotbar",v:true},
+    {t:"num",n:"Reserve Slots",v:1.0,min:0.0,max:9.0},
+    {t:"bool",n:"Return Previous Item",v:true},
+    {t:"bool",n:"Survival Only",v:true},
+    {t:"bool",n:"Double Hand",v:false},
+    {t:"bool",n:"Pause Movement Clicks",v:true},
+    {t:"num",n:"Movement Threshold",v:0.15,min:0.02,max:1.0},
+    {t:"bool",n:"Show Status",v:false},
+    {t:"num",n:"Status Position X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Status Position Y",v:120.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Status Color",v:0.0,min:0.0,max:1.0,adv:true},
+    {t:"bool",n:"Pop Counter",v:true},
+    {t:"num",n:"Max Players",v:5.0,min:1.0,max:20.0,adv:true},
+    {t:"bool",n:"Include Self",v:true,adv:true},
+    {t:"bool",n:"Hide When Empty",v:true,adv:true},
+    {t:"mode",n:"Pop Style",v:"PLAIN",adv:true},
+    {t:"num",n:"Pop Color",v:0.0,min:0.0,max:1.0,adv:true},
+    {t:"num",n:"Pop Ticks",v:20.0,min:0.0,max:80.0,adv:true},
+    {t:"num",n:"Pop Board Position X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Pop Board Position Y",v:170.0,min:0.0,max:1000.0,adv:true},
   ]},
-  { n:"Target HUD", c:"RENDER", on:false, d:"Shows a live health card and ESP box for the entity you are targeting.", s:[
-    {t:"num", n:"Range", v:12, min:3, max:48},
-    {t:"num", n:"View Angle", v:90, min:20, max:360},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Background", v:true},
-    {t:"bool", n:"Highlight Target", v:true}
-  ]},
-  { n:"Hitbox Adjuster", c:"UTIL", on:false, d:"Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
-    {t:"num", n:"Size Multiplier", v:1, min:1, max:20},
-    {t:"bool", n:"Sync To Server", v:true}
-  ]},
-  { n:"Auto Obsidian", c:"UTIL", on:false, d:"Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
-    {t:"mode", n:"Mode", v:"TRAP"},
-    {t:"num", n:"Range", v:8, min:2, max:24},
-    {t:"num", n:"Place Delay", v:3, min:0, max:40},
-    {t:"num", n:"Max Blocks", v:9, min:1, max:24},
-    {t:"bool", n:"Require Obsidian", v:true},
-    {t:"bool", n:"Auto Switch", v:true},
-    {t:"bool", n:"Swap Back", v:true}
-  ]},
-  { n:"Auto Anchor", c:"UTIL", on:false, d:"Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
-    {t:"num", n:"Range", v:8, min:2, max:24},
-    {t:"num", n:"Action Delay", v:6, min:0, max:40},
-    {t:"bool", n:"Auto Charge", v:true},
-    {t:"bool", n:"Auto Ignite", v:true},
-    {t:"bool", n:"Swap Back", v:true}
-  ]},
-  { n:"Sprint", c:"MOVEMENT", on:true, d:"Keeps you sprinting while you move, so you never have to double-tap.", s:[
-    {t:"bool", n:"All Directions", v:false},
-    {t:"bool", n:"While Using Items", v:false},
-    {t:"num", n:"Minimum Hunger", v:7, min:0, max:20}
-  ]},
-  { n:"Wind Charge Jump", c:"MOVEMENT", on:false, d:"Keybind macro that throws a wind charge at a configured pitch for a quick boost.", s:[
-    {t:"num", n:"Throw Pitch", v:90, min:-90, max:90},
-    {t:"bool", n:"Silent Aim", v:true},
-    {t:"bool", n:"Swap Back", v:true},
-    {t:"num", n:"Delay", v:1, min:0, max:20},
-    {t:"bool", n:"Only When Falling", v:false}
-  ]},
-  { n:"Velocity", c:"MOVEMENT", on:false, d:"Disables melee, projectile and explosion knockback. Requires this jar on your private server.", s:[
-    {t:"bool", n:"Melee", v:true},
-    {t:"bool", n:"Projectiles", v:true},
-    {t:"bool", n:"Explosions", v:true}
-  ]},
-  { n:"Fast Place", c:"PLAYER", on:false, d:"Repeats item use on a delay for faster block placement.", s:[
-    {t:"num", n:"Delay", v:2, min:0, max:60},
-    {t:"bool", n:"Only When Holding", v:true},
-    {t:"bool", n:"Require Block In Hand", v:true},
-    {t:"bool", n:"Right Click Only", v:false}
-  ]},
-  { n:"Inventory Sort", c:"PLAYER", on:false, d:"Sorts your inventory by item type with one key press.", s:[
-    {t:"num", n:"Swaps Per Tick", v:2, min:1, max:6},
-    {t:"bool", n:"Include Hotbar", v:false}
-  ]},
-  { n:"Auto Eat", c:"PLAYER", on:false, d:"Automatically eats food when your health gets low.", s:[
-    {t:"num", n:"Health Threshold", v:10, min:1, max:20},
-    {t:"num", n:"Minimum Hunger", v:20, min:0, max:20},
-    {t:"bool", n:"Require Hunger", v:true},
-    {t:"num", n:"Preferred Slot", v:-1, min:-1, max:8},
-    {t:"num", n:"Eat Delay", v:10, min:0, max:100},
-    {t:"bool", n:"Prefer Best Food", v:true}
-  ]},
-  { n:"Fullbright", c:"RENDER", on:true, d:"Maximizes brightness in dark areas.", s:[
-    {t:"num", n:"Brightness", v:16, min:1, max:32},
-    {t:"bool", n:"Update While Enabled", v:true},
-    {t:"bool", n:"Restore When Disabled", v:true}
-  ]},
-  { n:"Nametags", c:"RENDER", on:true, d:"Draws readable name tags with health, armor and distance over chosen entity types.", s:[
-    {t:"num", n:"Range", v:64, min:4, max:256},
-    {t:"num", n:"Update Interval", v:2, min:1, max:20},
-    {t:"bool", n:"Show Health", v:true},
-    {t:"bool", n:"Armor", v:true},
-    {t:"bool", n:"Show Distance", v:true},
-    {t:"bool", n:"Background", v:true},
-    {t:"bool", n:"Distance Fade", v:false, adv:true}
-  ]},
-  { n:"Hit Color", c:"RENDER", on:false, d:"Shows a short colored confirmation effect whenever your attack connects.", s:[
-    {t:"num", n:"Duration (Milliseconds)", v:260, min:80, max:900},
-    {t:"num", n:"Radius", v:18, min:6, max:64},
-    {t:"num", n:"Line Width", v:2, min:1, max:6},
-    {t:"bool", n:"Only Players", v:false},
-    {t:"bool", n:"Target Box", v:true}
-  ]},
-  { n:"Zoom", c:"RENDER", on:false, d:"Hold a key to zoom in and release to return to your normal FOV.", s:[
-    {t:"num", n:"Zoom FOV", v:30, min:30, max:90},
-    {t:"bool", n:"Smooth Transition", v:true}
-  ]},
-  { n:"Weather", c:"WORLD", on:false, d:"Hides rain, snow and clouds on your screen. Nothing changes on the server.", s:[
-    {t:"bool", n:"Hide Rain And Snow", v:true},
-    {t:"bool", n:"Hide Clouds", v:false}
-  ]},
-  { n:"Base Finder", c:"DONUT", on:false, d:"Scans nearby blocks for player-built structures and reports dense clusters.", s:[
-    {t:"num", n:"Radius", v:16, min:6, max:48},
-    {t:"num", n:"Scan Interval", v:40, min:10, max:200},
-    {t:"num", n:"Minimum Signals", v:4, min:2, max:20},
-    {t:"bool", n:"Show HUD", v:true},
-    {t:"num", n:"X", v:6, min:0, max:1000, adv:true},
-    {t:"num", n:"Y", v:96, min:0, max:1000, adv:true}
-  ]},
-  { n:"Light Detector", c:"DONUT", on:false, d:"Finds dark, mob-spawnable pockets around you with a configurable light threshold.", s:[
-    {t:"num", n:"Radius", v:20, min:6, max:48},
-    {t:"num", n:"Light Threshold", v:7, min:0, max:15},
-    {t:"num", n:"Scan Interval", v:30, min:10, max:200},
-    {t:"bool", n:"Show HUD", v:true},
-    {t:"num", n:"X", v:6, min:0, max:1000, adv:true},
-    {t:"num", n:"Y", v:112, min:0, max:1000, adv:true}
-  ]},
-  { n:"Menu Theme", c:"UTIL", on:true, d:"Change the dropdown/ClickGUI palette, layout and scale.", s:[
-    {t:"num", n:"Menu Scale", v:1, min:.7, max:1.35},
-    {t:"num", n:"Panel Opacity", v:100, min:40, max:100},
-    {t:"num", n:"Overlay Opacity", v:100, min:30, max:100},
-    {t:"bool", n:"Rounded Corners", v:true},
-    {t:"bool", n:"Gradient Header", v:true},
-    {t:"mode", n:"Layout", v:"CLICK GUI"},
-    {t:"bool", n:"Show Theme In Title", v:true}
-  ]},
-  { n:"Config", c:"UTIL", on:true, d:"Saves and restores module enabled states.", s:[
-    {t:"num", n:"Profile Index", v:0, min:0, max:4},
-    {t:"bool", n:"Save", v:false},
-    {t:"bool", n:"Load", v:false},
-    {t:"bool", n:"Apply When Enabled", v:true}
-  ]},
-  { n:"Keybinds", c:"UTIL", on:false, d:"Lists module keybinds on the HUD.", s:[
-    {t:"bool", n:"Show All", v:false},
-    {t:"bool", n:"Background", v:true},
-    {t:"num", n:"Line Spacing", v:12, min:8, max:32},
-    {t:"num", n:"X", v:4, min:0, max:1000, adv:true},
-    {t:"num", n:"Y", v:60, min:0, max:1000, adv:true}
-  ]},
-  { n:"Crystal Aura", c:"CRYSTAL", on:false, d:"Attacks nearby players during crystal PvP, with optional end-crystal cleanup.", s:[
-    {t:"num", n:"Range", v:4, min:1, max:16},
-    {t:"num", n:"View Angle", v:90, min:15, max:360},
-    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Swing Hand", v:true},
-    {t:"mode", n:"Target Priority", v:"DISTANCE"},
-    {t:"bool", n:"Attack Crystals", v:true},
-    {t:"bool", n:"Only When Crystal Near", v:false}
+  { n:"Crystal Aura", c:"CRYSTAL", on:true, d:"Attacks nearby players during crystal PvP, with optional end-crystal cleanup.", s:[
+    {t:"bool",n:"Attack Crystals",v:true},
+    {t:"bool",n:"Only When Crystal Near",v:false},
   ]},
   { n:"Auto Crystal", c:"CRYSTAL", on:false, d:"Places and detonates end crystals around the nearest target. Server still validates every action.", s:[
-    {t:"num", n:"Range", v:8, min:2, max:16},
-    {t:"num", n:"Place Delay", v:10, min:0, max:40},
-    {t:"num", n:"Break Delay", v:2, min:0, max:40},
-    {t:"bool", n:"Auto Place", v:true},
-    {t:"bool", n:"Auto Break", v:true},
-    {t:"bool", n:"Require Crystal", v:true},
-    {t:"num", n:"Min Target Health", v:1, min:1, max:20}
+    {t:"num",n:"Range",v:8.0,min:2.0,max:16.0},
+    {t:"num",n:"Place Delay",v:10.0,min:0.0,max:40.0},
+    {t:"num",n:"Break Delay",v:2.0,min:0.0,max:40.0},
+    {t:"bool",n:"Auto Place",v:true},
+    {t:"bool",n:"Auto Break",v:true},
+    {t:"bool",n:"Require Crystal",v:true},
+    {t:"num",n:"Min Target Health",v:1.0,min:1.0,max:20.0},
+  ]},
+  { n:"Kill Aura", c:"SWORD", on:false, d:"Attacks nearby players and mobs with any held item, with range and target filtering.", s:[
+    {t:"bool",n:"Only On Cooldown",v:true},
   ]},
   { n:"Sword Aura", c:"SWORD", on:false, d:"Attacks nearby targets only while a sword is held. Optional cooldown and critical-hit gates.", s:[
-    {t:"num", n:"Range", v:4, min:1, max:16},
-    {t:"num", n:"View Angle", v:90, min:15, max:360},
-    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Swing Hand", v:true},
-    {t:"mode", n:"Target Priority", v:"DISTANCE"},
-    {t:"bool", n:"Only On Cooldown", v:true},
-    {t:"bool", n:"Critical Only", v:false}
+    {t:"bool",n:"Only On Cooldown",v:true},
+    {t:"bool",n:"Critical Only",v:false},
   ]},
   { n:"Sword Swap", c:"SWORD", on:false, d:"Equips the best hotbar sword when an enemy is nearby, then optionally returns to your old slot.", s:[
-    {t:"num", n:"Range", v:6, min:2, max:16},
-    {t:"num", n:"Swap Delay", v:2, min:0, max:20},
-    {t:"bool", n:"Swap Back", v:true},
-    {t:"bool", n:"Prefer Sharpest", v:true}
+    {t:"num",n:"Range",v:6.0,min:2.0,max:16.0},
+    {t:"num",n:"Swap Delay",v:2.0,min:0.0,max:20.0},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"bool",n:"Prefer Sharpest",v:true},
   ]},
   { n:"Crit Assist", c:"SWORD", on:false, d:"Only swings when the vanilla critical-hit conditions are met: airborne, falling and cooldown ready.", s:[
-    {t:"num", n:"Range", v:4, min:1, max:10},
-    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
-    {t:"bool", n:"Require Sword", v:true},
-    {t:"bool", n:"Require Falling", v:true}
+    {t:"num",n:"Range",v:4.0,min:1.0,max:10.0},
+    {t:"num",n:"Attack Delay",v:2.0,min:0.0,max:20.0},
+    {t:"bool",n:"Require Sword",v:true},
+    {t:"bool",n:"Require Falling",v:true},
   ]},
   { n:"Trigger Bot", c:"SWORD", on:false, d:"Attacks the entity under your crosshair after a configurable human-like delay.", s:[
-    {t:"num", n:"Reaction Delay (Ms)", v:80, min:0, max:600},
-    {t:"num", n:"Range", v:5, min:1, max:16},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Require Sword", v:false},
-    {t:"bool", n:"Swing Hand", v:true}
+    {t:"num",n:"Reaction Delay (Ms)",v:80.0,min:0.0,max:600.0},
+    {t:"num",n:"Range",v:5.0,min:1.0,max:16.0},
+    {t:"bool",n:"Players",v:true},
+    {t:"bool",n:"Mobs",v:true},
+    {t:"bool",n:"Require Sword",v:false},
+    {t:"bool",n:"Swing Hand",v:true},
   ]},
   { n:"Auto Clicker", c:"SWORD", on:false, d:"Repeats real attack/use presses with configurable CPS and timing jitter.", s:[
-    {t:"mode", n:"Button", v:"LEFT"},
-    {t:"num", n:"Minimum CPS", v:8, min:1, max:40},
-    {t:"num", n:"Maximum CPS", v:12, min:1, max:40},
-    {t:"num", n:"Jitter", v:18, min:0, max:60},
-    {t:"bool", n:"Require Target", v:false},
-    {t:"bool", n:"Pause In Menus", v:true}
+    {t:"mode",n:"Button",v:"LEFT"},
+    {t:"num",n:"Minimum CPS",v:8.0,min:1.0,max:40.0},
+    {t:"num",n:"Maximum CPS",v:12.0,min:1.0,max:40.0},
+    {t:"num",n:"Jitter",v:18.0,min:0.0,max:60.0},
+    {t:"bool",n:"Require Target",v:false},
+    {t:"bool",n:"Pause In Menus",v:true},
   ]},
   { n:"Combo Assister", c:"SWORD", on:false, d:"Locks onto a target and spaces attacks into a steady combo instead of rapid target flipping.", s:[
-    {t:"num", n:"Range", v:4, min:1, max:12},
-    {t:"num", n:"View Angle", v:110, min:20, max:360},
-    {t:"num", n:"Combo Delay (Ms)", v:220, min:50, max:900},
-    {t:"num", n:"Switch Delay (Ms)", v:320, min:0, max:1500},
-    {t:"bool", n:"Lock Target", v:true},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Swing Hand", v:true}
+    {t:"num",n:"Range",v:4.0,min:1.0,max:12.0},
+    {t:"num",n:"View Angle",v:110.0,min:20.0,max:360.0},
+    {t:"num",n:"Combo Delay (Ms)",v:220.0,min:50.0,max:900.0},
+    {t:"num",n:"Switch Delay (Ms)",v:320.0,min:0.0,max:1500.0},
+    {t:"bool",n:"Lock Target",v:true},
+    {t:"bool",n:"Players",v:true},
+    {t:"bool",n:"Mobs",v:true},
+    {t:"bool",n:"Swing Hand",v:true},
   ]},
-  { n:"Reach", c:"SWORD", on:false, d:"Hits targets from farther away. Client raycast and private-server check use the same value.", s:[
-    {t:"num", n:"Reach Distance", v:5.5, min:3, max:16},
-    {t:"bool", n:"Sync To Server", v:true}
+  { n:"Reach", c:"PLAYER", on:false, d:"Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server.", s:[
+    {t:"num",n:"Extra Block Reach",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Extra Entity Reach",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Mace Swap", c:"MACE", on:true, d:"Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback.", s:[
+    {t:"mode",n:"Trigger",v:"SMART"},
+    {t:"mode",n:"Trigger Key",v:"X"},
+    {t:"bool",n:"Require Key",v:false},
+    {t:"num",n:"Minimum Fall Distance",v:2.5,min:0.5,max:20.0},
+    {t:"num",n:"Minimum Fall Speed",v:0.35,min:0.05,max:3.0},
+    {t:"num",n:"Elytra Speed",v:1.0,min:0.2,max:5.0},
+    {t:"mode",n:"Mace Mode",v:"AUTO"},
+    {t:"num",n:"Breach Slot",v:0.0,min:0.0,max:9.0},
+    {t:"num",n:"Density Slot",v:0.0,min:0.0,max:9.0},
+    {t:"bool",n:"Auto Switch",v:true},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"num",n:"Snap Back Delay",v:3.0,min:0.0,max:20.0},
+    {t:"bool",n:"Shield Stun Combo",v:true},
+    {t:"num",n:"Shield Axe Hits",v:1.0,min:0.0,max:5.0},
+    {t:"num",n:"Axe Slot (0 = Auto)",v:0.0,min:0.0,max:9.0},
+    {t:"num",n:"Attack Range",v:5.0,min:1.0,max:10.0},
+    {t:"num",n:"View Angle",v:120.0,min:10.0,max:180.0},
+    {t:"mode",n:"Priority",v:"CROSSHAIR"},
+    {t:"bool",n:"Target Players",v:true},
+    {t:"bool",n:"Target Mobs",v:false},
+    {t:"bool",n:"Through Walls",v:false},
+    {t:"bool",n:"Stop On Death",v:true},
+    {t:"bool",n:"Silent Aim",v:true},
+    {t:"num",n:"Aim Speed",v:180.0,min:5.0,max:180.0},
+    {t:"mode",n:"Aim Bone",v:"TORSO"},
+    {t:"bool",n:"Restore View",v:true},
+    {t:"num",n:"Attack Delay",v:0.0,min:0.0,max:20.0},
+    {t:"num",n:"Combo Delay",v:2.0,min:0.0,max:20.0},
+    {t:"bool",n:"Require Cooldown",v:true},
+  ]},
+  { n:"Density Assist", c:"MACE", on:false, d:"Shows your fall distance and the mace smash bonus damage it would deal.", s:[
+    {t:"num",n:"Ready Distance",v:1.5,min:0.5,max:20.0},
+    {t:"bool",n:"Show Bonus Damage",v:true},
+    {t:"bool",n:"Background",v:true},
+    {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Y",v:120.0,min:0.0,max:1000.0,adv:true},
+  ]},
+  { n:"Breach Swap", c:"MACE", on:false, d:"Same-tick Breach mace swap on attack (attribute swapping).", s:[
+    {t:"num",n:"Mace Slot",v:1.0,min:1.0,max:9.0},
+    {t:"bool",n:"Smart Switch",v:true},
+    {t:"bool",n:"Prefer Density",v:false},
+    {t:"bool",n:"Melee Only",v:true},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"num",n:"Swap Delay",v:2.0,min:0.0,max:10.0},
+    {t:"bool",n:"Players Only",v:false},
+    {t:"num",n:"Minimum Health",v:0.0,min:0.0,max:20.0},
+    {t:"mode",n:"Click After Swap",v:"LEGIT"},
+    {t:"num",n:"Click Pacing (Ms)",v:3.0,min:0.0,max:12.0},
+    {t:"bool",n:"Pause Combat In Menus",v:true},
+    {t:"bool",n:"Respect User Swaps",v:true},
   ]},
   { n:"Mace Aura", c:"MACE", on:false, d:"Attacks nearby targets while holding a mace. Optional smash-only mode waits for a fall strike.", s:[
-    {t:"num", n:"Range", v:4, min:1, max:16},
-    {t:"num", n:"View Angle", v:90, min:15, max:360},
-    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
-    {t:"bool", n:"Players", v:true},
-    {t:"bool", n:"Mobs", v:true},
-    {t:"bool", n:"Swing Hand", v:true},
-    {t:"mode", n:"Target Priority", v:"DISTANCE"},
-    {t:"bool", n:"Smash Only", v:false},
-    {t:"num", n:"Minimum Fall Distance", v:1.5, min:.5, max:20}
+    {t:"bool",n:"Smash Only",v:false},
+    {t:"num",n:"Minimum Fall Distance",v:1.5,min:0.5,max:20.0},
   ]},
   { n:"Smash Assist", c:"MACE", on:false, d:"Automatically holds a Density mace when a fall strike is ready, then returns to your previous slot.", s:[
-    {t:"num", n:"Minimum Fall Distance", v:1.5, min:.5, max:20},
-    {t:"num", n:"Target Range", v:6, min:2, max:16},
-    {t:"num", n:"Snap Back Delay", v:3, min:0, max:20},
-    {t:"bool", n:"Swap Back", v:true},
-    {t:"bool", n:"Require Density", v:true}
+    {t:"num",n:"Minimum Fall Distance",v:1.5,min:0.5,max:20.0},
+    {t:"num",n:"Target Range",v:6.0,min:2.0,max:16.0},
+    {t:"num",n:"Snap Back Delay",v:3.0,min:0.0,max:20.0},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"bool",n:"Require Density",v:true},
   ]},
-  { n:"Entity ESP", c:"RENDER", on:false, d:"Prestige-style entity ESP with a selectable list of every entity type.", s:[
-    {t:"mode", n:"Entity Types", v:"PLAYERS + MOBS"},
-    {t:"num", n:"Range", v:64, min:4, max:256},
-    {t:"num", n:"Update Interval", v:2, min:1, max:20},
-    {t:"num", n:"Maximum Entities", v:96, min:8, max:256},
-    {t:"mode", n:"Box Style", v:"MODEL GLOW"},
-    {t:"bool", n:"Fill", v:true},
-    {t:"bool", n:"Glow", v:true},
-    {t:"bool", n:"Tracers", v:false},
-    {t:"bool", n:"Show Names", v:true},
-    {t:"bool", n:"Color By Type", v:true},
-    {t:"num", n:"Line Width", v:2, min:1, max:5},
-    {t:"bool", n:"Chams Colors", v:true},
-    {t:"bool", n:"Distance Fade", v:true},
-    {t:"num", n:"Glow Layers", v:2, min:1, max:4}
+  { n:"Sprint", c:"MOVEMENT", on:true, d:"Keeps you sprinting while you move, so you never have to double-tap.", s:[
+    {t:"bool",n:"All Directions",v:false},
+    {t:"bool",n:"While Using Items",v:false},
+    {t:"num",n:"Minimum Hunger",v:7.0,min:0.0,max:20.0},
+  ]},
+  { n:"Auto Walk", c:"MOVEMENT", on:false, d:"Automatically holds a movement key.", s:[
+    {t:"mode",n:"Direction",v:"FORWARD"},
+    {t:"bool",n:"Stop On Height Change",v:false},
+  ]},
+  { n:"Snap Tap", c:"MOVEMENT", on:false, d:"Press a key to replay your last movement exactly. Local input only; disable Auto Walk so the two modules do not fight over the keys.", s:[
+    {t:"mode",n:"Replay Key",v:"V"},
+    {t:"num",n:"Replay Length (Ticks)",v:10.0,min:1.0,max:120.0},
+    {t:"num",n:"Memory Length (Ticks)",v:60.0,min:5.0,max:240.0},
+    {t:"bool",n:"Record Jump",v:true},
+    {t:"bool",n:"Record Sneak",v:true},
+    {t:"bool",n:"Record Sprint",v:true},
+    {t:"bool",n:"Restore Live Keys",v:true},
+  ]},
+  { n:"Wind Charge Jump", c:"MOVEMENT", on:false, d:"Keybind macro that throws a wind charge at a configured pitch for a quick boost.", s:[
+    {t:"mode",n:"Key",v:"G"},
+    {t:"num",n:"Throw Pitch",v:90.0,min:-90.0,max:90.0},
+    {t:"bool",n:"Silent Aim",v:true},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"num",n:"Delay",v:1.0,min:0.0,max:20.0},
+    {t:"bool",n:"Only When Falling",v:false},
+    {t:"bool",n:"Perfect Jump",v:true},
+  ]},
+  { n:"Auto Jump", c:"MOVEMENT", on:false, d:"Jumps automatically while walking, for smooth obstacle traversal.", s:[
+    {t:"bool",n:"Require Forward",v:false},
+    {t:"bool",n:"Require Sprint",v:false},
+    {t:"bool",n:"Avoid On Stairs",v:true},
+  ]},
+  { n:"Velocity", c:"MOVEMENT", on:false, d:"Controls knockback and liquid push. Requires this jar on your private server.", s:[
+    {t:"num",n:"Horizontal Knockback",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Vertical Knockback",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"No Sinking",v:false},
+  ]},
+  { n:"Fast Place", c:"PLAYER", on:false, d:"Repeats item use on a delay for faster block placement.", s:[
+    {t:"mode",n:"Key",v:"F"},
+    {t:"num",n:"Delay",v:2.0,min:0.0,max:60.0},
+    {t:"bool",n:"Only When Holding",v:true},
+    {t:"bool",n:"Require Block In Hand",v:true},
+    {t:"bool",n:"Right Click Only",v:false},
+  ]},
+  { n:"Auto Eat", c:"PLAYER", on:false, d:"Automatically eats food when your health gets low.", s:[
+    {t:"num",n:"Health Threshold",v:10.0,min:1.0,max:20.0},
+    {t:"num",n:"Minimum Hunger",v:20.0,min:0.0,max:20.0},
+    {t:"bool",n:"Require Hunger",v:true},
+    {t:"num",n:"Preferred Slot",v:-1.0,min:-1.0,max:8.0},
+    {t:"num",n:"Eat Delay",v:10.0,min:0.0,max:100.0},
+    {t:"bool",n:"Allow While Moving",v:false},
+    {t:"bool",n:"Swap Back",v:true},
+    {t:"bool",n:"Prefer Best Food",v:true},
+  ]},
+  { n:"Auto Respawn", c:"PLAYER", on:false, d:"Respawns automatically after you die.", s:[
+    {t:"num",n:"Delay Ticks",v:20.0,min:0.0,max:200.0},
+    {t:"bool",n:"Require Death Screen",v:true},
+  ]},
+  { n:"Auto Mend", c:"PLAYER", on:false, d:"Automatically repairs Mending gear by keeping damaged items offhand.", s:[
+    {t:"bool",n:"Force",v:false},
+    {t:"bool",n:"Auto Disable",v:true},
+    {t:"bool",n:"Include Inventory",v:true},
+  ]},
+  { n:"Auto Log", c:"PLAYER", on:false, d:"Disconnects automatically at low health. Client-side only.", s:[
+    {t:"num",n:"Health",v:6.0,min:1.0,max:20.0},
+    {t:"bool",n:"Only In World",v:true},
+  ]},
+  { n:"Fullbright", c:"RENDER", on:true, d:"Maximizes brightness in dark areas.", s:[
+    {t:"mode",n:"Mode",v:"GAMMA"},
+    {t:"num",n:"Brightness",v:16.0,min:1.0,max:32.0},
+    {t:"bool",n:"Update While Enabled",v:true},
+    {t:"bool",n:"Restore When Disabled",v:true},
+  ]},
+  { n:"Hit Color", c:"RENDER", on:false, d:"Shows a short colored confirmation effect whenever your attack connects.", s:[
+    {t:"mode",n:"Style",v:"RING"},
+    {t:"num",n:"Duration (Milliseconds)",v:260.0,min:80.0,max:900.0},
+    {t:"num",n:"Radius",v:18.0,min:6.0,max:64.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Only Players",v:false},
+    {t:"bool",n:"Target Box",v:true},
+  ]},
+  { n:"Zoom", c:"RENDER", on:true, d:"Hold a key to zoom in and release to return to your normal FOV.", s:[
+    {t:"mode",n:"Zoom Key",v:"C"},
+    {t:"num",n:"Zoom FOV",v:30.0,min:30.0,max:90.0},
+  ]},
+  { n:"Crosshair", c:"RENDER", on:false, d:"Draws a custom client-side crosshair style.", s:[
+    {t:"mode",n:"Style",v:"PLUS"},
+    {t:"num",n:"Size",v:6.0,min:2.0,max:24.0},
+    {t:"num",n:"Gap",v:3.0,min:0.0,max:16.0},
+    {t:"num",n:"Thickness",v:1.0,min:1.0,max:4.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Offset X",v:0.0,min:-200.0,max:200.0,adv:true},
+    {t:"num",n:"Offset Y",v:0.0,min:-200.0,max:200.0,adv:true},
+  ]},
+  { n:"Xray", c:"HUD", on:false, d:"Highlights selected blocks through walls. Personal, client-side overlay.", s:[
+    {t:"mode",n:"Blocks",v:"Custom"},
+    {t:"num",n:"Range",v:40.0,min:8.0,max:96.0},
+    {t:"num",n:"Maximum Blocks",v:160.0,min:16.0,max:512.0},
+    {t:"bool",n:"Exposed Only",v:false},
+    {t:"bool",n:"Fill",v:true},
+    {t:"num",n:"Opacity",v:110.0,min:0.0,max:200.0},
+    {t:"bool",n:"Outline",v:true},
+    {t:"num",n:"Line Width",v:1.5,min:1.0,max:4.0},
+    {t:"bool",n:"Glow",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Tracers",v:false},
+    {t:"bool",n:"Show Names",v:true},
+    {t:"bool",n:"Show Distance",v:true},
+  ]},
+  { n:"Entity ESP", c:"HUD", on:true, d:"Prestige-style entity ESP with a selectable list of every entity type.", s:[
+    {t:"mode",n:"Entity Types",v:"Custom"},
+    {t:"num",n:"Range",v:64.0,min:4.0,max:256.0},
+    {t:"num",n:"Update Interval",v:2.0,min:1.0,max:20.0},
+    {t:"num",n:"Maximum Entities",v:96.0,min:8.0,max:256.0},
+    {t:"mode",n:"Box Style",v:"MODEL GLOW"},
+    {t:"bool",n:"Fill",v:true},
+    {t:"num",n:"Fill Alpha",v:55.0,min:0.0,max:160.0},
+    {t:"bool",n:"Glow",v:true},
+    {t:"bool",n:"Tracers",v:false},
+    {t:"bool",n:"Show Names",v:true},
+    {t:"bool",n:"Show Health",v:true},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"bool",n:"Color By Type",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Tracer Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+    {t:"bool",n:"Chams Colors",v:true},
+    {t:"num",n:"Visible Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Occluded Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Distance Fade",v:true},
+    {t:"num",n:"Fade Start %",v:45.0,min:0.0,max:100.0},
+    {t:"num",n:"Fade Minimum %",v:35.0,min:0.0,max:100.0},
+    {t:"num",n:"Glow Layers",v:2.0,min:1.0,max:4.0},
+    {t:"num",n:"Glow Scale",v:1.08,min:1.0,max:1.5},
+  ]},
+  { n:"Target HUD", c:"HUD", on:true, d:"Shows a live health card and ESP box for the entity you are targeting.", s:[
+    {t:"mode",n:"Priority",v:"CROSSHAIR"},
+    {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
+    {t:"num",n:"View Angle",v:90.0,min:20.0,max:360.0},
+    {t:"bool",n:"Players",v:true},
+    {t:"bool",n:"Mobs",v:true},
+    {t:"bool",n:"Background",v:true},
+    {t:"bool",n:"Armor",v:true},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"bool",n:"Highlight Target",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Y",v:160.0,min:0.0,max:1000.0,adv:true},
+  ]},
+  { n:"Nametags", c:"HUD", on:true, d:"Draws readable name tags with health, armor and distance over chosen entity types.", s:[
+    {t:"mode",n:"Entity Types",v:"Custom"},
+    {t:"num",n:"Range",v:64.0,min:4.0,max:256.0},
+    {t:"num",n:"Update Interval",v:2.0,min:1.0,max:20.0},
+    {t:"num",n:"Maximum Entities",v:96.0,min:8.0,max:256.0},
+    {t:"bool",n:"Show Health",v:true},
+    {t:"bool",n:"Armor",v:true},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"bool",n:"Background",v:true},
+    {t:"num",n:"Text Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Depth Colors",v:true},
+    {t:"num",n:"Far Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Detail Distance",v:48.0,min:4.0,max:256.0},
+    {t:"bool",n:"Soft Text",v:true},
+    {t:"bool",n:"Distance Fade",v:false},
+    {t:"num",n:"Fade Start %",v:60.0,min:0.0,max:100.0},
+    {t:"num",n:"Fade Minimum %",v:50.0,min:0.0,max:100.0},
+  ]},
+  { n:"Keybinds", c:"HUD", on:false, d:"Lists module keybinds on the HUD.", s:[
+    {t:"bool",n:"Show All",v:false},
+    {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Y",v:60.0,min:0.0,max:1000.0,adv:true},
+    {t:"bool",n:"Background",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Spacing",v:12.0,min:8.0,max:32.0},
+  ]},
+  { n:"Stats HUD", c:"HUD", on:true, d:"Configurable FPS, coordinates, biome, speed, ping and memory overlay.", s:[
+    {t:"bool",n:"Show FPS",v:true},
+    {t:"bool",n:"Show Coordinates",v:true},
+    {t:"bool",n:"Show Biome",v:true},
+    {t:"bool",n:"Show Speed",v:true},
+    {t:"bool",n:"Show Ping",v:true},
+    {t:"bool",n:"Show Facing",v:false},
+    {t:"bool",n:"Show Memory",v:false},
+    {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Y",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Line Spacing",v:11.0,min:8.0,max:24.0},
+    {t:"num",n:"Update Interval",v:10.0,min:1.0,max:60.0},
+    {t:"bool",n:"Background",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Accent",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Weather", c:"WORLD", on:true, d:"Hides rain, snow and clouds on your screen. Nothing changes on the server.", s:[
+    {t:"bool",n:"Hide Rain And Snow",v:true},
+    {t:"bool",n:"Hide Clouds",v:false},
+  ]},
+  { n:"Base Finder", c:"DONUT", on:false, d:"Scans nearby blocks for player-built structures and reports dense clusters.", s:[
+    {t:"num",n:"Radius",v:16.0,min:6.0,max:48.0},
+    {t:"num",n:"Scan Interval",v:40.0,min:10.0,max:200.0},
+    {t:"num",n:"Minimum Signals",v:4.0,min:2.0,max:20.0},
+    {t:"bool",n:"Show HUD",v:true},
+    {t:"num",n:"X",v:6.0,min:0.0,max:1000.0},
+    {t:"num",n:"Y",v:96.0,min:0.0,max:1000.0},
   ]},
   { n:"Reaction Monitor", c:"UTIL", on:false, d:"Warns when your own click speed, swapping or Breach automation looks inhuman. Purely client-side self-check.", s:[
-    {t:"num", n:"CPS Limit", v:40, min:5, max:80},
-    {t:"num", n:"Swap Limit", v:8, min:1, max:30},
-    {t:"num", n:"Auto Swap Limit", v:6, min:1, max:30},
-    {t:"num", n:"Alert Cooldown", v:3, min:1, max:15},
-    {t:"bool", n:"Flag High CPS", v:true},
-    {t:"bool", n:"Flag Fast Swaps", v:true},
-    {t:"bool", n:"Flag Auto Breach", v:true},
-    {t:"bool", n:"Show Alerts", v:true}
+    {t:"num",n:"CPS Limit",v:40.0,min:5.0,max:80.0},
+    {t:"num",n:"Swap Limit",v:8.0,min:1.0,max:30.0},
+    {t:"num",n:"Auto Swap Limit",v:6.0,min:1.0,max:30.0},
+    {t:"num",n:"Alert Cooldown",v:3.0,min:1.0,max:15.0},
+    {t:"bool",n:"Flag High CPS",v:true},
+    {t:"bool",n:"Flag Fast Swaps",v:true},
+    {t:"bool",n:"Flag Auto Breach",v:true},
+    {t:"bool",n:"Show Alerts",v:true},
+  ]},
+  { n:"Anti AFK", c:"UTIL", on:false, d:"Keeps the local session active with small idle animations.", s:[
+    {t:"num",n:"Interval",v:100.0,min:20.0,max:600.0},
+    {t:"bool",n:"Swing Hand",v:true},
+    {t:"bool",n:"Nudge View",v:true},
+    {t:"num",n:"View Amount",v:2.0,min:0.1,max:15.0},
+  ]},
+  { n:"Menu Theme", c:"UTIL", on:true, d:"Change the ClickGUI palette, layout, scale and typography.", s:[
+    {t:"mode",n:"Theme",v:"PINK"},
+    {t:"mode",n:"Menu Layout",v:"DROPDOWN"},
+    {t:"num",n:"Menu Scale",v:1.0,min:0.5,max:1.0},
+    {t:"num",n:"Font Size",v:1.0,min:0.85,max:1.25},
+    {t:"num",n:"Sidebar Width",v:196.0,min:160.0,max:260.0},
+    {t:"num",n:"Category Spacing",v:52.0,min:36.0,max:80.0},
+    {t:"num",n:"Panel Opacity",v:100.0,min:20.0,max:100.0},
+    {t:"num",n:"Overlay Opacity",v:100.0,min:10.0,max:100.0},
+    {t:"bool",n:"Rounded Corners",v:true},
+    {t:"bool",n:"Gradient Header",v:true},
+    {t:"bool",n:"Outlines",v:false},
+    {t:"bool",n:"Panel Shadow",v:false},
+    {t:"bool",n:"Performance Mode",v:true},
+    {t:"bool",n:"Show Theme In Title",v:true},
+  ]},
+  { n:"Config", c:"UTIL", on:true, d:"Saves and restores module enabled states in five persistent slots.", s:[
+    {t:"num",n:"Profile Index",v:0.0,min:0.0,max:4.0},
+    {t:"bool",n:"Save",v:false},
+    {t:"bool",n:"Load",v:false},
+    {t:"bool",n:"Apply When Enabled",v:true},
+  ]},
+  { n:"Hitbox Adjuster", c:"UTIL", on:false, d:"Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
+    {t:"num",n:"Size Multiplier",v:5.0,min:1.0,max:20.0},
+    {t:"bool",n:"Sync To Server",v:true},
+  ]},
+  { n:"Auto Obsidian", c:"UTIL", on:false, d:"Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
+    {t:"mode",n:"Mode",v:"TRAP"},
+    {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
+    {t:"num",n:"Place Delay",v:3.0,min:0.0,max:40.0},
+    {t:"num",n:"Max Blocks",v:9.0,min:1.0,max:24.0},
+    {t:"bool",n:"Require Obsidian",v:true},
+    {t:"bool",n:"Auto Switch",v:true},
+    {t:"bool",n:"Swap Back",v:true},
+  ]},
+  { n:"Auto Anchor", c:"UTIL", on:false, d:"Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
+    {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
+    {t:"num",n:"Action Delay",v:6.0,min:0.0,max:40.0},
+    {t:"bool",n:"Auto Charge",v:true},
+    {t:"bool",n:"Auto Ignite",v:true},
+    {t:"bool",n:"Swap Back",v:true},
+  ]},
+  { n:"Sky Mood", c:"WORLD", on:false, d:"Client-only sky presets: daylight, golden hour, sunset, blue hour and night.", s:[
+    {t:"mode",n:"Mood",v:"GOLDEN HOUR"},
+    {t:"bool",n:"Custom Colors",v:false},
+    {t:"num",n:"Sky Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Horizon Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Sun Angle Override",v:-1.0,min:-1.0,max:1.0},
+    {t:"num",n:"Star Override",v:-1.0,min:-1.0,max:1.0},
+    {t:"bool",n:"Clear Rain Visuals",v:true},
+  ]},
+  { n:"Threat Radar", c:"RENDER", on:false, d:"Highlights combat dangers around you. Only draws on your screen.", s:[
+    {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
+    {t:"num",n:"Maximum Threats",v:32.0,min:4.0,max:96.0},
+    {t:"num",n:"Scan Interval",v:2.0,min:1.0,max:20.0},
+    {t:"bool",n:"Show End Crystals",v:true},
+    {t:"bool",n:"Show Projectiles",v:true},
+    {t:"bool",n:"Show TNT",v:true},
+    {t:"bool",n:"Show Hostile Mobs",v:true},
+    {t:"bool",n:"Show Other Players",v:true},
+    {t:"mode",n:"Box Style",v:"CORNERS"},
+    {t:"bool",n:"Show Tracers",v:false},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"bool",n:"Fade With Distance",v:true},
+    {t:"num",n:"Crystal Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Projectile Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"TNT Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Hostile Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Player Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"Projectile Trails", c:"RENDER", on:false, d:"Shows fading flight paths for nearby projectiles. Visual only.", s:[
+    {t:"num",n:"Range",v:64.0,min:8.0,max:192.0},
+    {t:"num",n:"Trail Length",v:16.0,min:3.0,max:64.0},
+    {t:"num",n:"Record Interval",v:1.0,min:1.0,max:10.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"bool",n:"Show Your Projectiles",v:true},
+    {t:"bool",n:"Show Other Projectiles",v:true},
+    {t:"num",n:"Your Trail Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Other Trail Color",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Totem Pop FX", c:"RENDER", on:false, d:"Purely cosmetic rings and ghost outlines when a totem saves a player.", s:[
+    {t:"mode",n:"Effect Style",v:"BOTH"},
+    {t:"num",n:"Duration",v:900.0,min:200.0,max:3000.0},
+    {t:"num",n:"Ring Radius",v:28.0,min:8.0,max:90.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"num",n:"Effect Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Include Yourself",v:true},
+    {t:"bool",n:"Show Pop Count",v:true},
+  ]},
+  { n:"Safe Spot ESP", c:"RENDER", on:false, d:"Marks nearby bedrock and obsidian holes. Does not change any blocks.", s:[
+    {t:"num",n:"Horizontal Range",v:14.0,min:4.0,max:48.0},
+    {t:"num",n:"Vertical Range",v:3.0,min:1.0,max:12.0},
+    {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
+    {t:"num",n:"Maximum Spots",v:48.0,min:4.0,max:160.0},
+    {t:"num",n:"Bedrock Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Obsidian Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Mixed Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"bool",n:"Glow",v:true},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"Tracers", c:"RENDER", on:false, d:"Draws client-side lines from your crosshair toward chosen entities nearby. Lines of mystery, mostly.", s:[
+    {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
+    {t:"num",n:"Maximum Entities",v:64.0,min:8.0,max:200.0},
+    {t:"num",n:"Scan Interval",v:3.0,min:1.0,max:30.0},
+    {t:"bool",n:"Show Players",v:true},
+    {t:"bool",n:"Show Hostiles",v:true},
+    {t:"bool",n:"Show Items",v:true},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Item Highlight", c:"RENDER", on:false, d:"Outlines dropped items nearby so they are easier to spot. Ground loot, but louder.", s:[
+    {t:"num",n:"Range",v:40.0,min:6.0,max:160.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Show Name",v:true},
+    {t:"bool",n:"Show Distance",v:false},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+    {t:"bool",n:"Glow",v:true},
+  ]},
+  { n:"Storage ESP", c:"RENDER", on:false, d:"Finds nearby chests, barrels and similar blocks. Draws on your screen only. Loot radar; opening the chest is still your job.", s:[
+    {t:"num",n:"Range",v:36.0,min:6.0,max:160.0},
+    {t:"num",n:"Maximum Containers",v:48.0,min:4.0,max:160.0},
+    {t:"bool",n:"Show Tracers",v:false},
+    {t:"bool",n:"Show Distance",v:true},
+    {t:"num",n:"Box Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Tracer Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"City ESP", c:"RENDER", on:false, d:"Outlines mineable blocks next to nearby players. Never places or breaks blocks. No blocks were harmed in the making of this overlay.", s:[
+    {t:"num",n:"Range",v:40.0,min:8.0,max:160.0},
+    {t:"num",n:"Maximum Marks",v:48.0,min:4.0,max:160.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"Void ESP", c:"RENDER", on:false, d:"Marks nearby holes and open void edges. Only draws an overlay. Holes are just floors with confidence issues.", s:[
+    {t:"num",n:"Radius",v:16.0,min:4.0,max:64.0},
+    {t:"num",n:"Depth Check",v:12.0,min:2.0,max:48.0},
+    {t:"num",n:"Maximum Spots",v:48.0,min:4.0,max:160.0},
+    {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"Breadcrumbs", c:"RENDER", on:false, d:"Draws a fading trail of your recent footsteps. Visual only. Hansel and Gretel, but local.", s:[
+    {t:"num",n:"Maximum Points",v:96.0,min:12.0,max:240.0},
+    {t:"num",n:"Record Interval",v:3.0,min:1.0,max:20.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"bool",n:"Fade",v:true},
+  ]},
+  { n:"Trajectories", c:"RENDER", on:false, d:"Predicts throwable flight paths and marks nearby projectiles. Visual only. Math, but with confetti.", s:[
+    {t:"bool",n:"Show Wind Charges",v:true},
+    {t:"bool",n:"Show Ender Pearls",v:true},
+    {t:"bool",n:"Show Snowballs",v:true},
+    {t:"bool",n:"Show Eggs",v:true},
+    {t:"bool",n:"Show Live Projectiles",v:true},
+    {t:"num",n:"Steps",v:48.0,min:8.0,max:160.0},
+    {t:"num",n:"Gravity",v:0.03,min:0.0,max:0.12},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Logout Spots", c:"RENDER", on:false, d:"Marks the last known position of players who vanish nearby. Visual only. The client remembers the good times.", s:[
+    {t:"num",n:"Range",v:96.0,min:16.0,max:256.0},
+    {t:"num",n:"Maximum Spots",v:16.0,min:2.0,max:64.0},
+    {t:"num",n:"Scan Interval",v:10.0,min:2.0,max:60.0},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Show Name",v:true},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+  ]},
+  { n:"Block Selection", c:"RENDER", on:false, d:"Highlights the block you are looking at. Visual only. Even blocks deserve a spotlight.", s:[
+    {t:"bool",n:"Fill",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"bool",n:"Glow",v:true},
+  ]},
+  { n:"Auto Armor", c:"SWORD", on:false, d:"Moves better armor into your own armor slots. Only touches your inventory. Diamond pants are a lifestyle upgrade.", s:[
+    {t:"num",n:"Delay Ticks",v:10.0,min:1.0,max:100.0},
+    {t:"bool",n:"Replace Weaker",v:true},
+    {t:"num",n:"Min Durability %",v:25.0,min:0.0,max:100.0},
+  ]},
+  { n:"Weather Changer", c:"WORLD", on:false, d:"Sets your own rain and sky shade for visuals only. Server weather is untouched. Personal weather, zero meteorological consequences.", s:[
+    {t:"num",n:"Rain Amount",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Thunder Shade Amount",v:0.0,min:0.0,max:1.0},
+    {t:"bool",n:"Override Clouds",v:false},
+    {t:"bool",n:"Keep Stars",v:true},
+  ]},
+  { n:"Light Overlay", c:"RENDER", on:false, d:"Shows safe and unsafe light levels as crosses on nearby block tops. Visual only. Tiny crosses with strong opinions.", s:[
+    {t:"num",n:"Radius",v:12.0,min:3.0,max:40.0},
+    {t:"num",n:"Maximum Spots",v:80.0,min:4.0,max:250.0},
+    {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
+    {t:"num",n:"Safe Threshold",v:8.0,min:0.0,max:15.0},
+    {t:"num",n:"Safe Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Unsafe Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
+  ]},
+  { n:"Break Indicators", c:"RENDER", on:false, d:"Outlines the block you are mining and colours it by break progress. A progress bar for your commitment issues.", s:[
+    {t:"num",n:"Color Start",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Color End",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
+    {t:"bool",n:"Fill",v:true},
+  ]},
+  { n:"Auto Web", c:"SWORD", on:false, d:"Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed.", s:[
+    {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
+    {t:"num",n:"Place Delay",v:4.0,min:0.0,max:40.0},
+    {t:"num",n:"Max Webs Per Tick",v:2.0,min:1.0,max:8.0},
+    {t:"bool",n:"Only Nearby Target",v:true},
+    {t:"bool",n:"Require On Ground",v:true},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"bool",n:"Swing",v:true},
+  ]},
+  { n:"Surround", c:"CRYSTAL", on:false, d:"Places obsidian or cobweb around you. Changes blocks - private server with the jar only.", s:[
+    {t:"mode",n:"Block Choice",v:"OBSIDIAN"},
+    {t:"num",n:"Delay",v:3.0,min:0.0,max:40.0},
+    {t:"num",n:"Max Blocks Per Tick",v:2.0,min:1.0,max:9.0},
+    {t:"bool",n:"Include Underfoot",v:true},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"bool",n:"Swing",v:true},
+  ]},
+  { n:"Anti Bed", c:"CRYSTAL", on:false, d:"Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only.", s:[
+    {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
+    {t:"bool",n:"Warn Only",v:true},
+    {t:"num",n:"Place Block Delay",v:6.0,min:1.0,max:40.0},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
+  ]},
+  { n:"Bow Aimbot", c:"SWORD", on:false, d:"Turns your view towards a target while holding a bow or crossbow. Fires nothing. Your arrows still need your help.", s:[
+    {t:"num",n:"Range",v:32.0,min:4.0,max:96.0},
+    {t:"num",n:"View Angle",v:120.0,min:15.0,max:360.0},
+    {t:"num",n:"Smoothing Speed",v:12.0,min:0.5,max:45.0},
+    {t:"bool",n:"Visible Only",v:true},
+    {t:"bool",n:"Players Only",v:false},
+  ]},
+  { n:"No Web", c:"MOVEMENT", on:false, d:"Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion.", s:[
+    {t:"bool",n:"Cobwebs",v:true},
+    {t:"bool",n:"Powder Snow",v:true},
+    {t:"bool",n:"Honey Blocks",v:true},
+    {t:"bool",n:"Soul Sand",v:true},
+    {t:"bool",n:"Other Blocks",v:true},
+  ]},
+  { n:"Mace AI", c:"MACE", on:false, d:"Rule-based mace decisions: wind-charge setup, shield stun, Density smash, Breach hit or a plain follow-up. Stands down while Mace Swap is on. Server rules still decide what lands.", s:[
+    {t:"num",n:"Range",v:4.5,min:1.0,max:12.0},
+    {t:"num",n:"View Angle",v:100.0,min:15.0,max:360.0},
+    {t:"mode",n:"Target Priority",v:"NEAREST"},
+    {t:"num",n:"Smash Fall Distance",v:2.5,min:1.5,max:20.0},
+    {t:"num",n:"Shield Hits",v:1.0,min:0.0,max:5.0},
+    {t:"num",n:"Attack Delay",v:2.0,min:0.0,max:20.0},
+    {t:"num",n:"Combo Delay",v:2.0,min:0.0,max:20.0},
+    {t:"num",n:"Swap Back Delay",v:3.0,min:0.0,max:20.0},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"bool",n:"Swing",v:true},
+    {t:"bool",n:"Show Decision",v:false},
+    {t:"bool",n:"Throw Wind Charges",v:true},
+    {t:"num",n:"Wind Charge Pitch",v:90.0,min:-90.0,max:90.0},
+    {t:"num",n:"Wind Charge Cooldown",v:20.0,min:2.0,max:120.0},
+  ]},
+  { n:"Stun Slam", c:"MACE", on:false, d:"Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only.", s:[
+    {t:"num",n:"Range",v:4.5,min:1.0,max:8.0},
+    {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
+    {t:"bool",n:"Only When Blocking",v:true},
+    {t:"bool",n:"Ignore Friends",v:true},
+    {t:"num",n:"Mace Delay (Ticks)",v:0.0,min:0.0,max:20.0},
+    {t:"num",n:"Combo Cooldown",v:20.0,min:5.0,max:120.0},
+    {t:"num",n:"Swap Back Delay",v:3.0,min:0.0,max:20.0},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"bool",n:"Swing",v:true},
+  ]},
+  { n:"Shield Breaker", c:"SWORD", on:false, d:"Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island.", s:[
+    {t:"num",n:"Range",v:4.5,min:1.0,max:12.0},
+    {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
+    {t:"num",n:"Shield Hit Delay",v:6.0,min:0.0,max:40.0},
+    {t:"num",n:"Swap Back Delay",v:3.0,min:0.0,max:20.0},
+    {t:"bool",n:"Only Players",v:true},
+    {t:"bool",n:"Silent Rotate",v:true},
+    {t:"bool",n:"Swing",v:true},
+    {t:"bool",n:"Private Server Note",v:false},
+  ]},
+  { n:"Auto GG", c:"UTIL", on:false, d:"Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers.", s:[
+    {t:"num",n:"Delay",v:400.0,min:0.0,max:3000.0},
+    {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
+    {t:"bool",n:"Only My Kills",v:true},
+    {t:"bool",n:"Players Only",v:true},
+  ]},
+  { n:"Toast Remover", c:"UTIL", on:false, d:"Clears Minecraft's vanilla pop-up toasts so advancement and recipe cards never block the view.", s:[
+    {t:"num",n:"Check Interval",v:2.0,min:1.0,max:40.0},
+    {t:"bool",n:"Only In World",v:true},
+  ]},
+  { n:"Chat Filter", c:"UTIL", on:false, d:"Hides chat lines containing your own list of words. Only the text shown to you is affected.", s:[
+    {t:"bool",n:"Ignore Case",v:true},
+    {t:"bool",n:"Hide System Messages",v:false},
+  ]},
+  { n:"Loot Alerts", c:"HUD", on:false, d:"Shows a corner alert when valuable items drop nearby. Reads local entities only; it never picks items up.", s:[
+    {t:"mode",n:"Item Mode",v:"VALUABLE"},
+    {t:"num",n:"Range",v:28.0,min:6.0,max:96.0},
+    {t:"num",n:"Scan Interval",v:10.0,min:2.0,max:60.0},
+    {t:"bool",n:"Show Stack Count",v:true},
+  ]},
+  { n:"Honest HUD", c:"HUD", on:false, d:"A tiny HUD that reports only what your client actually knows, with a few reminders about the rest.", s:[
+    {t:"bool",n:"Show Position",v:true},
+    {t:"bool",n:"Show Health",v:true},
+    {t:"bool",n:"Show Ping",v:true},
+    {t:"bool",n:"Show Dimension",v:true},
+    {t:"bool",n:"Show Honest Notes",v:true},
+    {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Y",v:4.0,min:0.0,max:1000.0,adv:true},
+    {t:"num",n:"Line Spacing",v:11.0,min:8.0,max:24.0},
+    {t:"num",n:"Update Interval",v:10.0,min:1.0,max:60.0},
+    {t:"bool",n:"Background",v:true},
+  ]},
+  { n:"Dinnerbone Mode", c:"RENDER", on:false, d:"Turns nearby living models upside down using Minecraft's own rendering flag. Hitboxes and names stay normal.", s:[
+    {t:"mode",n:"Affected Entities",v:"PLAYERS"},
+    {t:"bool",n:"Include Yourself",v:false},
+    {t:"num",n:"Chance",v:100.0,min:5.0,max:100.0},
+  ]},
+  { n:"Moon Jump", c:"MOVEMENT", on:false, d:"Makes your own jumps springy and floaty, like the moon has poor customer service. Servers may correct the motion.", s:[
+    {t:"num",n:"Jump Strength",v:1.4,min:0.5,max:3.0},
+    {t:"bool",n:"Require Space",v:true},
+    {t:"bool",n:"Soft Fall",v:true},
+    {t:"num",n:"Fall Factor",v:0.55,min:0.1,max:1.0},
+  ]},
+  { n:"Banana Tooltips", c:"RENDER", on:false, d:"Adds harmless banana jokes to item tooltips in your own menu. Items and their real stats are untouched.", s:[
+    {t:"mode",n:"Line Style",v:"FUNNY"},
+    {t:"bool",n:"Banana Prefix",v:true},
+    {t:"num",n:"Extra Lines",v:1.0,min:1.0,max:3.0},
+  ]},
+  { n:"Disco Overlay", c:"RENDER", on:false, d:"Paints soft, slowly changing colour bands over the world. It is deliberately subtle and draws nothing else.", s:[
+    {t:"mode",n:"Color Mode",v:"RAINBOW"},
+    {t:"num",n:"Fixed Color",v:0.0,min:0.0,max:1.0},
+    {t:"num",n:"Cycle Speed",v:1.6,min:0.3,max:6.0},
+    {t:"num",n:"Max Opacity",v:10.0,min:2.0,max:35.0},
+    {t:"bool",n:"Smooth Pulse",v:true},
+    {t:"num",n:"Stripe Height",v:56.0,min:8.0,max:200.0},
+    {t:"bool",n:"Only In World",v:true},
+  ]},
+  { n:"Confetti Deaths", c:"RENDER", on:false, d:"Throws a small screen-space confetti burst when a nearby player dies. Purely cosmetic.", s:[
+    {t:"num",n:"Pieces",v:54.0,min:8.0,max:160.0},
+    {t:"num",n:"Duration",v:1500.0,min:400.0,max:4000.0},
+    {t:"num",n:"Range",v:64.0,min:8.0,max:160.0},
+    {t:"bool",n:"Include Yourself",v:false},
+    {t:"bool",n:"Players Only",v:true},
+    {t:"bool",n:"Use Theme Colors",v:true},
   ]}
 ];
 
-const CATEGORIES = ["CRYSTAL","SWORD","MACE","MOVEMENT","PLAYER","RENDER","WORLD","DONUT","UTIL"];
+const CATEGORIES = ["CRYSTAL", "SWORD", "MACE", "MOVEMENT", "PLAYER", "RENDER", "WORLD", "DONUT", "UTIL", "HUD"];
 const CATEGORY_COLORS = {
   CRYSTAL:"#67E8F9", SWORD:"#FB7185", MACE:"#FBBF24", MOVEMENT:"#A3E635",
-  PLAYER:"#4ADE80", RENDER:"#C084FC", WORLD:"#38BDF8", DONUT:"#F472B6", UTIL:"#9CA3AF"
+  PLAYER:"#4ADE80", RENDER:"#C084FC", WORLD:"#38BDF8", DONUT:"#F472B6", UTIL:"#9CA3AF", HUD:"#F0ABFC", HUD:"#F0ABFC"
 };
 const CATEGORY_ICONS = {
   CRYSTAL:"end_crystal.png", SWORD:"sword.png", MACE:"mace.png",
   MOVEMENT:"movement.png", PLAYER:"player.png", RENDER:"spyglass.png",
-  WORLD:"world.png", DONUT:"donut.png", UTIL:"steak.png"
+  WORLD:"world.png", DONUT:"donut.png", UTIL:"steak.png", HUD:"hud.png", HUD:"hud.png"
 };
 
 const state = {
@@ -795,7 +1231,7 @@ function renderList() {
   $("moduleList").innerHTML = list.map(m => `
     <div class="row ${m.on ? "on" : ""} ${m.n === state.selected ? "selected" : ""}" style="--cat:${CATEGORY_COLORS[m.c]}" data-name="${esc(m.n)}" title="${esc(m.d)}">
       <div class="stripe"></div><div class="name">${esc(m.n)}</div>
-      <div class="chev" data-settings="${esc(m.n)}">${m.n === state.selected ? "â€¹" : "â€º"}</div>
+      <div class="chev" data-settings="${esc(m.n)}">${m.n === state.selected ? "‹" : "›"}</div>
       <div class="pill" data-toggle="${esc(m.n)}"></div>
     </div>`).join("");
   $("moduleList").querySelectorAll(".row").forEach(el => el.addEventListener("click", e => {
@@ -823,7 +1259,7 @@ function renderSettings() {
     if (s.t === "bool") return `<div class="setting" title="${esc(s.n)}">
       <span class="label">${esc(s.n)}</span><span class="toggle ${s.v ? "on" : ""}" data-set="${esc(s.n)}"></span></div>`;
     if (s.t === "mode") return `<div class="setting"><span class="label">${esc(s.n)}</span>
-      <span class="value">â€¹ ${esc(s.v)} â€º</span></div>`;
+      <span class="value">‹ ${esc(s.v)} ›</span></div>`;
     const pct = Math.max(0, Math.min(100, (s.v - s.min) / (s.max - s.min) * 100));
     return `<div class="setting" title="${esc(s.n)}: ${s.v}">
       <span class="label">${esc(s.n)}</span><span class="value">${s.v}</span>
@@ -889,7 +1325,7 @@ $("infoBtn").addEventListener("click", () => {
 });
 $("closeBtn").addEventListener("click", () => { $("window").classList.add("closed"); $("closedNote").classList.add("show"); });
 $("reopenBtn").addEventListener("click", () => { $("window").classList.remove("closed"); $("closedNote").classList.remove("show"); });
-$("setClose").addEventListener("click", () => { state.selected = ""; $("setTitle").textContent = "No module selected"; $("setDesc").textContent = "Click a module on the left to inspect its settings."; $("setStatus").textContent = "â€”"; $("setStatus").className = "status"; $("settingsList").innerHTML = ""; renderList(); });
+$("setClose").addEventListener("click", () => { state.selected = ""; $("setTitle").textContent = "No module selected"; $("setDesc").textContent = "Click a module on the left to inspect its settings."; $("setStatus").textContent = "—"; $("setStatus").className = "status"; $("settingsList").innerHTML = ""; renderList(); });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !$("window").classList.contains("closed")) { $("closeBtn").click(); }
   if (e.key === "F5") { e.preventDefault(); renderAll(); }
