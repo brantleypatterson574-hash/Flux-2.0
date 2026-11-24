@@ -1,0 +1,31 @@
+{
+  "required": true,
+  "package": "com.yourname.utilmod.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ClientPlayerInteractionManagerMixin",
+    "TotemPopObserverMixin",
+    "WorldRendererMixin",
+    "GameRendererFovAccessor",
+    "EntityGlowColorMixin",
+    "EntityGlowMixin",
+    "AttackClickMixin",
+    "MinecraftClientInvokerMixin"
+  ],
+  "common": [
+    "AttackRangeComponentMixin",
+    "PlayerReachMixin",
+    "ProjectileUtilHitboxMixin",
+    "ServerAntiCheatMixin",
+    "ServerAttackAntiCheatMixin",
+    "ServerDamageAntiCheatMixin",
+    "ServerSlotSwitchAntiCheatMixin",
+    "ServerNoKnockbackMixin",
+    "ServerFastMineMixin",
+    "ServerAntiHungerMixin",
+    "ServerNoFallMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

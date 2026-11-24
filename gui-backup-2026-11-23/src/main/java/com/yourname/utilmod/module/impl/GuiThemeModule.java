@@ -1,0 +1,177 @@
+package com.yourname.utilmod.module.impl;
+
+import com.yourname.utilmod.module.Category;
+import com.yourname.utilmod.module.Module;
+import com.yourname.utilmod.setting.BooleanSetting;
+import com.yourname.utilmod.setting.EnumSetting;
+import com.yourname.utilmod.setting.NumberSetting;
+import com.yourname.utilmod.ui.GuiTheme;
+import com.yourname.utilmod.ui.MenuLayout;
+
+/**
+ * Settings container for the ClickGUI appearance. The theme applies while the
+ * GUI is open regardless of whether this module is toggled on.
+ */
+public class GuiThemeModule extends Module {
+    public static GuiThemeModule INSTANCE;
+
+    /** Mockup toolbar order; appended SL_* themes still use enum order as a fallback. */
+    private static final GuiTheme[] THEME_CYCLE = {
+        GuiTheme.PRESTIGE, GuiTheme.MATRIX, GuiTheme.UTILMOD, GuiTheme.METEOR,
+        GuiTheme.FLUX, GuiTheme.LUMI, GuiTheme.SAKURA, GuiTheme.OCEAN, GuiTheme.SLATE
+    };
+
+    // Config-stable PRESTIGE now carries the Ochard palette; all other palettes stay selectable.
+    private final EnumSetting<GuiTheme> theme = new EnumSetting<>("Theme", GuiTheme.class, GuiTheme.PRESTIGE);
+    private final EnumSetting<MenuLayout> menuLayout =
+        new EnumSetting<>("Menu Layout", MenuLayout.class, MenuLayout.CLICK_GUI);
+    private final NumberSetting guiScale = new NumberSetting("Menu Scale", 1.0, 0.7, 1.35);
+    private final NumberSetting fontSize = new NumberSetting("Font Size", 1.0, 0.85, 1.25);
+    private final NumberSetting sidebarWidth = new NumberSetting("Sidebar Width", 196.0, 160.0, 260.0)
+        .description("Width of the category rail in the ClickGUI.");
+    private final NumberSetting categorySpacing = new NumberSetting("Category Spacing", 52.0, 36.0, 80.0)
+        .description("Vertical space between category rows in the ClickGUI sidebar.");
+    private final NumberSetting panelOpacity = new NumberSetting("Panel Opacity", 100.0, 40.0, 100.0);
+    private final NumberSetting overlayOpacity = new NumberSetting("Overlay Opacity", 100.0, 30.0, 100.0);
+    private final BooleanSetting roundedCorners = new BooleanSetting("Rounded Corners", true);
+    private final BooleanSetting gradientHeader = new BooleanSetting("Gradient Header", true);
+    private final BooleanSetting outlines = new BooleanSetting("Outlines", false);
+    private final BooleanSetting panelShadow = new BooleanSetting("Panel Shadow", false);
+    private final BooleanSetting performanceMode = new BooleanSetting("Performance Mode", true)
+        .description("Uses flat fills and instant hover states in the ClickGUI to minimise frame time.");
+    private final BooleanSetting showThemeName = new BooleanSetting("Show Theme In Title", true);
+
+    public GuiThemeModule() {
+        super("Menu Theme", "Change the ClickGUI palette, layout, scale and typography.", Category.UTIL);
+        INSTANCE = this;
+        addSetting(theme);
+        addSetting(menuLayout);
+        addSetting(guiScale);
+        addSetting(fontSize);
+        addSetting(sidebarWidth);
+        addSetting(categorySpacing);
+        addSetting(panelOpacity);
+        addSetting(overlayOpacity);
+        addSetting(roundedCorners);
+        addSetting(gradientHeader);
+        addSetting(outlines);
+        addSetting(panelShadow);
+        addSetting(performanceMode);
+        addSetting(showThemeName);
+    }
+
+    public GuiTheme getTheme() {
+        return theme.getValue();
+    }
+
+    public MenuLayout menuLayout() {
+        return menuLayout.getValue();
+    }
+
+    /** Top-bar shortcut: advance to the next palette without opening settings. */
+    public void cycleTheme() {
+        GuiTheme current = theme.getValue();
+        for (int i = 0; i < THEME_CYCLE.length; i++) {
+            if (current == THEME_CYCLE[i]) {
+                theme.setValue(THEME_CYCLE[(i + 1) % THEME_CYCLE.length]);
+                return;
+            }
+        }
+        theme.cycle();
+    }
+
+    /** Top-bar shortcut: flip between click and hover category navigation. */
+    public void toggleMenuLayout() {
+        menuLayout.cycle();
+    }
+
+    public void setMenuLayout(MenuLayout value) {
+        menuLayout.setValue(value);
+    }
+
+    /** Extra dropdown menu scale on top of Minecraft's own GUI scale. */
+    public float guiScale() {
+        return (float) Math.max(0.7, Math.min(1.35, guiScale.getValue()));
+    }
+
+    /** Typography multiplier applied on top of the polished menu font baseline. */
+    public float fontScale() {
+        return (float) Math.max(0.85, Math.min(1.25, fontSize.getValue()));
+    }
+
+    /** ClickGUI category rail width in logical pixels. */
+    public double sidebarWidth() {
+        return sidebarWidth.getValue();
+    }
+
+    /** ClickGUI category row height in logical pixels. */
+    public double categorySpacing() {
+        return categorySpacing.getValue();
+    }
+
+    public int panelColor() {
+        // Preserve each palette's own glass alpha. The old code overwrote it with
+        // 255, which made the translucent ScalableLux palettes look fully opaque.
+        int baseAlpha = (getTheme().panel >>> 24) & 0xFF;
+        int alpha = (int) (baseAlpha * panelOpacity.getValue() / 100.0);
+        return GuiTheme.withAlpha(getTheme().panel, Math.max(0, Math.min(255, alpha)));
+    }
+
+    /** Overlay opacity setting; the source backdrop alphas are applied by the renderer. */
+    public int overlayColor() {
+        int alpha = (int) (255 * overlayOpacity.getValue() / 100.0);
+        return GuiTheme.withAlpha(getTheme().overlay, Math.max(0, Math.min(255, alpha)));
+    }
+
+    public boolean rounded() {
+        return roundedCorners.isEnabled() && getTheme().rounded;
+    }
+
+    /** The Flux shell keeps rounded panels for every palette, like the mockup. */
+    public boolean shellRounded() {
+        return roundedCorners.isEnabled();
+    }
+
+    public boolean gradientHeader() {
+        return gradientHeader.isEnabled();
+    }
+
+    public boolean outlines() {
+        return outlines.isEnabled();
+    }
+
+    public boolean shadow() {
+        return panelShadow.isEnabled();
+    }
+
+    /** Trades gradient/animation flourishes for a cheaper menu redraw. */
+    public boolean performanceMode() {
+        return performanceMode.isEnabled();
+    }
+
+    public boolean showThemeName() {
+        return showThemeName.isEnabled();
+    }
+
+    /**
+     * Restores the shipped Ochard-inspired palette/layout/scale. Called once by the
+     * config migration so older saved configs cannot leave the menu on a different
+     * palette/layout/scale after an update.
+     */
+    public void applyMockupDefaults() {
+        theme.setValue(GuiTheme.PRESTIGE);
+        menuLayout.setValue(MenuLayout.CLICK_GUI);
+        guiScale.setValue(1.0);
+        fontSize.setValue(1.0);
+        sidebarWidth.setValue(196.0);
+        categorySpacing.setValue(52.0);
+        panelOpacity.setValue(100.0);
+        overlayOpacity.setValue(100.0);
+        roundedCorners.setEnabled(true);
+        gradientHeader.setEnabled(true);
+        outlines.setEnabled(false);
+        panelShadow.setEnabled(false);
+        performanceMode.setEnabled(true);
+        showThemeName.setEnabled(true);
+    }
+}

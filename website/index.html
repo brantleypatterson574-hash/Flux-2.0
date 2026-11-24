@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Flux 2.0 — the UtilMod Minecraft menu. 37 modules, 9 categories, 36 themes and a fast original ClickGUI.">
+  <title>Flux 2.0 — UtilMod Menu</title>
+  <link rel="icon" href="assets/img/icons/end_crystal.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#top">
+      <span class="brand-mark">U</span>
+      <span class="brand-text">FLUX <b>2.0</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#overview">Overview</a>
+      <a href="#modules">Modules</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="nav-cta" href="downloads/flux-2.0.jar" download>Download jar</a>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> Fabric 1.21.11 · Client menu</div>
+        <h1>A cleaner way to<br><span>run your mod menu.</span></h1>
+        <p class="lead">
+          Flux 2.0 is the UtilMod menu rebuilt around spacing, readability and speed.
+          Thirty-seven modules, nine sorted categories, a theme engine and one shared
+          GUI shell for ClickGUI and Dropdown layouts.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="downloads/flux-2.0.jar" download>
+            <span class="btn-icon">↓</span> Download Flux 2.0
+          </a>
+          <a class="btn ghost" href="preview.html">Open interactive preview</a>
+        </div>
+        <div class="hero-meta">
+          <span>Right Shift to open in game</span>
+          <span class="dot"></span>
+          <span>Original Prestige-inspired styling</span>
+        </div>
+
+        <div class="stats">
+          <div><strong>37</strong><span>Modules</span></div>
+          <div><strong>9</strong><span>Categories</span></div>
+          <div><strong>36</strong><span>Themes</span></div>
+          <div><strong>2</strong><span>Layouts</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-glow" aria-hidden="true"></div>
+        <div class="screen-frame">
+          <div class="screen-bar">
+            <span></span><span></span><span></span>
+            <em>UTILMOD / CLICK GUI</em>
+          </div>
+          <img src="assets/img/mockups/clickgui-flux-combat.png" alt="Flux 2.0 ClickGUI combat category preview">
+        </div>
+        <div class="float-chip chip-a">CRYS · SWORD · MACE</div>
+        <div class="float-chip chip-b">37 modules loaded</div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head">
+        <div>
+          <span class="kicker">BUILT FOR FLOW</span>
+          <h2>Everything has a place.</h2>
+        </div>
+        <p>Combat is split by weapon family, automation is separated from visuals, and the Donut section keeps world-scanning tools out of the way.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon crystal"><img src="assets/img/icons/end_crystal.png" alt=""></div>
+          <h3>Combat, sorted</h3>
+          <p>Crystal, Sword and Mace each get their own rail section, icon and settings space.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon sword"><img src="assets/img/icons/sword.png" alt=""></div>
+          <h3>Real click paths</h3>
+          <p>Trigger Bot, Auto Clicker and Combo Assister reuse vanilla attack and use calls.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon donut"><img src="assets/img/icons/donut.png" alt=""></div>
+          <h3>Donut utilities</h3>
+          <p>Base Finder and Light Detector scan nearby structures and dark pockets with HUD readouts.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon render"><img src="assets/img/icons/spyglass.png" alt=""></div>
+          <h3>Theme engine</h3>
+          <p>Cycle 36 palettes from the top bar, switch layouts instantly and tune scale or opacity.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon player"><img src="assets/img/icons/player.png" alt=""></div>
+          <h3>Self-monitor</h3>
+          <p>Reaction Monitor warns you about high CPS, fast swaps and auto-Breach patterns.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon world"><img src="assets/img/icons/world.png" alt=""></div>
+          <h3>Optimized shell</h3>
+          <p>Cached lists, spread-out rows, shared rendering and a single GUI implementation for both layouts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section modules-section" id="modules">
+      <div class="section-head">
+        <div>
+          <span class="kicker">MODULE INDEX</span>
+          <h2>Find what you need.</h2>
+        </div>
+        <p>Search all 37 modules or filter by category. Every entry matches the in-game name and description.</p>
+      </div>
+
+      <div class="module-toolbar">
+        <label class="search-wrap">
+          <span>⌕</span>
+          <input id="moduleSearch" type="search" placeholder="Search modules..." autocomplete="off">
+        </label>
+        <span class="result-count" id="resultCount">37 modules</span>
+      </div>
+
+      <div class="filters" id="categoryFilters" aria-label="Category filters"></div>
+      <div class="module-grid" id="moduleGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>No modules match that search.</div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="section-head">
+        <div>
+          <span class="kicker">SCREENSHOTS</span>
+          <h2>Three views. One menu.</h2>
+        </div>
+        <p>Combat, visuals and advanced HUD settings are rendered from the same shared three-column shell.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <figure>
+          <img src="assets/img/mockups/clickgui-flux-combat.png" alt="Combat modules in Flux 2.0" loading="lazy">
+          <figcaption><b>Combat</b><span>Crystal · Sword · Mace</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/mockups/clickgui-flux-visuals-esp.png" alt="Visual modules and ESP in Flux 2.0" loading="lazy">
+          <figcaption><b>Visuals</b><span>ESP · Nametags · Render</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/mockups/clickgui-flux-hud-advanced.png" alt="Donut Base Finder settings in Flux 2.0" loading="lazy">
+          <figcaption><b>Donut</b><span>Base Finder · Light Detector</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="download-section" id="download">
+      <div class="download-card">
+        <div class="download-copy">
+          <span class="kicker">READY TO INSTALL</span>
+          <h2>Get Flux 2.0.</h2>
+          <p>Drop the jar in your Fabric mods folder and press <kbd>Right Shift</kbd>. No external dependencies beyond Fabric for Minecraft 1.21.11.</p>
+          <div class="download-actions">
+            <a class="btn primary" href="downloads/flux-2.0.jar" download>
+              <span class="btn-icon">↓</span> flux-2.0.jar
+            </a>
+            <a class="btn ghost" href="preview.html">Try the preview</a>
+          </div>
+          <p class="file-note">Fabric 1.21.11 · 9.4 MB · client jar</p>
+          <p class="file-note">SHA-256: <code>E67086799ECFC0762F4B1D1534B98DFF4C4C9000F107B71EC2794AFDBFCDD848</code></p>
+        </div>
+
+        <ol class="steps">
+          <li><span>01</span><div><b>Install Fabric</b><small>Use Fabric Loader for Minecraft 1.21.11.</small></div></li>
+          <li><span>02</span><div><b>Copy the jar</b><small>Place flux-2.0.jar in your mods folder.</small></div></li>
+          <li><span>03</span><div><b>Open the menu</b><small>Press Right Shift. Click the top chips to change theme or layout.</small></div></li>
+          <li><span>04</span><div><b>Private server features</b><small>Also place this jar server-side for reach, hitbox, velocity and anticheat sync.</small></div></li>
+        </ol>
+      </div>
+
+      <div class="scope-note">
+        <b>Honest scope:</b> visual and client-side modules run from the client jar. Server-authoritative actions still need this jar installed on your private server. Nothing here promises undetectability or bypasses public-server anticheats.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="brand small"><span class="brand-mark">U</span><span class="brand-text">FLUX <b>2.0</b></span></div>
+    <p>UtilMod menu · original design · built for private Fabric servers.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

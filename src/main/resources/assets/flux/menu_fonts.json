@@ -1,0 +1,16 @@
+{
+  "_comment": "Flux menu font hook. Point any tier at a font definition from a resource pack. Keep this file outside font/ so Minecraft does not read it as a font definition. TTF provider paths are relative to assets/<namespace>/font/.",
+  "_bundledTtf": "flux:semibold.ttf",
+  "tiers": [
+    { "size": 8,  "font": "flux:menu_8" },
+    { "size": 10, "font": "flux:menu_10" },
+    { "size": 12, "font": "flux:menu_small" },
+    { "size": 13, "font": "flux:menu_13" },
+    { "size": 14, "font": "flux:menu" },
+    { "size": 15, "font": "flux:menu_15" },
+    { "size": 16, "font": "flux:menu_large" },
+    { "size": 18, "font": "flux:menu_18" },
+    { "size": 19, "font": "flux:menu_title" },
+    { "size": 20, "font": "flux:menu_20" }
+  ]
+}

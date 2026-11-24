@@ -1,0 +1,13 @@
+Flux - Copyright Notice
+
+Flux is the sole and exclusive property of DreadZ (Discord: dreadxzx).
+
+No other person or entity may use, copy, redistribute, sell, sublicense, reverse engineer,
+decompile, deobfuscate, deauthorize or otherwise bypass this software's authentication or
+licensing systems, or share this software or any derivative of it, without DreadZ's explicit
+written permission.
+
+Unauthorized use, redistribution, or reverse engineering of Flux is a violation of DreadZ's
+rights in this software.
+
+Copyright (c) DreadZ. All rights reserved.

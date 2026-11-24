@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en" data-theme="prestige">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UtilMod ClickGUI Preview</title>
+<style>
+  :root {
+    --ui-scale: 1;
+    --overlay: rgba(11, 10, 18, .58);
+    --title: #14121c;
+    --accent: #c4b5fd;
+    --title-accent: #ddd6fe;
+    --panel: rgba(27, 24, 38, .97);
+    --panel-border: #3b3355;
+    --header: #262041;
+    --header-end: #342a52;
+    --row: #1f1b2c;
+    --row-enabled: #322a4c;
+    --row-hover: #40365e;
+    --setting: #231e34;
+    --setting-hover: #332b4c;
+    --text: #f7f5ff;
+    --text-dim: #b9b2cc;
+    --on: #cdbaff;
+    --off: #5c5572;
+    --track: #171423;
+    --search: #13101c;
+    --outline: #453c60;
+    --shadow: rgba(0,0,0,.60);
+    --radius: 12px;
+  }
+
+  html[data-theme="sakura"] {
+    --overlay: rgba(26, 18, 28, .54);
+    --title: #1b151b;
+    --accent: #ffb3c8;
+    --title-accent: #ffc6d6;
+    --panel: rgba(38, 28, 40, .97);
+    --panel-border: #5a3a50;
+    --header: #382739;
+    --header-end: #482d43;
+    --row: #2c2130;
+    --row-enabled: #473245;
+    --row-hover: #5a3e54;
+    --setting: #2c202b;
+    --setting-hover: #3f2d3b;
+    --text: #fff5f9;
+    --text-dim: #d8b9c7;
+    --on: #ffb0c9;
+    --off: #6b5361;
+    --track: #1c151e;
+    --search: #161119;
+    --outline: #5a4253;
+  }
+
+  html[data-theme="ocean"] {
+    --overlay: rgba(10, 24, 34, .56);
+    --title: #0f1a24;
+    --accent: #7dd3fc;
+    --title-accent: #bae6fd;
+    --panel: rgba(22, 38, 51, .97);
+    --panel-border: #2e5670;
+    --header: #1d3748;
+    --header-end: #23465b;
+    --row: #1a2e3d;
+    --row-enabled: #244659;
+    --row-hover: #315f7e;
+    --setting: #1b3040;
+    --setting-hover: #284a61;
+    --text: #f0faff;
+    --text-dim: #b4cddc;
+    --on: #8ee1ff;
+    --off: #527286;
+    --track: #11212d;
+    --search: #0c1822;
+    --outline: #355b74;
+  }
+
+  html[data-theme="slate"] {
+    --overlay: rgba(20, 22, 24, .54);
+    --title: #1b1d20;
+    --accent: #bfc6cf;
+    --title-accent: #dde1e6;
+    --panel: rgba(32, 35, 40, .97);
+    --panel-border: #3a3f47;
+    --header: #292d33;
+    --header-end: #31363e;
+    --row: #24272c;
+    --row-enabled: #343a42;
+    --row-hover: #414851;
+    --setting: #252930;
+    --setting-hover: #323840;
+    --text: #eef1f4;
+    --text-dim: #a5acb6;
+    --on: #d2d8df;
+    --off: #5a616b;
+    --track: #1a1d21;
+    --search: #121417;
+    --outline: #484f58;
+    --shadow: rgba(0,0,0,.55);
+  }
+
+  html[data-theme="lumi"] {
+    --overlay: rgba(67, 59, 107, .40);
+    --title: #f7f5ff;
+    --accent: #7c5ce0;
+    --title-accent: #7c5ce0;
+    --panel: rgba(248, 247, 253, .98);
+    --panel-border: #d8d2ea;
+    --header: #ede9fa;
+    --header-end: #e2d9ff;
+    --row: #ffffff;
+    --row-enabled: #ede7ff;
+    --row-hover: #e4dcfa;
+    --setting: #f1eefb;
+    --setting-hover: #e8e1f8;
+    --text: #241e3a;
+    --text-dim: #6f6890;
+    --on: #12a594;
+    --off: #cfc6e8;
+    --track: #e6e0f5;
+    --search: #ffffff;
+    --outline: #cfc6e8;
+    --shadow: rgba(40, 30, 70, .22);
+  }
+
+  html[data-theme="matrix"] {
+    --overlay: rgba(7, 8, 10, .60);
+    --title: #101013;
+    --accent: #ff3b3b;
+    --title-accent: #ff3b3b;
+    --panel: rgba(16, 16, 19, .97);
+    --panel-border: #2c2c33;
+    --header: #1a1a1f;
+    --header-end: #101013;
+    --row: #1a1a1e;
+    --row-enabled: #2a1417;
+    --row-hover: #25252b;
+    --setting: #17171b;
+    --setting-hover: #212127;
+    --text: #ececf0;
+    --text-dim: #8b8b95;
+    --on: #ff3b3b;
+    --off: #4b4b54;
+    --track: #0d0d10;
+    --search: #0e0e11;
+    --outline: #34343c;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 30%, #1b2030 0%, #0d0f16 55%, #07080c 100%);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .toolbar {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    max-width: 520px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgba(8, 8, 14, .72);
+    border: 1px solid rgba(255,255,255,.08);
+    font-size: 11px;
+  }
+  .toolbar button {
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.05);
+    color: #d8d3e8;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+  }
+  .toolbar button.active {
+    background: var(--on);
+    color: #111;
+    border-color: transparent;
+  }
+  .toolbar label { margin-left: 6px; color: #9c96b0; }
+  .toolbar input[type="range"] { width: 110px; accent-color: var(--on); }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+  }
+
+  .shell {
+    position: relative;
+    z-index: 5;
+    width: 760px;
+    height: 480px;
+  }
+
+  .window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 760px;
+    height: 480px;
+    transform: scale(var(--ui-scale));
+    transform-origin: top left;
+    display: grid;
+    grid-template-rows: 38px 1fr;
+    border-radius: var(--radius);
+    border: 1px solid var(--panel-border);
+    background: var(--panel);
+    box-shadow: 0 18px 55px var(--shadow), 0 2px 8px rgba(0,0,0,.35);
+    overflow: hidden;
+    font-size: 12px;
+    user-select: none;
+  }
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: linear-gradient(90deg, var(--title) 0%, var(--header) 100%);
+    border-bottom: 1px solid var(--accent);
+    position: relative;
+  }
+  .wordmark { font-weight: 700; letter-spacing: 1.4px; color: var(--title-accent); }
+  .version { color: var(--text-dim); font-size: 11px; }
+  .search {
+    margin-left: auto;
+    width: 200px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid var(--outline);
+    background: var(--search);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+  .title-action { color: var(--text-dim); cursor: pointer; padding: 4px; }
+  .title-action:hover { color: var(--accent); }
+
+  .body { display: grid; grid-template-columns: 132px 1fr 224px; min-height: 0; }
+  .sidebar {
+    padding: 5px 8px;
+    border-right: 1px solid var(--panel-border);
+    background: rgba(0,0,0,.06);
+  }
+  .cat {
+    height: 26px;
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 6px;
+    color: var(--text-dim);
+    font-size: 10px;
+    letter-spacing: .6px;
+    cursor: pointer;
+  }
+  .cat.active {
+    background: var(--row-hover);
+    color: var(--accent);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+
+  .modules, .settings {
+    min-height: 0;
+    padding: 8px;
+    overflow: hidden;
+  }
+  .settings { border-left: 1px solid var(--panel-border); background: rgba(0,0,0,.05); }
+  .module {
+    height: 22px;
+    margin-bottom: 2px;
+    display: grid;
+    grid-template-columns: 3px 1fr 22px 30px;
+    align-items: center;
+    gap: 7px;
+    padding-right: 6px;
+    border-radius: 7px;
+    background: var(--row);
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .module .stripe { width: 3px; height: 22px; background: var(--off); border-radius: 3px 0 0 3px; }
+  .module.on { background: var(--row-enabled); color: var(--text); }
+  .module.on .stripe { background: var(--accent); }
+  .module.selected { outline: 1px solid var(--accent); }
+  .module:hover { background: var(--row-hover); }
+  .module .arrow { color: var(--text-dim); text-align: center; font-size: 14px; line-height: 1; }
+  .pill {
+    width: 26px; height: 12px; border-radius: 6px;
+    background: var(--off); position: relative;
+  }
+  .module.on .pill { background: var(--on); }
+  .pill::after {
+    content: ""; position: absolute; top: 1px; left: 1px;
+    width: 10px; height: 10px; border-radius: 50%; background: #fff;
+    transition: left .15s ease;
+  }
+  .module.on .pill::after { left: 15px; }
+
+  .settings-head {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--header), var(--header-end));
+    border-left: 3px solid var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .settings-head .x { margin-left: auto; color: var(--text-dim); }
+
+  .setting {
+    height: 20px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    border-radius: 5px;
+    background: var(--setting);
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+  }
+  .setting:hover { background: var(--setting-hover); }
+  .setting .name { position: relative; z-index: 2; }
+  .setting .value { margin-left: auto; color: var(--accent); position: relative; z-index: 2; }
+  .setting .track {
+    position: absolute; bottom: 3px; left: 6px; right: 6px; height: 3px;
+    background: var(--track); border-radius: 2px;
+  }
+  .setting .track span { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+  .setting.bool .toggle {
+    margin-left: auto; width: 24px; height: 12px; border-radius: 6px;
+    background: var(--off); position: relative;
+  }
+  .setting.bool.on .toggle { background: var(--on); }
+  .setting.bool .toggle::after {
+    content: ""; position: absolute; top: 1px; left: 1px;
+    width: 10px; height: 10px; border-radius: 50%; background: #fff;
+  }
+  .setting.bool.on .toggle::after { left: 13px; }
+
+  .hint {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.45);
+    font-size: 11px;
+    z-index: 20;
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong style="color:#e8e3ff;margin-right:4px;">Theme</strong>
+    <button data-theme-btn="prestige" class="active">Prestige</button>
+    <button data-theme-btn="sakura">Sakura</button>
+    <button data-theme-btn="ocean">Ocean</button>
+    <button data-theme-btn="slate">Slate</button>
+    <button data-theme-btn="lumi">Lumi</button>
+    <button data-theme-btn="matrix">Matrix</button>
+    <label for="scale">Scale</label>
+    <input id="scale" type="range" min="0.7" max="1.35" step="0.05" value="1">
+    <span id="scaleValue" style="color:#e8e3ff;min-width:34px;">1.00x</span>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="shell" id="shell">
+    <div class="window">
+      <div class="titlebar">
+        <span class="wordmark">PRESTIGE</span>
+        <span class="version">UtilMod v1.9.0</span>
+        <div class="search">Search modules...</div>
+        <span class="title-action">Credits</span>
+        <span class="title-action" style="font-weight:700;">x</span>
+      </div>
+
+      <div class="body">
+        <div class="sidebar" id="sidebar"></div>
+        <div class="modules" id="modules"></div>
+        <div class="settings">
+          <div class="settings-head">ESP <span class="x">x</span></div>
+          <div id="settings-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">ClickGUI mockup - switch themes or scale above. Not the live in-game renderer.</div>
+
+<script>
+  const categories = [
+    "COMBAT", "CRYSTAL", "MOVEMENT", "PLAYER", "UTILITY", "RENDER", "HUD", "OPTIMIZATION", "ANTICHEAT"
+  ];
+
+  const modules = {
+    COMBAT: ["Aura", "AimAssist", "AutoCrit", "AutoMace", "MaceSmashBoost", "MaceStunLock", "SwordCombat", "SilentAim", "TriggerBot", "AutoClicker", "Criticals", "Reach"],
+    CRYSTAL: ["AutoCrystal", "AnchorMacro", "SafeAnchor", "AutoHitCrystal", "CrystalOptimizer", "AutoTrap"],
+    MOVEMENT: ["Fly", "Speed", "NoKnockback", "NoFall", "AutoJump"],
+    PLAYER: ["AutoBreach", "AutoSpearLunge", "KeyPearl", "KeyWindCharge", "PearlCatch"],
+    UTILITY: ["AutoEat", "AutoTotem", "AntiHunger", "AutoMine", "FastMine", "BaseFinder"],
+    RENDER: ["Fullbright", "GuiTheme", "ESP", "HitboxEsp", "Tracers", "BlockEsp", "HitBoxes"],
+    HUD: ["HUD", "Credits", "Keybinds", "CombatHUD"],
+    OPTIMIZATION: ["Performance", "LagMeter"],
+    ANTICHEAT: ["AntiCheat"]
+  };
+
+  const settings = [
+    { type: "bool", name: "Players", on: true },
+    { type: "bool", name: "Mobs", on: true },
+    { type: "bool", name: "Items", on: false },
+    { type: "num", name: "Range", value: "64.0", pct: 28 },
+    { type: "num", name: "Update Ticks", value: "2.0", pct: 8 },
+    { type: "enum", name: "Box Mode", value: "GLOW" },
+    { type: "bool", name: "Fill", on: true },
+    { type: "num", name: "Fill Alpha", value: "55.0", pct: 34 },
+    { type: "bool", name: "Tracers", on: false },
+    { type: "bool", name: "Names", on: true },
+    { type: "bool", name: "Health", on: true },
+    { type: "bool", name: "Distance", on: true },
+    { type: "bool", name: "Color By Type", on: true },
+    { type: "enum", name: "Color", value: "FFFFFF" },
+    { type: "num", name: "Line Thickness", value: "2.0", pct: 25 }
+  ];
+
+  let activeCategory = "RENDER";
+
+  function renderSidebar() {
+    const el = document.getElementById("sidebar");
+    el.innerHTML = categories.map(c =>
+      `<div class="cat ${c === activeCategory ? "active" : ""}" data-cat="${c}">${c}</div>`
+    ).join("");
+    el.querySelectorAll(".cat").forEach(node => {
+      node.addEventListener("click", () => {
+        activeCategory = node.dataset.cat;
+        renderSidebar();
+        renderModules();
+      });
+    });
+  }
+
+  function renderModules() {
+    const el = document.getElementById("modules");
+    const list = modules[activeCategory] || [];
+    el.innerHTML = list.map((name, i) => {
+      const on = (i === 2 || i === 5 || name === "ESP" || name === "GuiTheme" || name === "HitBoxes");
+      const selected = name === "ESP";
+      return `<div class="module ${on ? "on" : ""} ${selected ? "selected" : ""}">
+        <div class="stripe"></div>
+        <div>${name}</div>
+        <div class="arrow">${selected ? "<" : ">"}</div>
+        <div class="pill"></div>
+      </div>`;
+    }).join("");
+    el.querySelectorAll(".module").forEach(node => {
+      node.addEventListener("click", () => node.classList.toggle("on"));
+    });
+  }
+
+  function renderSettings() {
+    const el = document.getElementById("settings-list");
+    el.innerHTML = settings.map(s => {
+      if (s.type === "bool") {
+        return `<div class="setting bool ${s.on ? "on" : ""}">
+          <span class="name">${s.name}</span><span class="toggle"></span>
+        </div>`;
+      }
+      if (s.type === "num") {
+        return `<div class="setting">
+          <span class="name">${s.name}: ${s.value}</span>
+          <span class="track"><span style="width:${s.pct}%"></span></span>
+        </div>`;
+      }
+      return `<div class="setting"><span class="name">${s.name}</span><span class="value">${s.value}</span></div>`;
+    }).join("");
+    el.querySelectorAll(".setting.bool").forEach(node => {
+      node.addEventListener("click", () => node.classList.toggle("on"));
+    });
+  }
+
+  document.querySelectorAll("[data-theme-btn]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.documentElement.dataset.theme = btn.dataset.themeBtn;
+      document.querySelectorAll("[data-theme-btn]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
+  const scale = document.getElementById("scale");
+  const scaleValue = document.getElementById("scaleValue");
+  function applyScale() {
+    const s = parseFloat(scale.value);
+    document.documentElement.style.setProperty("--ui-scale", s);
+    const shell = document.getElementById("shell");
+    shell.style.width = (760 * s) + "px";
+    shell.style.height = (480 * s) + "px";
+    scaleValue.textContent = s.toFixed(2) + "x";
+  }
+  scale.addEventListener("input", applyScale);
+
+  renderSidebar();
+  renderModules();
+  renderSettings();
+  applyScale();
+</script>
+</body>
+</html>

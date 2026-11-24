@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="en" data-theme="prestige">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UtilMod — Flux 2.0 Menu Mockup (all current modules)</title>
+<style>
+/* ---------- Theme palettes (ported from GuiTheme.java) ---------- */
+:root {
+  --scale: 1;
+  --overlay: rgba(11, 10, 18, .58);
+  --accent: #DDD6FE;
+  --accent-lo: #C4B5FD;
+  --panel: #1B1826;
+  --border: #3B3355;
+  --header-a: #262041;
+  --header-b: #342A52;
+  --row: #1F1B2C;
+  --row-on: #322A4C;
+  --row-hover: #40365E;
+  --setting: #231E34;
+  --text: #F7F5FF;
+  --dim: #B9B2CC;
+  --on: #CDBAFF;
+  --off: #5C5572;
+  --track: #171423;
+  --search: #131019;
+  --green: #4ADE80;
+}
+html[data-theme="matrix"] {
+  --overlay: rgba(7, 8, 10, .60); --accent: #FF3B3B; --accent-lo: #FF3B3B;
+  --panel: #141417; --border: #2C2C33; --header-a: #1A1A1F; --header-b: #101013;
+  --row: #1A1A1E; --row-on: #2A1417; --row-hover: #25252B; --setting: #17171B;
+  --text: #ECECF0; --dim: #8B8B95; --on: #FF3B3B; --off: #4B4B54;
+  --track: #0D0D10; --search: #0E0E11; --green: #3FB950;
+}
+html[data-theme="utilmod"] {
+  --overlay: rgba(6, 6, 8, .56); --accent: #38BDF8; --accent-lo: #E51617;
+  --panel: #1C1C20; --border: #3F3F46; --header-a: #26262C; --header-b: #1E2A33;
+  --row: #232327; --row-on: #23323B; --row-hover: #3F3F46; --setting: #161619;
+  --text: #E4E4E7; --dim: #A1A1AA; --on: #22C55E; --off: #EF4444;
+  --track: #0A0A0A; --search: #18181B; --green: #22C55E;
+}
+html[data-theme="meteor"] {
+  --overlay: rgba(11, 13, 16, .56); --accent: #3E8CFF; --accent-lo: #3E8CFF;
+  --panel: #1B1E22; --border: #30363D; --header-a: #24282D; --header-b: #16304A;
+  --row: #22262B; --row-on: #1E2B38; --row-hover: #30363D; --setting: #191C20;
+  --text: #E6EDF3; --dim: #8B949E; --on: #3FB950; --off: #F85149;
+  --track: #0D1117; --search: #0D1117; --green: #3FB950;
+}
+html[data-theme="lumi"] {
+  --overlay: rgba(67, 59, 107, .40); --accent: #7C5CE0; --accent-lo: #7C5CE0;
+  --panel: #F8F7FD; --border: #D8D2EA; --header-a: #EDE9FA; --header-b: #E2D9FF;
+  --row: #FFFFFF; --row-on: #EDE7FF; --row-hover: #E4DCFA; --setting: #F0ECFC;
+  --text: #241E3A; --dim: #6F6890; --on: #12A594; --off: #CFC6E8;
+  --track: #E6E0F5; --search: #FFFFFF; --green: #12A594;
+}
+html[data-theme="sakura"] {
+  --overlay: rgba(26, 18, 28, .54); --accent: #FFC6D6; --accent-lo: #FFB3C8;
+  --panel: #261C28; --border: #5A3A50; --header-a: #382739; --header-b: #482D43;
+  --row: #2C2130; --row-on: #473245; --row-hover: #5A3E54; --setting: #2C202B;
+  --text: #FFF5F9; --dim: #D8B9C7; --on: #FFB0C9; --off: #6B5361;
+  --track: #1C151E; --search: #161119; --green: #7BD88F;
+}
+html[data-theme="ocean"] {
+  --overlay: rgba(10, 24, 34, .56); --accent: #BAE6FD; --accent-lo: #7DD3FC;
+  --panel: #162633; --border: #2E5670; --header-a: #1D3748; --header-b: #23465B;
+  --row: #1A2E3D; --row-on: #244659; --row-hover: #315F7E; --setting: #1B3040;
+  --text: #F0FAFF; --dim: #B4CDDC; --on: #8EE1FF; --off: #527286;
+  --track: #11212D; --search: #0C1822; --green: #4ADE80;
+}
+html[data-theme="slate"] {
+  --overlay: rgba(20, 22, 24, .54); --accent: #DDE1E6; --accent-lo: #BFC6CF;
+  --panel: #202328; --border: #3A3F47; --header-a: #292D33; --header-b: #31363E;
+  --row: #24272C; --row-on: #343A42; --row-hover: #414851; --setting: #252930;
+  --text: #EEF1F4; --dim: #A5ACB6; --on: #D2D8DF; --off: #5A616B;
+  --track: #1A1D21; --search: #121417; --green: #4ADE80;
+}
+html[data-theme="flux"] {
+  --overlay: rgba(4, 4, 4, .60); --accent: #E4E4E7; --accent-lo: #B8B8BE;
+  --panel: #101010; --border: rgba(184, 184, 190, .38); --header-a: #050505; --header-b: #1A1A1A;
+  --row: #141414; --row-on: rgba(184, 184, 190, .22); --row-hover: #202024; --setting: #141414;
+  --text: #F4F4F5; --dim: #9A9AA0; --on: #B8B8BE; --off: #333338;
+  --track: #050505; --search: #101010; --green: #B8B8BE;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 28% 18%, #2a3242 0%, transparent 42%),
+              radial-gradient(circle at 78% 82%, #2a2136 0%, transparent 45%),
+              linear-gradient(140deg, #10131b, #08090d 70%);
+}
+body::before {
+  content: ""; position: fixed; inset: 0; background: var(--overlay);
+  backdrop-filter: blur(3px); pointer-events: none;
+}
+
+/* ---------- Demo controls ---------- */
+.toolbar {
+  position: fixed; z-index: 30; top: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px;
+  max-width: calc(100vw - 24px); padding: 7px 9px; border-radius: 10px;
+  background: rgba(10, 10, 16, .82); border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 8px 24px rgba(0,0,0,.35); font-size: 10px; color: #a9a5bb;
+}
+.toolbar strong { color: #ece8fa; margin: 0 3px 0 6px; font-size: 10px; letter-spacing: .4px; }
+.toolbar button {
+  font: inherit; color: #cfcadd; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05);
+}
+.toolbar button:hover { color: #fff; border-color: rgba(255,255,255,.28); }
+.toolbar button.active { background: #c4b5fd; color: #17121f; border-color: transparent; font-weight: 700; }
+.toolbar .sep { width: 1px; height: 18px; background: rgba(255,255,255,.12); margin: 0 4px; }
+.toolbar input[type="range"] { width: 88px; accent-color: #c4b5fd; }
+.toolbar .val { min-width: 32px; color: #ece8fa; }
+
+/* ---------- Window shell ---------- */
+.stage {
+  position: relative; z-index: 5; margin: 74px auto 0;
+  width: calc(980px * var(--scale)); height: calc(600px * var(--scale));
+}
+body.embed .toolbar { display: none; }
+body.embed .stage { margin: 12px auto 0; }
+.window {
+  width: 980px; height: 600px; transform: scale(var(--scale)); transform-origin: top left;
+  display: grid; grid-template-rows: 52px 1fr;
+  border: 1px solid var(--border); border-radius: 12px; background: var(--panel);
+  box-shadow: 0 26px 70px rgba(0,0,0,.62), 0 0 0 1px rgba(255,255,255,.03) inset,
+              0 0 42px -18px var(--accent);
+  overflow: hidden; user-select: none;
+}
+.window.closed { display: none; }
+.closed-note {
+  display: none; position: relative; z-index: 6; text-align: center; color: #cfcadd;
+  font-size: 13px; line-height: 1.8; padding-top: 40vh;
+}
+.closed-note b { color: #c4b5fd; }
+.closed-note.show { display: block; }
+.closed-note button {
+  margin-top: 10px; font: inherit; cursor: pointer; padding: 7px 16px; border-radius: 7px;
+  border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.07); color: #fff;
+}
+
+.titlebar {
+  display: flex; align-items: center; gap: 9px; padding: 0 11px;
+  background: linear-gradient(90deg, var(--header-a), var(--header-b));
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+  font-weight: 800; font-size: 13px; color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-lo));
+}
+.brand { font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
+.tag {
+  font-size: 9px; font-weight: 700; color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  padding: 2px 6px; border-radius: 6px;
+}
+.layout-chip {
+  margin-left: 4px; font-size: 9px; color: var(--dim);
+  border: 1px solid var(--border); border-radius: 10px; padding: 2px 8px;
+  cursor: pointer; user-select: none; transition: color .15s, border-color .15s, background .15s;
+}
+.layout-chip:hover { color: #fff; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+/* Loadout strip: real vanilla item sprites, kept crisp with pixelated scaling. */
+.item-strip { margin-left: 8px; display: flex; align-items: center; gap: 5px; }
+.item-icon {
+  width: 20px; height: 20px; image-rendering: pixelated;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.65));
+}
+.active-pill {
+  margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: var(--dim);
+  background: rgba(255,255,255,.05); border-radius: 10px; padding: 4px 10px;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 7px var(--green); }
+.icon-btn {
+  width: 22px; height: 22px; border-radius: 7px; border: 1px solid var(--border);
+  background: rgba(255,255,255,.03); color: var(--dim); display: grid; place-items: center;
+  font-size: 11px; cursor: pointer;
+}
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.body { display: grid; grid-template-columns: 196px 1fr 300px; min-height: 0; }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  border-right: 1px solid var(--border); background: rgba(0,0,0,.07);
+  padding: 14px 12px; display: flex; flex-direction: column; min-height: 0;
+}
+.side-label { font-size: 8px; letter-spacing: 1.4px; color: var(--dim); margin: 1px 0 10px 8px; }
+.cat {
+  height: 40px; margin-bottom: 8px; border-radius: 9px; display: flex; align-items: center;
+  padding: 0 10px 0 13px; font-size: 11px; font-weight: 600; letter-spacing: .3px;
+  color: var(--dim); cursor: pointer; position: relative;
+}
+.cat:hover { background: var(--row-hover); }
+.cat.active {
+  color: var(--accent);
+  background: linear-gradient(90deg, var(--row-on), var(--row-hover));
+}
+.cat.active::before {
+  content: ""; position: absolute; left: 3px; top: 7px; bottom: 7px; width: 2px;
+  border-radius: 2px; background: var(--accent);
+}
+.cat .count {
+  margin-left: auto; font-size: 9px; color: var(--dim);
+  background: rgba(255,255,255,.06); border-radius: 8px; padding: 2px 6px;
+}
+.cat.active .count { color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+.cat-icon { width: 16px; height: 16px; margin-right: 8px; image-rendering: pixelated; object-fit: contain; flex: none; }
+.cat-letter {
+  width: 16px; margin-right: 8px; flex: none; text-align: center; font-size: 9px;
+  color: var(--dim); border: 1px solid var(--border); border-radius: 4px; line-height: 14px;
+}
+.cat.active .cat-letter { color: var(--accent); border-color: var(--accent); }
+.client-card {
+  margin-top: auto; border: 1px solid var(--border); border-radius: 9px;
+  background: rgba(255,255,255,.025); padding: 8px 9px;
+  display: flex; gap: 8px; align-items: center;
+}
+.client-card .name { font-size: 10px; font-weight: 700; }
+.client-card .sub { font-size: 9px; color: var(--dim); margin-top: 2px; }
+
+/* ---------- Module catalog ---------- */
+.catalog { min-height: 0; padding: 14px 16px; display: flex; flex-direction: column; }
+.search {
+  height: 36px; flex: none; display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--search); padding: 0 10px;
+}
+.search:focus-within { border-color: var(--accent); }
+.mag { width: 9px; height: 9px; border: 1.5px solid var(--dim); border-radius: 50%; position: relative; flex: none; }
+.mag::after { content: ""; position: absolute; right: -4px; bottom: -3px; width: 5px; height: 1.5px; background: var(--dim); transform: rotate(45deg); }
+.search input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+  color: var(--text); font: inherit; font-size: 10.5px;
+}
+.search input::placeholder { color: var(--dim); }
+.search kbd {
+  font: inherit; font-size: 8px; color: var(--dim); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1px 5px;
+}
+.heading { display: flex; align-items: flex-end; margin: 18px 2px 10px; }
+.heading h2 { margin: 0; font-size: 15px; font-weight: 700; }
+.heading .count { margin-left: auto; font-size: 9px; color: var(--dim); }
+.module-list { overflow-y: auto; overflow-x: hidden; padding-right: 4px; flex: 1; }
+.module-list::-webkit-scrollbar, .settings-list::-webkit-scrollbar { width: 4px; }
+.module-list::-webkit-scrollbar-thumb, .settings-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+.module-list::-webkit-scrollbar-track, .settings-list::-webkit-scrollbar-track { background: transparent; }
+.row {
+  height: 40px; margin-bottom: 8px; border-radius: 9px; background: var(--row);
+  display: grid; grid-template-columns: 3px 1fr 16px 30px; align-items: center;
+  gap: 8px; padding-right: 9px; cursor: pointer; overflow: hidden;
+}
+.row:hover { background: var(--row-hover); }
+.row.on { background: var(--row-on); }
+.row.selected { box-shadow: inset 0 0 0 1px var(--accent); }
+.row .stripe { width: 3px; height: 40px; background: var(--off); }
+.row.on .stripe { background: var(--cat, var(--accent)); }
+.row .name { font-size: 10.5px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row.on .name { color: var(--text); font-weight: 600; }
+.row .chev { text-align: center; color: var(--dim); font-size: 14px; }
+.row.selected .chev { color: var(--accent); }
+.pill { width: 26px; height: 13px; border-radius: 7px; background: var(--off); position: relative; transition: background .12s; }
+.pill::after {
+  content: ""; position: absolute; top: 1.5px; left: 1.5px; width: 10px; height: 10px;
+  border-radius: 50%; background: #fff; transition: left .12s;
+}
+.row.on .pill, .toggle.on { background: var(--on); }
+.row.on .pill::after, .toggle.on::after { left: 14.5px; }
+.empty { color: var(--dim); font-size: 11px; text-align: center; padding: 40px 0; }
+
+/* ---------- Settings inspector ---------- */
+.settings-pane {
+  border-left: 1px solid var(--border); background: rgba(0,0,0,.06);
+  padding: 12px 12px; min-height: 0; display: flex; flex-direction: column;
+}
+.settings-inner {
+  flex: 1; min-height: 0; border-radius: 9px; border: 1px solid var(--border);
+  background: rgba(255,255,255,.02); display: flex; flex-direction: column; overflow: hidden;
+}
+.set-head {
+  height: 44px; flex: none; margin: 8px 8px 0; border-radius: 9px;
+  background: linear-gradient(90deg, var(--header-a), var(--header-b));
+  display: flex; align-items: center; gap: 7px; padding: 0 8px 0 11px;
+  border-left: 3px solid var(--accent);
+}
+.set-head .title { font-size: 12.5px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.status {
+  margin-left: auto; font-size: 8px; font-weight: 700; letter-spacing: .4px;
+  color: var(--dim); background: rgba(255,255,255,.06); border-radius: 6px; padding: 3px 6px;
+}
+.status.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.desc {
+  margin: 14px 14px 12px; font-size: 9.5px; line-height: 1.5; color: var(--dim);
+  border-bottom: 1px dashed var(--border); padding-bottom: 12px;
+}
+.settings-list { overflow-y: auto; padding: 0 10px 14px; flex: 1; }
+.setting {
+  height: 34px; margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--setting); display: flex; align-items: center; padding: 0 8px;
+  font-size: 9.5px; position: relative; overflow: hidden; cursor: default;
+}
+.setting:hover { border-color: var(--accent); }
+.setting .label { position: relative; z-index: 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.setting .value { margin-left: auto; color: var(--accent); position: relative; z-index: 2; font-variant-numeric: tabular-nums; }
+.setting .track {
+  position: absolute; left: 8px; right: 8px; bottom: 3px; height: 2px;
+  border-radius: 2px; background: var(--track); overflow: hidden;
+}
+.setting .track i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.toggle { width: 24px; height: 12px; border-radius: 6px; background: var(--off); position: relative; margin-left: auto; flex: none; cursor: pointer; }
+.toggle::after {
+  content: ""; position: absolute; top: 1.5px; left: 1.5px; width: 9px; height: 9px;
+  border-radius: 50%; background: #fff; transition: left .12s;
+}
+.advanced-head {
+  height: 26px; margin: 12px 0 6px; display: flex; align-items: center; gap: 6px;
+  font-size: 9px; font-weight: 700; letter-spacing: .6px; color: var(--dim); cursor: pointer;
+}
+.advanced-head:hover { color: var(--accent); }
+.advanced-head::before { content: "▸"; font-size: 10px; }
+.advanced-head.open::before { content: "▾"; }
+.set-hint {
+  flex: none; font-size: 8.5px; color: var(--dim); text-align: center;
+  padding: 6px 4px 1px;
+}
+.footer-hint {
+  position: fixed; z-index: 20; bottom: 12px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.42); font-size: 10px; text-align: center; white-space: nowrap;
+}
+.footer-hint b { color: rgba(255,255,255,.7); font-weight: 600; }
+@media (max-width: 960px) {
+  .toolbar { max-width: calc(100vw - 16px); }
+  .footer-hint { white-space: normal; width: 92vw; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <strong>Theme</strong>
+  <button data-theme="prestige" class="active">Prestige</button>
+  <button data-theme="matrix">Matrix</button>
+  <button data-theme="utilmod">UtilMod</button>
+  <button data-theme="meteor">Meteor</button>
+  <button data-theme="flux">Flux</button>
+  <button data-theme="lumi">Lumi</button>
+  <button data-theme="sakura">Sakura</button>
+  <button data-theme="ocean">Ocean</button>
+  <button data-theme="slate">Slate</button>
+  <span class="sep"></span>
+  <strong>Layout</strong>
+  <button data-layout="CLICK_GUI" class="active">ClickGUI</button>
+  <button data-layout="DROPDOWN">Dropdown</button>
+  <span class="sep"></span>
+  <strong>Scale</strong>
+  <input id="scale" type="range" min="0.75" max="1.25" step="0.05" value="1">
+  <span class="val" id="scaleVal">1.00x</span>
+</div>
+
+<div class="stage">
+  <div class="window" id="window">
+    <div class="titlebar">
+      <div class="logo">U</div>
+      <div class="brand">UTILMOD</div>
+      <div class="tag">CLICK GUI</div>
+      <div class="layout-chip" id="layoutChip" title="Switch menu layout">CLICK GUI  &gt;</div>
+      <div class="layout-chip" id="themeChip" title="Cycle theme">PRESTIGE  &gt;</div>
+      <div class="item-strip" title="Loadout">
+        <img class="item-icon" src="mockups/icons/end_crystal.png" alt="End Crystal">
+        <img class="item-icon" src="mockups/icons/sword.png" alt="Sword">
+        <img class="item-icon" src="mockups/icons/spyglass.png" alt="Spyglass">
+        <img class="item-icon" src="mockups/icons/steak.png" alt="Steak">
+      </div>
+      <div class="active-pill"><span class="dot"></span><span id="activeCount">0 active</span></div>
+      <div class="icon-btn" id="infoBtn" title="Credits">i</div>
+      <div class="icon-btn" id="closeBtn" title="Close menu">x</div>
+    </div>
+
+    <div class="body">
+      <div class="sidebar">
+        <div class="side-label">MODULES</div>
+        <div id="sidebar"></div>
+        <div class="client-card">
+          <span class="dot"></span>
+          <div><div class="name">UTILMOD</div><div class="sub" id="enabledCount">0 enabled</div></div>
+        </div>
+      </div>
+
+      <div class="catalog">
+        <div class="search">
+          <span class="mag"></span>
+          <input id="search" type="text" placeholder="Search modules..." autocomplete="off" spellcheck="false">
+          <kbd>RShift</kbd>
+        </div>
+        <div class="heading"><h2 id="heading">Crystal Modules</h2><span class="count" id="listCount"></span></div>
+        <div class="module-list" id="moduleList"></div>
+      </div>
+
+      <div class="settings-pane">
+        <div class="settings-inner">
+          <div class="set-head">
+            <span class="title" id="setTitle">Module</span>
+            <span class="status" id="setStatus">DISABLED</span>
+            <span class="icon-btn" id="setClose" style="width:18px;height:18px;">x</span>
+          </div>
+          <div class="desc" id="setDesc"></div>
+          <div class="settings-list" id="settingsList"></div>
+        </div>
+        <div class="set-hint">Click a row to toggle · double-click or click its arrow for settings</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="closed-note" id="closedNote">
+    Menu closed<br>
+    Press <b>Right Shift</b> in game (or click below) to reopen
+    <br><button id="reopenBtn">Reopen mockup</button>
+  </div>
+</div>
+
+<div class="footer-hint">
+  Preview of the <b>UtilMod click GUI</b> — 37 registered modules across 9 categories, original Prestige-inspired styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
+</div>
+
+<script>
+/* Exact display names, categories and descriptions from the module constructors.
+   Settings are representative subsets of the real settings in each module. */
+const MODULES = [
+  { n:"Mace Swap", c:"MACE", on:true, d:"Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback.", s:[
+    {t:"bool", n:"Require Key", v:false},
+    {t:"num", n:"Minimum Fall Distance", v:2.5, min:.5, max:20},
+    {t:"bool", n:"Auto Switch", v:true},
+    {t:"bool", n:"Swap Back", v:true},
+    {t:"num", n:"Snap Back Delay", v:3, min:0, max:20},
+    {t:"num", n:"Attack Range", v:5, min:1, max:10},
+    {t:"mode", n:"Target", v:"PLAYERS"},
+    {t:"bool", n:"Silent Aim", v:true, adv:true}
+  ]},
+  { n:"Density Assist", c:"MACE", on:false, d:"Shows your fall distance and the mace smash bonus damage it would deal.", s:[
+    {t:"num", n:"Ready Distance", v:1.5, min:.5, max:20},
+    {t:"bool", n:"Show Bonus Damage", v:true},
+    {t:"bool", n:"Background", v:true},
+    {t:"num", n:"X", v:4, min:0, max:1000, adv:true},
+    {t:"num", n:"Y", v:120, min:0, max:1000, adv:true}
+  ]},
+  { n:"Breach Swap", c:"MACE", on:false, d:"Same-tick Breach mace swap on attack (attribute swapping).", s:[
+    {t:"num", n:"Mace Slot", v:1, min:1, max:9},
+    {t:"bool", n:"Smart Switch", v:true},
+    {t:"bool", n:"Prefer Density", v:false},
+    {t:"bool", n:"Melee Only", v:true},
+    {t:"bool", n:"Swap Back", v:true},
+    {t:"num", n:"Swap Delay", v:2, min:0, max:10},
+    {t:"num", n:"Click Pacing (Ms)", v:3, min:0, max:12, adv:true}
+  ]},
+  { n:"Auto Totem", c:"CRYSTAL", on:true, d:"Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
+    {t:"num", n:"Health Threshold", v:10, min:1, max:20},
+    {t:"bool", n:"Include Absorption", v:true},
+    {t:"bool", n:"Equip After Pop", v:true},
+    {t:"bool", n:"Pop Alert", v:true},
+    {t:"bool", n:"Fall Threat", v:true},
+    {t:"num", n:"Fall Distance", v:8, min:1, max:40},
+    {t:"num", n:"Delay", v:0, min:0, max:40},
+    {t:"num", n:"Reserve Totems", v:0, min:0, max:8},
+    {t:"bool", n:"Pop Counter", v:true, adv:true}
+  ]},
+  { n:"Target HUD", c:"RENDER", on:false, d:"Shows a live health card and ESP box for the entity you are targeting.", s:[
+    {t:"num", n:"Range", v:12, min:3, max:48},
+    {t:"num", n:"View Angle", v:90, min:20, max:360},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Background", v:true},
+    {t:"bool", n:"Highlight Target", v:true}
+  ]},
+  { n:"Hitbox Adjuster", c:"UTIL", on:false, d:"Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
+    {t:"num", n:"Size Multiplier", v:1, min:1, max:20},
+    {t:"bool", n:"Sync To Server", v:true}
+  ]},
+  { n:"Auto Obsidian", c:"UTIL", on:false, d:"Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
+    {t:"mode", n:"Mode", v:"TRAP"},
+    {t:"num", n:"Range", v:8, min:2, max:24},
+    {t:"num", n:"Place Delay", v:3, min:0, max:40},
+    {t:"num", n:"Max Blocks", v:9, min:1, max:24},
+    {t:"bool", n:"Require Obsidian", v:true},
+    {t:"bool", n:"Auto Switch", v:true},
+    {t:"bool", n:"Swap Back", v:true}
+  ]},
+  { n:"Auto Anchor", c:"UTIL", on:false, d:"Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
+    {t:"num", n:"Range", v:8, min:2, max:24},
+    {t:"num", n:"Action Delay", v:6, min:0, max:40},
+    {t:"bool", n:"Auto Charge", v:true},
+    {t:"bool", n:"Auto Ignite", v:true},
+    {t:"bool", n:"Swap Back", v:true}
+  ]},
+  { n:"Sprint", c:"MOVEMENT", on:true, d:"Keeps you sprinting while you move, so you never have to double-tap.", s:[
+    {t:"bool", n:"All Directions", v:false},
+    {t:"bool", n:"While Using Items", v:false},
+    {t:"num", n:"Minimum Hunger", v:7, min:0, max:20}
+  ]},
+  { n:"Wind Charge Jump", c:"MOVEMENT", on:false, d:"Keybind macro that throws a wind charge at a configured pitch for a quick boost.", s:[
+    {t:"num", n:"Throw Pitch", v:90, min:-90, max:90},
+    {t:"bool", n:"Silent Aim", v:true},
+    {t:"bool", n:"Swap Back", v:true},
+    {t:"num", n:"Delay", v:1, min:0, max:20},
+    {t:"bool", n:"Only When Falling", v:false}
+  ]},
+  { n:"Velocity", c:"MOVEMENT", on:false, d:"Disables melee, projectile and explosion knockback. Requires this jar on your private server.", s:[
+    {t:"bool", n:"Melee", v:true},
+    {t:"bool", n:"Projectiles", v:true},
+    {t:"bool", n:"Explosions", v:true}
+  ]},
+  { n:"Fast Place", c:"PLAYER", on:false, d:"Repeats item use on a delay for faster block placement.", s:[
+    {t:"num", n:"Delay", v:2, min:0, max:60},
+    {t:"bool", n:"Only When Holding", v:true},
+    {t:"bool", n:"Require Block In Hand", v:true},
+    {t:"bool", n:"Right Click Only", v:false}
+  ]},
+  { n:"Inventory Sort", c:"PLAYER", on:false, d:"Sorts your inventory by item type with one key press.", s:[
+    {t:"num", n:"Swaps Per Tick", v:2, min:1, max:6},
+    {t:"bool", n:"Include Hotbar", v:false}
+  ]},
+  { n:"Auto Eat", c:"PLAYER", on:false, d:"Automatically eats food when your health gets low.", s:[
+    {t:"num", n:"Health Threshold", v:10, min:1, max:20},
+    {t:"num", n:"Minimum Hunger", v:20, min:0, max:20},
+    {t:"bool", n:"Require Hunger", v:true},
+    {t:"num", n:"Preferred Slot", v:-1, min:-1, max:8},
+    {t:"num", n:"Eat Delay", v:10, min:0, max:100},
+    {t:"bool", n:"Prefer Best Food", v:true}
+  ]},
+  { n:"Fullbright", c:"RENDER", on:true, d:"Maximizes brightness in dark areas.", s:[
+    {t:"num", n:"Brightness", v:16, min:1, max:32},
+    {t:"bool", n:"Update While Enabled", v:true},
+    {t:"bool", n:"Restore When Disabled", v:true}
+  ]},
+  { n:"Nametags", c:"RENDER", on:true, d:"Draws readable name tags with health, armor and distance over chosen entity types.", s:[
+    {t:"num", n:"Range", v:64, min:4, max:256},
+    {t:"num", n:"Update Interval", v:2, min:1, max:20},
+    {t:"bool", n:"Show Health", v:true},
+    {t:"bool", n:"Armor", v:true},
+    {t:"bool", n:"Show Distance", v:true},
+    {t:"bool", n:"Background", v:true},
+    {t:"bool", n:"Distance Fade", v:false, adv:true}
+  ]},
+  { n:"Hit Color", c:"RENDER", on:false, d:"Shows a short colored confirmation effect whenever your attack connects.", s:[
+    {t:"num", n:"Duration (Milliseconds)", v:260, min:80, max:900},
+    {t:"num", n:"Radius", v:18, min:6, max:64},
+    {t:"num", n:"Line Width", v:2, min:1, max:6},
+    {t:"bool", n:"Only Players", v:false},
+    {t:"bool", n:"Target Box", v:true}
+  ]},
+  { n:"Zoom", c:"RENDER", on:false, d:"Hold a key to zoom in and release to return to your normal FOV.", s:[
+    {t:"num", n:"Zoom FOV", v:30, min:30, max:90},
+    {t:"bool", n:"Smooth Transition", v:true}
+  ]},
+  { n:"Weather", c:"WORLD", on:false, d:"Hides rain, snow and clouds on your screen. Nothing changes on the server.", s:[
+    {t:"bool", n:"Hide Rain And Snow", v:true},
+    {t:"bool", n:"Hide Clouds", v:false}
+  ]},
+  { n:"Base Finder", c:"DONUT", on:false, d:"Scans nearby blocks for player-built structures and reports dense clusters.", s:[
+    {t:"num", n:"Radius", v:16, min:6, max:48},
+    {t:"num", n:"Scan Interval", v:40, min:10, max:200},
+    {t:"num", n:"Minimum Signals", v:4, min:2, max:20},
+    {t:"bool", n:"Show HUD", v:true},
+    {t:"num", n:"X", v:6, min:0, max:1000, adv:true},
+    {t:"num", n:"Y", v:96, min:0, max:1000, adv:true}
+  ]},
+  { n:"Light Detector", c:"DONUT", on:false, d:"Finds dark, mob-spawnable pockets around you with a configurable light threshold.", s:[
+    {t:"num", n:"Radius", v:20, min:6, max:48},
+    {t:"num", n:"Light Threshold", v:7, min:0, max:15},
+    {t:"num", n:"Scan Interval", v:30, min:10, max:200},
+    {t:"bool", n:"Show HUD", v:true},
+    {t:"num", n:"X", v:6, min:0, max:1000, adv:true},
+    {t:"num", n:"Y", v:112, min:0, max:1000, adv:true}
+  ]},
+  { n:"Menu Theme", c:"UTIL", on:true, d:"Change the dropdown/ClickGUI palette, layout and scale.", s:[
+    {t:"num", n:"Menu Scale", v:1, min:.7, max:1.35},
+    {t:"num", n:"Panel Opacity", v:100, min:40, max:100},
+    {t:"num", n:"Overlay Opacity", v:100, min:30, max:100},
+    {t:"bool", n:"Rounded Corners", v:true},
+    {t:"bool", n:"Gradient Header", v:true},
+    {t:"mode", n:"Layout", v:"CLICK GUI"},
+    {t:"bool", n:"Show Theme In Title", v:true}
+  ]},
+  { n:"Config", c:"UTIL", on:true, d:"Saves and restores module enabled states.", s:[
+    {t:"num", n:"Profile Index", v:0, min:0, max:4},
+    {t:"bool", n:"Save", v:false},
+    {t:"bool", n:"Load", v:false},
+    {t:"bool", n:"Apply When Enabled", v:true}
+  ]},
+  { n:"Keybinds", c:"UTIL", on:false, d:"Lists module keybinds on the HUD.", s:[
+    {t:"bool", n:"Show All", v:false},
+    {t:"bool", n:"Background", v:true},
+    {t:"num", n:"Line Spacing", v:12, min:8, max:32},
+    {t:"num", n:"X", v:4, min:0, max:1000, adv:true},
+    {t:"num", n:"Y", v:60, min:0, max:1000, adv:true}
+  ]},
+  { n:"Crystal Aura", c:"CRYSTAL", on:false, d:"Attacks nearby players during crystal PvP, with optional end-crystal cleanup.", s:[
+    {t:"num", n:"Range", v:4, min:1, max:16},
+    {t:"num", n:"View Angle", v:90, min:15, max:360},
+    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Swing Hand", v:true},
+    {t:"mode", n:"Target Priority", v:"DISTANCE"},
+    {t:"bool", n:"Attack Crystals", v:true},
+    {t:"bool", n:"Only When Crystal Near", v:false}
+  ]},
+  { n:"Auto Crystal", c:"CRYSTAL", on:false, d:"Places and detonates end crystals around the nearest target. Server still validates every action.", s:[
+    {t:"num", n:"Range", v:8, min:2, max:16},
+    {t:"num", n:"Place Delay", v:10, min:0, max:40},
+    {t:"num", n:"Break Delay", v:2, min:0, max:40},
+    {t:"bool", n:"Auto Place", v:true},
+    {t:"bool", n:"Auto Break", v:true},
+    {t:"bool", n:"Require Crystal", v:true},
+    {t:"num", n:"Min Target Health", v:1, min:1, max:20}
+  ]},
+  { n:"Sword Aura", c:"SWORD", on:false, d:"Attacks nearby targets only while a sword is held. Optional cooldown and critical-hit gates.", s:[
+    {t:"num", n:"Range", v:4, min:1, max:16},
+    {t:"num", n:"View Angle", v:90, min:15, max:360},
+    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Swing Hand", v:true},
+    {t:"mode", n:"Target Priority", v:"DISTANCE"},
+    {t:"bool", n:"Only On Cooldown", v:true},
+    {t:"bool", n:"Critical Only", v:false}
+  ]},
+  { n:"Sword Swap", c:"SWORD", on:false, d:"Equips the best hotbar sword when an enemy is nearby, then optionally returns to your old slot.", s:[
+    {t:"num", n:"Range", v:6, min:2, max:16},
+    {t:"num", n:"Swap Delay", v:2, min:0, max:20},
+    {t:"bool", n:"Swap Back", v:true},
+    {t:"bool", n:"Prefer Sharpest", v:true}
+  ]},
+  { n:"Crit Assist", c:"SWORD", on:false, d:"Only swings when the vanilla critical-hit conditions are met: airborne, falling and cooldown ready.", s:[
+    {t:"num", n:"Range", v:4, min:1, max:10},
+    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
+    {t:"bool", n:"Require Sword", v:true},
+    {t:"bool", n:"Require Falling", v:true}
+  ]},
+  { n:"Trigger Bot", c:"SWORD", on:false, d:"Attacks the entity under your crosshair after a configurable human-like delay.", s:[
+    {t:"num", n:"Reaction Delay (Ms)", v:80, min:0, max:600},
+    {t:"num", n:"Range", v:5, min:1, max:16},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Require Sword", v:false},
+    {t:"bool", n:"Swing Hand", v:true}
+  ]},
+  { n:"Auto Clicker", c:"SWORD", on:false, d:"Repeats real attack/use presses with configurable CPS and timing jitter.", s:[
+    {t:"mode", n:"Button", v:"LEFT"},
+    {t:"num", n:"Minimum CPS", v:8, min:1, max:40},
+    {t:"num", n:"Maximum CPS", v:12, min:1, max:40},
+    {t:"num", n:"Jitter", v:18, min:0, max:60},
+    {t:"bool", n:"Require Target", v:false},
+    {t:"bool", n:"Pause In Menus", v:true}
+  ]},
+  { n:"Combo Assister", c:"SWORD", on:false, d:"Locks onto a target and spaces attacks into a steady combo instead of rapid target flipping.", s:[
+    {t:"num", n:"Range", v:4, min:1, max:12},
+    {t:"num", n:"View Angle", v:110, min:20, max:360},
+    {t:"num", n:"Combo Delay (Ms)", v:220, min:50, max:900},
+    {t:"num", n:"Switch Delay (Ms)", v:320, min:0, max:1500},
+    {t:"bool", n:"Lock Target", v:true},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Swing Hand", v:true}
+  ]},
+  { n:"Reach", c:"SWORD", on:false, d:"Hits targets from farther away. Client raycast and private-server check use the same value.", s:[
+    {t:"num", n:"Reach Distance", v:5.5, min:3, max:16},
+    {t:"bool", n:"Sync To Server", v:true}
+  ]},
+  { n:"Mace Aura", c:"MACE", on:false, d:"Attacks nearby targets while holding a mace. Optional smash-only mode waits for a fall strike.", s:[
+    {t:"num", n:"Range", v:4, min:1, max:16},
+    {t:"num", n:"View Angle", v:90, min:15, max:360},
+    {t:"num", n:"Attack Delay", v:2, min:0, max:20},
+    {t:"bool", n:"Players", v:true},
+    {t:"bool", n:"Mobs", v:true},
+    {t:"bool", n:"Swing Hand", v:true},
+    {t:"mode", n:"Target Priority", v:"DISTANCE"},
+    {t:"bool", n:"Smash Only", v:false},
+    {t:"num", n:"Minimum Fall Distance", v:1.5, min:.5, max:20}
+  ]},
+  { n:"Smash Assist", c:"MACE", on:false, d:"Automatically holds a Density mace when a fall strike is ready, then returns to your previous slot.", s:[
+    {t:"num", n:"Minimum Fall Distance", v:1.5, min:.5, max:20},
+    {t:"num", n:"Target Range", v:6, min:2, max:16},
+    {t:"num", n:"Snap Back Delay", v:3, min:0, max:20},
+    {t:"bool", n:"Swap Back", v:true},
+    {t:"bool", n:"Require Density", v:true}
+  ]},
+  { n:"Entity ESP", c:"RENDER", on:false, d:"Prestige-style entity ESP with a selectable list of every entity type.", s:[
+    {t:"mode", n:"Entity Types", v:"PLAYERS + MOBS"},
+    {t:"num", n:"Range", v:64, min:4, max:256},
+    {t:"num", n:"Update Interval", v:2, min:1, max:20},
+    {t:"num", n:"Maximum Entities", v:96, min:8, max:256},
+    {t:"mode", n:"Box Style", v:"MODEL GLOW"},
+    {t:"bool", n:"Fill", v:true},
+    {t:"bool", n:"Glow", v:true},
+    {t:"bool", n:"Tracers", v:false},
+    {t:"bool", n:"Show Names", v:true},
+    {t:"bool", n:"Color By Type", v:true},
+    {t:"num", n:"Line Width", v:2, min:1, max:5},
+    {t:"bool", n:"Chams Colors", v:true},
+    {t:"bool", n:"Distance Fade", v:true},
+    {t:"num", n:"Glow Layers", v:2, min:1, max:4}
+  ]},
+  { n:"Reaction Monitor", c:"UTIL", on:false, d:"Warns when your own click speed, swapping or Breach automation looks inhuman. Purely client-side self-check.", s:[
+    {t:"num", n:"CPS Limit", v:40, min:5, max:80},
+    {t:"num", n:"Swap Limit", v:8, min:1, max:30},
+    {t:"num", n:"Auto Swap Limit", v:6, min:1, max:30},
+    {t:"num", n:"Alert Cooldown", v:3, min:1, max:15},
+    {t:"bool", n:"Flag High CPS", v:true},
+    {t:"bool", n:"Flag Fast Swaps", v:true},
+    {t:"bool", n:"Flag Auto Breach", v:true},
+    {t:"bool", n:"Show Alerts", v:true}
+  ]}
+];
+
+const CATEGORIES = ["CRYSTAL","SWORD","MACE","MOVEMENT","PLAYER","RENDER","WORLD","DONUT","UTIL"];
+const CATEGORY_COLORS = {
+  CRYSTAL:"#67E8F9", SWORD:"#FB7185", MACE:"#FBBF24", MOVEMENT:"#A3E635",
+  PLAYER:"#4ADE80", RENDER:"#C084FC", WORLD:"#38BDF8", DONUT:"#F472B6", UTIL:"#9CA3AF"
+};
+const CATEGORY_ICONS = {
+  CRYSTAL:"end_crystal.png", SWORD:"sword.png", MACE:"mace.png",
+  MOVEMENT:"movement.png", PLAYER:"player.png", RENDER:"spyglass.png",
+  WORLD:"world.png", DONUT:"donut.png", UTIL:"steak.png"
+};
+
+const state = {
+  cat: "CRYSTAL",
+  selected: "Crystal Aura",
+  query: "",
+  layout: "CLICK_GUI",
+  advancedOpen: false
+};
+
+const $ = id => document.getElementById(id);
+
+/* Embed support: ?embed=1&cat=SWORD&module=Trigger%20Bot&theme=flux&layout=DROPDOWN */
+const params = new URLSearchParams(location.search);
+if (params.has("cat") && CATEGORIES.includes(params.get("cat"))) {
+  state.cat = params.get("cat");
+}
+if (params.has("module") && MODULES.some(m => m.n === params.get("module"))) {
+  state.selected = params.get("module");
+  state.cat = MODULES.find(m => m.n === params.get("module")).c;
+}
+const initialTheme = params.get("theme");
+const initialLayout = params.get("layout");
+if (params.get("embed") === "1") {
+  document.body.classList.add("embed");
+  const fit = Math.min(
+    1,
+    (window.innerWidth - 24) / 980,
+    (window.innerHeight - 24) / 600
+  );
+  document.documentElement.style.setProperty("--scale", Math.max(0.4, fit).toFixed(3));
+  const scaleInput = $("scale");
+  if (scaleInput) scaleInput.value = Math.max(0.75, Math.min(1.25, fit));
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+function visibleModules() {
+  const q = state.query.trim().toLowerCase();
+  if (q) return MODULES.filter(m => m.n.toLowerCase().includes(q) || m.d.toLowerCase().includes(q));
+  return MODULES.filter(m => m.c === state.cat);
+}
+function totalOn() { return MODULES.filter(m => m.on).length; }
+
+function renderSidebar() {
+  $("sidebar").innerHTML = CATEGORIES.map(c => {
+    const count = MODULES.filter(m => m.c === c).length;
+    const on = MODULES.filter(m => m.c === c && m.on).length;
+    const icon = CATEGORY_ICONS[c]
+      ? `<img class="cat-icon" src="mockups/icons/${CATEGORY_ICONS[c]}" alt="">`
+      : `<span class="cat-letter">${c[0]}</span>`;
+    return `<div class="cat ${c === state.cat && !state.query ? "active" : ""}" data-cat="${c}">
+      ${icon}<span>${c[0] + c.slice(1).toLowerCase()}</span><span class="count">${on}/${count}</span>
+    </div>`;
+  }).join("");
+  $("sidebar").querySelectorAll(".cat").forEach(el => el.addEventListener("click", () => {
+    state.cat = el.dataset.cat; state.query = ""; $("search").value = ""; renderAll();
+  }));
+}
+
+function renderList() {
+  const list = visibleModules();
+  const searching = !!state.query.trim();
+  $("heading").textContent = searching ? "Search Results" : state.cat[0] + state.cat.slice(1).toLowerCase() + " Modules";
+  $("listCount").textContent = list.length + " modules  |  " + list.filter(m => m.on).length + " on";
+  if (!list.length) { $("moduleList").innerHTML = `<div class="empty">No modules found</div>`; return; }
+  $("moduleList").innerHTML = list.map(m => `
+    <div class="row ${m.on ? "on" : ""} ${m.n === state.selected ? "selected" : ""}" style="--cat:${CATEGORY_COLORS[m.c]}" data-name="${esc(m.n)}" title="${esc(m.d)}">
+      <div class="stripe"></div><div class="name">${esc(m.n)}</div>
+      <div class="chev" data-settings="${esc(m.n)}">${m.n === state.selected ? "‹" : "›"}</div>
+      <div class="pill" data-toggle="${esc(m.n)}"></div>
+    </div>`).join("");
+  $("moduleList").querySelectorAll(".row").forEach(el => el.addEventListener("click", e => {
+    const name = el.dataset.name;
+    const m = MODULES.find(x => x.n === name);
+    if (e.target.closest("[data-toggle]")) {
+      m.on = !m.on; renderAll(); return;
+    }
+    if (e.target.closest("[data-settings]") || e.detail >= 2) {
+      state.selected = name; state.advancedOpen = false; renderList(); renderSettings(); return;
+    }
+    // Single row click toggles, matching the in-game menu.
+    m.on = !m.on; renderAll();
+  }));
+}
+
+function renderSettings() {
+  const m = MODULES.find(x => x.n === state.selected) || MODULES[0];
+  $("setTitle").textContent = m.n;
+  $("setStatus").textContent = m.on ? "ENABLED" : "DISABLED";
+  $("setStatus").className = "status" + (m.on ? " on" : "");
+  $("setDesc").textContent = m.d;
+  const normal = m.s.filter(s => !s.adv), advanced = m.s.filter(s => s.adv);
+  const settingHTML = s => {
+    if (s.t === "bool") return `<div class="setting" title="${esc(s.n)}">
+      <span class="label">${esc(s.n)}</span><span class="toggle ${s.v ? "on" : ""}" data-set="${esc(s.n)}"></span></div>`;
+    if (s.t === "mode") return `<div class="setting"><span class="label">${esc(s.n)}</span>
+      <span class="value">‹ ${esc(s.v)} ›</span></div>`;
+    const pct = Math.max(0, Math.min(100, (s.v - s.min) / (s.max - s.min) * 100));
+    return `<div class="setting" title="${esc(s.n)}: ${s.v}">
+      <span class="label">${esc(s.n)}</span><span class="value">${s.v}</span>
+      <span class="track"><i style="width:${pct}%"></i></span></div>`;
+  };
+  let html = normal.map(settingHTML).join("");
+  if (advanced.length) {
+    html += `<div class="advanced-head ${state.advancedOpen ? "open" : ""}" id="advHead">ADVANCED</div>`;
+    if (state.advancedOpen) html += advanced.map(settingHTML).join("");
+  }
+  $("settingsList").innerHTML = html;
+  $("settingsList").querySelectorAll(".toggle").forEach(el => el.addEventListener("click", e => {
+    e.stopPropagation();
+    const s = m.s.find(x => x.n === el.dataset.set); s.v = !s.v; renderSettings();
+  }));
+  const adv = $("advHead");
+  if (adv) adv.addEventListener("click", () => { state.advancedOpen = !state.advancedOpen; renderSettings(); });
+}
+
+function renderCounts() {
+  $("activeCount").textContent = totalOn() + " active";
+  $("enabledCount").textContent = totalOn() + " enabled";
+}
+
+function renderAll() { renderCounts(); renderSidebar(); renderList(); renderSettings(); }
+
+/* ---- demo controls ---- */
+document.querySelectorAll("[data-theme]").forEach(btn => btn.addEventListener("click", () => {
+  document.documentElement.dataset.theme = btn.dataset.theme;
+  $("themeChip").textContent = btn.textContent.toUpperCase() + "  >";
+  document.querySelectorAll("[data-theme]").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}));
+document.querySelectorAll("[data-layout]").forEach(btn => btn.addEventListener("click", () => {
+  state.layout = btn.dataset.layout;
+  document.querySelectorAll("[data-layout]").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  $("layoutChip").textContent = state.layout === "DROPDOWN" ? "DROPDOWN  >" : "CLICK GUI  >";
+}));
+$("themeChip").addEventListener("click", () => {
+  const buttons = [...document.querySelectorAll("[data-theme]")];
+  const active = buttons.findIndex(b => b.classList.contains("active"));
+  buttons[(active + 1) % buttons.length].click();
+});
+$("layoutChip").addEventListener("click", () => {
+  const target = state.layout === "DROPDOWN" ? "CLICK_GUI" : "DROPDOWN";
+  document.querySelector(`[data-layout="${target}"]`).click();
+});
+$("search").addEventListener("input", e => { state.query = e.target.value; renderSidebar(); renderList(); });
+$("scale").addEventListener("input", e => {
+  const v = parseFloat(e.target.value);
+  document.documentElement.style.setProperty("--scale", v);
+  $("scaleVal").textContent = v.toFixed(2) + "x";
+});
+$("infoBtn").addEventListener("click", () => {
+  $("setTitle").textContent = "Flux 2.0 Menu";
+  $("setStatus").textContent = "INFO"; $("setStatus").className = "status on";
+  $("setDesc").textContent = "UtilMod's shared three-column menu shell. Right Shift opens it in game; Menu Theme switches palette, layout and scale.";
+  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">37</span></div>
+    <div class="setting"><span class="label">Layout</span><span class="value">${state.layout === "DROPDOWN" ? "DROPDOWN" : "CLICK GUI"}</span></div>
+    <div class="setting"><span class="label">Theme</span><span class="value">${document.documentElement.dataset.theme.toUpperCase()}</span></div>
+    <div class="setting"><span class="label">Menu key</span><span class="value">RIGHT SHIFT</span></div>`;
+});
+$("closeBtn").addEventListener("click", () => { $("window").classList.add("closed"); $("closedNote").classList.add("show"); });
+$("reopenBtn").addEventListener("click", () => { $("window").classList.remove("closed"); $("closedNote").classList.remove("show"); });
+$("setClose").addEventListener("click", () => { state.selected = ""; $("setTitle").textContent = "No module selected"; $("setDesc").textContent = "Click a module on the left to inspect its settings."; $("setStatus").textContent = "—"; $("setStatus").className = "status"; $("settingsList").innerHTML = ""; renderList(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !$("window").classList.contains("closed")) { $("closeBtn").click(); }
+  if (e.key === "F5") { e.preventDefault(); renderAll(); }
+});
+
+renderAll();
+</script>
+</body>
+</html>

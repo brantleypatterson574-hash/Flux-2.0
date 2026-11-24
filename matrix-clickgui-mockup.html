@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UtilMod — Matrix-style ClickGUI mockup</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background:
+      radial-gradient(circle at 30% 20%, #2a3b2c 0%, transparent 45%),
+      radial-gradient(circle at 75% 80%, #1d2b33 0%, transparent 45%),
+      linear-gradient(#0d110d, #090b09);
+    color: #ECECF0;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(7px);
+    background: rgba(0,0,0,.25);
+  }
+
+  .window {
+    position: relative;
+    width: 920px;
+    height: 560px;
+    background: #141417;
+    border: 1px solid #2C2C33;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.65), 0 4px 14px rgba(0,0,0,.5);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 38px 1fr;
+  }
+
+  /* Title bar */
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: #101013;
+    border-bottom: 2px solid #FF3B3B;
+    font-size: 12px;
+  }
+  .brand { color: #FF3B3B; font-weight: 800; letter-spacing: 1.5px; font-size: 14px; }
+  .sub { color: #8B8B95; font-size: 11px; }
+  .search {
+    margin-left: auto;
+    width: 200px;
+    height: 22px;
+    border: 1px solid #34343C;
+    border-radius: 5px;
+    background: #0E0E11;
+    color: #8B8B95;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+  .search.hot { border-color: #FF3B3B; color: #ECECF0; }
+  .title a { color: #8B8B95; text-decoration: none; font-size: 11px; }
+  .title a:hover { color: #FF3B3B; }
+  .close { color: #8B8B95; font-weight: 700; }
+  .close:hover { color: #FF3B3B; }
+
+  /* Body columns */
+  .body { display: grid; grid-template-columns: 132px 1fr 224px; min-height: 0; }
+
+  .rail {
+    border-right: 1px solid #2C2C33;
+    background: #121215;
+    padding: 5px;
+  }
+  .rail-inner {
+    background: #17171B;
+    border-radius: 7px;
+    height: 100%;
+    padding: 4px 0;
+  }
+  .cat {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    color: #8B8B95;
+    font-size: 11px;
+    letter-spacing: .6px;
+    font-weight: 600;
+    position: relative;
+  }
+  .cat.active { color: #FF3B3B; }
+  .cat.active::before {
+    content: "";
+    position: absolute;
+    left: 5px; right: 5px;
+    height: 26px;
+    background: #25252B;
+    border-radius: 5px;
+    z-index: -1;
+  }
+  .cat.active::after {
+    content: "";
+    position: absolute;
+    left: 1px; top: 3px; bottom: 3px;
+    width: 2px;
+    background: #FF3B3B;
+    border-radius: 2px;
+  }
+
+  .list { padding: 8px; overflow: hidden; position: relative; }
+  .row {
+    height: 22px;
+    border-radius: 6px;
+    background: #1A1A1E;
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    position: relative;
+  }
+  .row.on { background: rgba(42,20,23,.55); }
+  .row.hot { background: #25252B; }
+  .row::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    border-radius: 6px 0 0 6px;
+    background: #8B8B95;
+  }
+  .row.on::before, .row.sel::before { background: #FF3B3B; }
+  .row.sel { background: #2A1417; }
+  .row .name { color: #8B8B95; }
+  .row.on .name { color: #ECECF0; }
+  .chev { margin-left: auto; margin-right: 12px; color: #8B8B95; font-size: 14px; line-height: 1; }
+  .pill {
+    width: 26px; height: 12px;
+    border-radius: 6px;
+    background: #383840;
+    position: relative;
+  }
+  .pill.on { background: #FF3B3B; }
+  .knob {
+    position: absolute; top: 1px; left: 1px;
+    width: 10px; height: 10px;
+    border-radius: 5px;
+    background: #8B8B95;
+  }
+  .pill.on .knob { left: 15px; background: #fff; }
+  .scrollbar {
+    position: absolute; right: 3px; top: 8px; bottom: 8px; width: 3px;
+    background: #0D0D10; border-radius: 2px;
+  }
+  .thumb { position: absolute; top: 10px; left: 0; right: 0; height: 150px; background: #FF3B3B; border-radius: 2px; }
+
+  .settings {
+    border-left: 1px solid #2C2C33;
+    padding: 5px 5px 5px 4px;
+    overflow: hidden;
+  }
+  .settings-inner {
+    background: #17171B;
+    border-radius: 7px;
+    height: 100%;
+    padding: 8px;
+  }
+  .s-head {
+    height: 26px;
+    border-radius: 5px;
+    background: #1A1A1F;
+    border-left: 3px solid #FF3B3B;
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    font-size: 11px;
+    color: #FF3B3B;
+    font-weight: 700;
+  }
+  .s-head .x { margin-left: auto; color: #8B8B95; }
+  .s-row {
+    height: 20px;
+    border-radius: 4px;
+    background: #17171B;
+    margin-top: 3px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    color: #ECECF0;
+  }
+  .s-row .val { margin-left: auto; color: #FF3B3B; }
+  .s-row .off { color: #8B8B95; }
+  .s-row .toggle {
+    margin-left: auto; width: 26px; height: 12px; border-radius: 6px;
+    background: #FF3B3B; position: relative; font-size: 8px; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .s-row .toggle.no { background: #383840; color: #8B8B95; }
+  .slider { height: 3px; background: #383840; border-radius: 2px; margin-top: 4px; position: relative; }
+  .slider > i { display: block; height: 3px; background: #FF3B3B; border-radius: 2px; }
+  .num { height: 23px; }
+  .num .track { position: absolute; left: 6px; right: 6px; bottom: 3px; height: 3px; background: #383840; border-radius: 2px; }
+  .num .track i { display: block; height: 3px; background: #FF3B3B; border-radius: 2px; }
+  .s-row.num { position: relative; align-items: flex-start; padding-top: 1px; }
+
+  .caption {
+    position: absolute;
+    bottom: -34px;
+    width: 100%;
+    text-align: center;
+    color: #8B8B95;
+    font-size: 11px;
+    letter-spacing: .4px;
+  }
+</style>
+</head>
+<body>
+  <div class="window">
+    <div class="title">
+      <span class="brand">MATRIX</span>
+      <span class="sub">UtilMod&nbsp; v1.9.0</span>
+      <div class="search hot">Search modules...<span style="margin-left:auto">|</span></div>
+      <a href="#">Credits</a>
+      <span class="close">x</span>
+    </div>
+
+    <div class="body">
+      <div class="rail">
+        <div class="rail-inner">
+          <div class="cat active">COMBAT</div>
+          <div class="cat">CRYSTAL</div>
+          <div class="cat">MOVEMENT</div>
+          <div class="cat">PLAYER</div>
+          <div class="cat">UTILITY</div>
+          <div class="cat">RENDER</div>
+          <div class="cat">HUD</div>
+        </div>
+      </div>
+
+      <div class="list">
+        <div class="row on sel"><span class="name">AimAssist</span><span class="chev">&lt;</span><span class="pill on"><span class="knob"></span></span></div>
+        <div class="row on"><span class="name">AutoClicker</span><span class="chev">&gt;</span><span class="pill on"><span class="knob"></span></span></div>
+        <div class="row"><span class="name">Aura</span><span class="chev">&gt;</span><span class="pill"><span class="knob"></span></span></div>
+        <div class="row on"><span class="name">AutoCrit</span><span class="chev">&gt;</span><span class="pill on"><span class="knob"></span></span></div>
+        <div class="row"><span class="name">Criticals</span><span class="chev">&gt;</span><span class="pill"><span class="knob"></span></span></div>
+        <div class="row"><span class="name">Reach</span><span class="chev">&gt;</span><span class="pill"><span class="knob"></span></span></div>
+        <div class="row"><span class="name">SilentAim</span><span class="chev">&gt;</span><span class="pill"><span class="knob"></span></span></div>
+        <div class="row"><span class="name">TriggerBot</span><span class="chev">&gt;</span><span class="pill"><span class="knob"></span></span></div>
+        <div class="scrollbar"><div class="thumb"></div></div>
+      </div>
+
+      <div class="settings">
+        <div class="settings-inner">
+          <div class="s-head">AimAssist<span class="x">x</span></div>
+          <div class="s-row num">Range: 6.0<div class="track"><i style="width:32%"></i></div></div>
+          <div class="s-row num">CPS: 20.0<div class="track"><i style="width:33%"></i></div></div>
+          <div class="s-row">Smoothing<span class="val">0.25</span></div>
+          <div class="s-row">Players<span class="toggle">ON</span></div>
+          <div class="s-row">Mobs<span class="toggle">ON</span></div>
+          <div class="s-row">Target Bone<span class="val">Torso</span></div>
+          <div class="s-row">Only Attacking<span class="toggle no">OFF</span></div>
+          <div class="s-row">Keybind<span class="val off">L CONTROL</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="caption">Concept mockup of the Matrix-style ClickGUI — dark graphite, crimson accent, rounded edges, category rail + module list + settings panel.</div>
+  </div>
+</body>
+</html>
