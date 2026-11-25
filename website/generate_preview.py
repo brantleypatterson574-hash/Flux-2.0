@@ -281,6 +281,11 @@ def replace_section(text: str, begin: str, end: str, content: str, legacy: re.Pa
 
 def sync_static_text(text: str, themes: list[dict], categories: list[dict], modules: list[dict]) -> str:
     replacements = [
+        # Older shells were saved once through a cp1252 console, which left
+        # mojibake in the two Advanced-arrow glyphs. Normalise them so the
+        # preview never shows code-like fragments instead of triangles.
+        ('\u00e2\u2013\u00b8', '\u25b8'),
+        ('\u00e2\u2013\u00be', '\u25be'),
         ('<div class="logo">U</div>', '<div class="logo">O</div>'),
         ('<div class="brand">UTILMOD</div>', '<div class="brand">ONYX CLIENT</div>'),
         ('<div class="name">UTILMOD</div>', '<div class="name">ONYX CLIENT</div>'),
