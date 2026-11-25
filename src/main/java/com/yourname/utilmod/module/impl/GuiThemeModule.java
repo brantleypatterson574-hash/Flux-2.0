@@ -17,6 +17,10 @@ import com.yourname.utilmod.util.ConfigStore;
 public class GuiThemeModule extends Module {
     public static GuiThemeModule INSTANCE;
 
+    /** Shared by both menu layouts and the preview so the slider never lies. */
+    public static final float MIN_GUI_SCALE = 0.5f;
+    public static final float MAX_GUI_SCALE = 2.0f;
+
     /** Mockup toolbar order; appended SL_* themes still use enum order as a fallback. */
     private static final GuiTheme[] THEME_CYCLE = {
         GuiTheme.PINK, GuiTheme.PRESTIGE, GuiTheme.MATRIX, GuiTheme.UTILMOD,
@@ -41,8 +45,8 @@ public class GuiThemeModule extends Module {
     private final EnumSetting<MenuLayout> menuLayout =
         new EnumSetting<>("Menu Layout", MenuLayout.class, MenuLayout.DROPDOWN)
             .description("Choose the dropdown flyouts or the full ClickGUI window.");
-    private final NumberSetting guiScale = new NumberSetting("Menu Scale", 1.0, 0.5, 1.0)
-        .description("Menu size on screen. Lower values make both menu layouts smaller; 1.0 is full size.");
+    private final NumberSetting guiScale = new NumberSetting("Menu Scale", 1.0, MIN_GUI_SCALE, MAX_GUI_SCALE)
+        .description("Menu size on screen. Below 1.0 shrinks both layouts; above 1.0 enlarges the dropdown shell. 1.0 is default size.");
     private final NumberSetting fontSize = new NumberSetting("Font Size", 1.0, 0.85, 1.25)
         .description("Scales the default Minecraft menu text between the supported label sizes.");
     private final NumberSetting sidebarWidth = new NumberSetting("Sidebar Width", 196.0, 160.0, 260.0)
@@ -129,7 +133,7 @@ public class GuiThemeModule extends Module {
      * and icons are never resampled.
      */
     public float guiScale() {
-        return (float) Math.max(0.5f, Math.min(1.0f, guiScale.getValue()));
+        return (float) Math.max(MIN_GUI_SCALE, Math.min(MAX_GUI_SCALE, guiScale.getValue()));
     }
 
     /** Typography multiplier applied on top of the polished menu font baseline. */

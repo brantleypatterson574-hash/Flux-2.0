@@ -102,7 +102,7 @@ public class DropdownMenuScreen extends Screen {
 
     private int r(int value) { return rounded() ? value : 0; }
 
-    private enum Kind { HEADER, MODULE, BOOL, SLIDER, ENUM_OPTION, ENUM_CYCLE, KEYBIND, CHECKLIST, STRING, ADVANCED, THEME, SEARCH, LAYOUT }
+    private enum Kind { HEADER, MODULE, BOOL, SLIDER, ENUM_OPTION, ENUM_CYCLE, KEYBIND, CHECKLIST, STRING, ADVANCED, THEME, SEARCH, LAYOUT, PROFILE }
 
     /** Clickable region recorded while drawing, so hit testing always matches what is on screen. */
     private record Hit(int x, int y, int w, int h, Kind kind, Category category,
@@ -170,12 +170,14 @@ public class DropdownMenuScreen extends Screen {
     /**
      * Dropdown uses the native crisp scale as its base, then applies Menu Scale
      * on top. Lower values enlarge the virtual viewport while panel sizes stay
-     * fixed, so the whole dropdown visibly shrinks instead of staying identical.
+     * fixed, so the dropdown shrinks; values above 1.0 enlarge the shell until
+     * the ten panels are clamped to the available width.
      */
     private float guiScale() {
         GuiThemeModule module = themeModule();
         float userScale = module == null ? 1.0f
-            : Math.max(0.5f, Math.min(1.0f, module.guiScale()));
+            : Math.max(GuiThemeModule.MIN_GUI_SCALE,
+                Math.min(GuiThemeModule.MAX_GUI_SCALE, module.guiScale()));
         return Math.max(0.01f, SlGuiPaint.nativeScale() * userScale);
     }
 
@@ -195,7 +197,9 @@ public class DropdownMenuScreen extends Screen {
     private int panelWidth() {
         int n = categories.length;
         int available = vw() - 16 - (n - 1) * panelGap();
-        return Math.max(96, Math.min(PANEL_W, available / n));
+        // Above 1.0 the virtual viewport shrinks, so allow narrower panels
+        // instead of pushing the last categories off screen.
+        return Math.max(56, Math.min(PANEL_W, available / n));
     }
 
     private int panelHeight() {
@@ -288,13 +292,18 @@ public class DropdownMenuScreen extends Screen {
         context.getMatrices().popMatrix();
     }
 
-    /** Compact search field; filtering applies to the module rows in every panel. */
+    /** Compact search field and the confirm-first link to the Onyx profile. */
     private void drawSearch(DrawContext context, int mx, int my) {
-        int w = Math.min(460, vw() - 32);
         int h = 30;
-        int x = (vw() - w) / 2;
         int y = 9;
+        int profileW = 98;
+        int gap = 8;
+        int w = Math.min(460, Math.max(120, vw() - 32 - profileW - gap));
+        int total = w + gap + profileW;
+        int x = (vw() - total) / 2;
+        int profileX = x + w + gap;
         GuiTheme theme = theme();
+
         boolean hovered = hover(mx, my, x, y, w, h);
         SlGuiPaint.field(context, x, y, w, h, theme, accent(), editingSearch, hovered, 14);
         String shown = editingSearch ? searchText
@@ -307,6 +316,13 @@ public class DropdownMenuScreen extends Screen {
             context.fill(caretX, y + 7, caretX + 1, y + h - 7, accent());
         }
         hits.add(new Hit(x, y, w, h, Kind.SEARCH, null, null, null, null, 0, 0));
+
+        boolean profileHover = hover(mx, my, profileX, y, profileW, h);
+        fillRounded(context, profileX, y, profileX + profileW, y + h,
+            argb(accent(), profileHover ? 0.34f : 0.18f), r(10));
+        SlGuiPaint.textMid(context, textRenderer, "Profile", profileX + profileW / 2,
+            y + h / 2, profileHover ? theme.text : theme.textSecondary, 11.0f);
+        hits.add(new Hit(profileX, y, profileW, h, Kind.PROFILE, null, null, null, null, 0, 0));
     }
 
     /** The swatch row is driven by GuiThemeModule, so both menus share one theme choice. */
@@ -730,6 +746,9 @@ public class DropdownMenuScreen extends Screen {
                         editingSearch = true;
                         searchText = search;
                     }
+                }
+                case PROFILE -> {
+                    if (left) MenuLinks.openProfile(this);
                 }
                 case ADVANCED -> {
                     if (left && !advancedOpen.remove(hit.module())) advancedOpen.add(hit.module());

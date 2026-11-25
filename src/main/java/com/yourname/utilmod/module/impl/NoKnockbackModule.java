@@ -30,7 +30,7 @@ public class NoKnockbackModule extends Module {
     private double lastVertical = -1.0;
 
     public NoKnockbackModule() {
-        super("Velocity", "Controls knockback and liquid push. Requires this jar on your private server.", Category.MOVEMENT);
+        super("Velocity", "Controls knockback and liquid push. Requires matching server-side support for the changed values.", Category.MOVEMENT);
         addSetting(horizontal);
         addSetting(vertical);
         addSetting(noSinking);

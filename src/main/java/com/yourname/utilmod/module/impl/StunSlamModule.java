@@ -54,7 +54,7 @@ public class StunSlamModule extends Module {
 
     public StunSlamModule() {
         super("Stun Slam",
-            "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only.",
+            "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land.",
             Category.MACE);
         addSetting(range);
         addSetting(viewAngle);

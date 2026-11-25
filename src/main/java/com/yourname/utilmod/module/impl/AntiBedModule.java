@@ -49,7 +49,7 @@ public class AntiBedModule extends Module implements HudOverlay {
     private int originalSlot = -1;
 
     public AntiBedModule() {
-        super("Anti Bed", "Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only.",
+        super("Anti Bed", "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server.",
             Category.CRYSTAL);
         addSetting(range);
         addSetting(warnOnly);

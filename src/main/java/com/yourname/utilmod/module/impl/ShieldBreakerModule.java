@@ -42,8 +42,8 @@ public class ShieldBreakerModule extends Module {
         .description("Turn toward the target for the stun hit, then restore your original view.");
     private final BooleanSetting swing = new BooleanSetting("Swing", true)
         .description("Swing your hand when the axe stun lands.");
-    private final BooleanSetting privateServerNote = new BooleanSetting("Private Server Note", false)
-        .description("Informational only: block/inventory changes need this jar on your private server if applicable. Ticking this box does not change behaviour.");
+    private final BooleanSetting privateServerNote = new BooleanSetting("Server Validation Note", false)
+        .description("Informational only: block/inventory changes are validated by the server. Ticking this box does not change behaviour.");
 
     private int originalSlot = -1;
     private int swapBackTicks;
@@ -51,7 +51,7 @@ public class ShieldBreakerModule extends Module {
 
     public ShieldBreakerModule() {
         super("Shield Breaker",
-            "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island.",
+            "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block and inventory changes are validated by the server. Shields are not voted off the island.",
             Category.SWORD);
         addSetting(range);
         addSetting(viewAngle);

@@ -18,8 +18,8 @@ import net.minecraft.client.network.ClientPlayerEntity;
  * the block value only affects client-side block/entity interactions.</p>
  */
 public class ReachModule extends Module {
-    private final NumberSetting extraBlockReach = new NumberSetting("Extra Block Reach", 0.0, 0.0, 1.0).description("Extra distance for block interactions. A private server needs this mod to accept the longer reach.");
-    private final NumberSetting extraEntityReach = new NumberSetting("Extra Entity Reach", 0.0, 0.0, 1.0).description("Extra distance for entity interactions. A private server needs this mod to accept the longer reach.");
+    private final NumberSetting extraBlockReach = new NumberSetting("Extra Block Reach", 0.0, 0.0, 1.0).description("Extra distance for block interactions. A server running this mod can accept the longer reach.");
+    private final NumberSetting extraEntityReach = new NumberSetting("Extra Entity Reach", 0.0, 0.0, 1.0).description("Extra distance for entity interactions. A server running this mod can accept the longer reach.");
 
     private ClientPlayerEntity lastPlayer;
     private double lastBlock = -1.0;
@@ -30,7 +30,7 @@ public class ReachModule extends Module {
 
     public ReachModule() {
         super("Reach",
-            "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server.",
+            "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach depends on what the server accepts.",
             Category.PLAYER);
         addSetting(extraBlockReach);
         addSetting(extraEntityReach);

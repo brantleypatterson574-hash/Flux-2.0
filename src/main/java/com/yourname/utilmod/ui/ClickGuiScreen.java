@@ -155,6 +155,7 @@ public class ClickGuiScreen extends Screen {
 
     private final int[] searchBox = new int[4];
     private final int[] themeTagBox = new int[4];
+    private final int[] profileBox = new int[4];
     private final int[] closeBox = new int[4];
     private final int[] settingsCloseBox = new int[4];
 
@@ -423,6 +424,20 @@ public class ClickGuiScreen extends Screen {
             txt(context, textRenderer, activeText, ax + 23, y + mid - 4, textDim, 9.5f);
         }
 
+        int[] profile = profileBounds();
+        if (w >= 680) {
+            boolean profileHover = isHovered(mouseX, mouseY, profile);
+            fillRounded(context, profile[0], profile[1], profile[0] + profile[2],
+                profile[1] + profile[3], argb(accent, profileHover ? 0.32f : 0.16f), r(8));
+            txt(context, textRenderer, "Profile",
+                profile[0] + (profile[2] - tw(textRenderer, "Profile", 9.5f)) / 2,
+                profile[1] + 7, profileHover ? accentHi : textDim, 9.5f);
+        } else {
+            profile[0] = 0;
+            profile[1] = 0;
+            profile[2] = 0;
+            profile[3] = 0;
+        }
 
         boolean closeHover = isHovered(mouseX, mouseY, close);
         uiButton(context, close[0], close[1], close[2], close[3],
@@ -1090,6 +1105,10 @@ public class ClickGuiScreen extends Screen {
             }
             return true;
         }
+        if (profileBox[2] > 0 && isHovered(mouseX, mouseY, profileBox)) {
+            if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT) MenuLinks.openProfile(this);
+            return true;
+        }
         if (winW() >= 560 && isHovered(mouseX, mouseY, searchBounds())) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) search = "";
             else searchFocused = true;
@@ -1629,7 +1648,8 @@ public class ClickGuiScreen extends Screen {
     /** Menu Scale resizes the shell rather than resampling the whole GUI. */
     private float menuScale() {
         if (themeModule == null) return 1.0f;
-        return Math.max(0.5f, Math.min(1.0f, themeModule.guiScale()));
+        return Math.max(GuiThemeModule.MIN_GUI_SCALE,
+            Math.min(GuiThemeModule.MAX_GUI_SCALE, themeModule.guiScale()));
     }
 
     private int vw() {
@@ -1723,6 +1743,19 @@ public class ClickGuiScreen extends Screen {
         searchBox[2] = Math.max(0, contentWidth() - 32);
         searchBox[3] = 34;
         return searchBox;
+    }
+
+    /** Profile chip in the title bar, to the left of the active-module chip. */
+    private int[] profileBounds() {
+        int[] close = closeBounds();
+        int w = 82;
+        String active = cachedActiveLabel == null ? "" : cachedActiveLabel;
+        int activeW = tw(textRenderer, active, 9.5f) + 30;
+        profileBox[0] = close[0] - 14 - activeW - 10 - w;
+        profileBox[1] = windowY + (TITLE_HEIGHT - 24) / 2;
+        profileBox[2] = w;
+        profileBox[3] = 24;
+        return profileBox;
     }
 
     private int[] closeBounds() {

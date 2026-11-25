@@ -54,7 +54,7 @@ public class SurroundModule extends Module {
     private int originalSlot = -1;
 
     public SurroundModule() {
-        super("Surround", "Places obsidian or cobweb around you. Changes blocks - private server with the jar only.",
+        super("Surround", "Places obsidian or cobweb around you. Block changes are validated by the server.",
             Category.CRYSTAL);
         addSetting(blockChoice);
         addSetting(delay);

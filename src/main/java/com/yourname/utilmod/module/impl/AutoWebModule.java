@@ -56,7 +56,7 @@ public class AutoWebModule extends Module {
     private int originalSlot = -1;
 
     public AutoWebModule() {
-        super("Auto Web", "Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed.",
+        super("Auto Web", "Places cobweb around a nearby target. Block changes are validated by the server.",
             Category.SWORD);
         addSetting(range);
         addSetting(placeDelay);

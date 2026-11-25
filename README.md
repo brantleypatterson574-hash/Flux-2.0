@@ -42,7 +42,7 @@ Click the top-bar **THEME** chip to cycle palettes, or the **CLICK GUI / DROPDOW
 - **Dropdown** *(default)* — top bar, category tabs, module flyout, and settings flyout.
 - **ClickGUI** — the classic centered window with a category sidebar and settings panel.
 
-Both layouts share the same modules, themes, search, rounded enable pills, tooltips, and config files. **Menu Scale** now affects both shells: lower values shrink the whole dropdown/ClickGUI instead of leaving the dropdown unchanged. The dropdown layout caches tab measurements, flyout bounds, gradients, and category lists so opening or moving through menus stays smooth. Menu text uses Minecraft's default font, so resource-pack fonts apply without a separate Flux typeface.
+Both layouts share the same modules, themes, search, rounded enable pills, tooltips, and config files. **Menu Scale** ranges from **0.5 to 2.0** and affects both shells: lower values shrink the whole dropdown/ClickGUI, while values above 1.0 enlarge the dropdown shell until its ten panels are clamped to the available width. The dropdown layout caches tab measurements, flyout bounds, gradients, and category lists so opening or moving through menus stays smooth. Menu text uses Minecraft's default font, so resource-pack fonts apply without a separate Flux typeface. A **Profile** button in both menus opens `https://guns.lol/kitxxmod` through Minecraft's confirm-first link screen.
 
 Settings are saved automatically to `config/utilmod-settings.txt` in a human-readable tab-separated format. Checklist choices remain in `config/utilmod-selections.txt`. Old settings files are ignored safely if labels change.
 
@@ -162,16 +162,30 @@ Ten small joke/party modules are included. They are client-side and visual unles
 
 ### Crystal PvP
 
+Alongside the original crystal and macro helpers, thirteen clean-room modules follow public names and descriptions credited to **kitpvptot**. They use ordinary hotbar interactions and are validated by the server like any other click. No Meteor code or assets are included.
+
 - **Auto Crystal** — places and detonates end crystals around a target.
+- **Anchor Aura** — charges and lights respawn anchors near a target from the hotbar.
+- **Anti Anchor** — covers your head space when a nearby respawn anchor could hit you.
+- **Anti Anvil** — covers your head space when a falling anvil is overhead.
+- **Auto Anvil** — places anvils above a nearby target from the hotbar.
+- **Auto City** — attacks mineable blocks around a target's feet.
+- **Auto Trap** — builds an obsidian or cobblestone box around a nearby target.
+- **Bed Aura** — places and breaks beds near a target.
+- **Burrow** — places a block under your feet while falling.
+- **Hole Filler** — fills empty holes around a nearby target with hotbar blocks.
+- **Offhand** — keeps a chosen utility item in your offhand; turn off Auto Totem if both want the slot.
+- **Self Anvil** — places an anvil above your head as quick cover.
+- **Self Trap** — places blocks above and around your own head.
+- **Self Web** — places cobweb around your own feet when an enemy is close.
 - **Anchor Macro** — keybind macro that charges a respawn anchor then detonates a crystal.
 - **Safe Anchor** — warns and equips a totem when a respawn anchor can hurt you.
 - **Crystal Hit** — obsidian + crystal double-tap helper.
-- **Auto Trap** — boxes a nearby target in obsidian while a key is held.
 - **Trap Alert** — on-screen warning when enclosed by obsidian.
 - **Auto Obsidian** — auto-equips obsidian at low health or near anchors/crystals.
-- **Surround** — places obsidian or cobweb around you. Changes blocks — private server with the jar only.
-- **Anti Bed** — warns about nearby beds and can cover them with a block. Placement changes blocks — private server only.
-- **Auto Web** — places cobweb around a nearby target. Changes blocks — private server with the jar only.
+- **Surround** — places obsidian or cobweb around you. Block changes are validated by the server.
+- **Anti Bed** — warns about nearby beds and can cover them with a block. Placement changes are validated by the server.
+- **Auto Web** — places cobweb around a nearby target. Block changes are validated by the server.
 
 ### Movement
 

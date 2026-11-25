@@ -46,7 +46,7 @@ public class AutoGgModule extends Module {
     private final List<Pending> pending = new ArrayList<>();
 
     public AutoGgModule() {
-        super("Auto GG", "Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers.",
+        super("Auto GG", "Sends a friendly chat message after a nearby player dies. Chat is visible to everyone on the server.",
             Category.UTIL);
         INSTANCE = this;
         addSetting(message);

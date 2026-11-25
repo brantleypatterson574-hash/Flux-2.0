@@ -28,7 +28,7 @@ public class NoWebModule extends Module {
         .description("Ignore slowdown from any other block the game applies.");
 
     public NoWebModule() {
-        super("No Web", "Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion.", Category.MOVEMENT);
+        super("No Web", "Cancels the client-side slow from cobwebs and similar blocks. The server still decides your final speed; cobwebs are now a suggestion.", Category.MOVEMENT);
         INSTANCE = this;
         addSetting(webs);
         addSetting(powderSnow);

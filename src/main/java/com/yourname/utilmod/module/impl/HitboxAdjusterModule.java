@@ -28,7 +28,7 @@ public class HitboxAdjusterModule extends Module {
     // Non-neutral default so enabling the module has a visible effect straight
     // away instead of silently doing nothing until the slider is touched.
     private final NumberSetting multiplier = new NumberSetting("Size Multiplier", 5.0, 1.0, 20.0).description("How much wider the attack hitbox feels when aiming at entities.");
-    private final BooleanSetting syncToServer = new BooleanSetting("Sync To Server", true).description("Shares the wider hitbox with a private server running this mod; other servers keep their own rules.");
+    private final BooleanSetting syncToServer = new BooleanSetting("Sync To Server", true).description("Shares the wider hitbox with a server running this mod; other servers keep their own rules.");
 
     private ClientPlayerEntity lastPlayer;
     private double lastApplied = -1.0;
@@ -37,7 +37,7 @@ public class HitboxAdjusterModule extends Module {
 
     public HitboxAdjusterModule() {
         super("Hitbox Adjuster",
-            "Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.",
+            "Widens the attack hitbox so targets are easier to hit. Server-side checks decide what actually lands.",
             Category.UTIL);
         addSetting(multiplier);
         addSetting(syncToServer);

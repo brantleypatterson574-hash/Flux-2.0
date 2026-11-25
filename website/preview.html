@@ -1137,7 +1137,7 @@ body.embed .stage { margin: 12px auto 0; }
 </div>
 
 <div class="footer-hint">
-  Preview of the <b>Onyx Client ClickGUI</b> — 82 registered modules across 10 categories, 37 themes, original Onyx styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
+  Preview of the <b>Onyx Client ClickGUI</b> — 95 registered modules across 10 categories, 37 themes, original Onyx styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
 </div>
 
 <script>
@@ -1192,6 +1192,19 @@ const MODULES = [
     {t:"bool",n:"Require Crystal",v:true},
     {t:"num",n:"Min Target Health",v:1.0,min:1.0,max:20.0},
   ] },
+  { n: "Anchor Aura", c: "CRYSTAL", on: false, d: "Charges and lights respawn anchors near a target from your hotbar. All block and damage rules stay server side.", s:[] },
+  { n: "Anti Anchor", c: "CRYSTAL", on: false, d: "Covers your head space when a nearby respawn anchor could hit you.", s:[] },
+  { n: "Anti Anvil", c: "CRYSTAL", on: false, d: "Covers your head space when a falling anvil is overhead.", s:[] },
+  { n: "Auto Anvil", c: "CRYSTAL", on: false, d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server.", s:[] },
+  { n: "Auto City", c: "CRYSTAL", on: false, d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side.", s:[] },
+  { n: "Auto Trap", c: "CRYSTAL", on: false, d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar.", s:[] },
+  { n: "Bed Aura", c: "CRYSTAL", on: false, d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server.", s:[] },
+  { n: "Burrow", c: "CRYSTAL", on: false, d: "Places a block under your feet while falling. The server still decides whether the space can change.", s:[] },
+  { n: "Hole Filler", c: "CRYSTAL", on: false, d: "Fills empty holes around a nearby target with hotbar blocks.", s:[] },
+  { n: "Offhand", c: "CRYSTAL", on: false, d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot.", s:[] },
+  { n: "Self Anvil", c: "CRYSTAL", on: false, d: "Places an anvil above your head from the hotbar as quick cover.", s:[] },
+  { n: "Self Trap", c: "CRYSTAL", on: false, d: "Places blocks above and around your own head from the hotbar.", s:[] },
+  { n: "Self Web", c: "CRYSTAL", on: false, d: "Places cobweb around your own feet when an enemy is close.", s:[] },
   { n: "Kill Aura", c: "SWORD", on: false, d: "Attacks nearby players and mobs with any held item, with range and target filtering.", s:[
     {t:"bool",n:"Only On Cooldown",v:true},
   ] },
@@ -1237,7 +1250,7 @@ const MODULES = [
     {t:"bool",n:"Mobs",v:true},
     {t:"bool",n:"Swing Hand",v:true},
   ] },
-  { n: "Reach", c: "PLAYER", on: false, d: "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server.", s:[
+  { n: "Reach", c: "PLAYER", on: false, d: "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach depends on what the server accepts.", s:[
     {t:"num",n:"Extra Block Reach",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Extra Entity Reach",v:0.0,min:0.0,max:1.0},
   ] },
@@ -1336,7 +1349,7 @@ const MODULES = [
     {t:"bool",n:"Require Sprint",v:false},
     {t:"bool",n:"Avoid On Stairs",v:true},
   ] },
-  { n: "Velocity", c: "MOVEMENT", on: false, d: "Controls knockback and liquid push. Requires this jar on your private server.", s:[
+  { n: "Velocity", c: "MOVEMENT", on: false, d: "Controls knockback and liquid push. Requires matching server-side support for the changed values.", s:[
     {t:"num",n:"Horizontal Knockback",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Vertical Knockback",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"No Sinking",v:false},
@@ -1528,7 +1541,7 @@ const MODULES = [
   { n: "Menu Theme", c: "UTIL", on: true, d: "Change the ClickGUI palette, layout, scale and typography.", s:[
     {t:"mode",n:"Theme",v:"PINK"},
     {t:"mode",n:"Menu Layout",v:"DROPDOWN"},
-    {t:"num",n:"Menu Scale",v:1.0,min:0.5,max:1.0},
+    {t:"num",n:"Menu Scale",v:1.0,min:0.5,max:2.0},
     {t:"num",n:"Font Size",v:1.0,min:0.85,max:1.25},
     {t:"num",n:"Sidebar Width",v:196.0,min:160.0,max:260.0},
     {t:"num",n:"Category Spacing",v:52.0,min:36.0,max:80.0},
@@ -1547,7 +1560,7 @@ const MODULES = [
     {t:"bool",n:"Load",v:false},
     {t:"bool",n:"Apply When Enabled",v:true},
   ] },
-  { n: "Hitbox Adjuster", c: "UTIL", on: false, d: "Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
+  { n: "Hitbox Adjuster", c: "UTIL", on: false, d: "Widens the attack hitbox so targets are easier to hit. Server-side checks decide what actually lands.", s:[
     {t:"num",n:"Size Multiplier",v:5.0,min:1.0,max:20.0},
     {t:"bool",n:"Sync To Server",v:true},
   ] },
@@ -1726,7 +1739,7 @@ const MODULES = [
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
     {t:"bool",n:"Fill",v:true},
   ] },
-  { n: "Auto Web", c: "SWORD", on: false, d: "Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed.", s:[
+  { n: "Auto Web", c: "SWORD", on: false, d: "Places cobweb around a nearby target. Block changes are validated by the server.", s:[
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Place Delay",v:4.0,min:0.0,max:40.0},
     {t:"num",n:"Max Webs Per Tick",v:2.0,min:1.0,max:8.0},
@@ -1735,7 +1748,7 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
   ] },
-  { n: "Surround", c: "CRYSTAL", on: false, d: "Places obsidian or cobweb around you. Changes blocks - private server with the jar only.", s:[
+  { n: "Surround", c: "CRYSTAL", on: false, d: "Places obsidian or cobweb around you. Block changes are validated by the server.", s:[
     {t:"mode",n:"Block Choice",v:"OBSIDIAN"},
     {t:"num",n:"Delay",v:3.0,min:0.0,max:40.0},
     {t:"num",n:"Max Blocks Per Tick",v:2.0,min:1.0,max:9.0},
@@ -1743,7 +1756,7 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
   ] },
-  { n: "Anti Bed", c: "CRYSTAL", on: false, d: "Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only.", s:[
+  { n: "Anti Bed", c: "CRYSTAL", on: false, d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server.", s:[
     {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
     {t:"bool",n:"Warn Only",v:true},
     {t:"num",n:"Place Block Delay",v:6.0,min:1.0,max:40.0},
@@ -1757,7 +1770,7 @@ const MODULES = [
     {t:"bool",n:"Visible Only",v:true},
     {t:"bool",n:"Players Only",v:false},
   ] },
-  { n: "No Web", c: "MOVEMENT", on: false, d: "Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion.", s:[
+  { n: "No Web", c: "MOVEMENT", on: false, d: "Cancels the client-side slow from cobwebs and similar blocks. The server still decides your final speed; cobwebs are now a suggestion.", s:[
     {t:"bool",n:"Cobwebs",v:true},
     {t:"bool",n:"Powder Snow",v:true},
     {t:"bool",n:"Honey Blocks",v:true},
@@ -1780,7 +1793,7 @@ const MODULES = [
     {t:"num",n:"Wind Charge Pitch",v:90.0,min:-90.0,max:90.0},
     {t:"num",n:"Wind Charge Cooldown",v:20.0,min:2.0,max:120.0},
   ] },
-  { n: "Stun Slam", c: "MACE", on: false, d: "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only.", s:[
+  { n: "Stun Slam", c: "MACE", on: false, d: "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land.", s:[
     {t:"num",n:"Range",v:4.5,min:1.0,max:8.0},
     {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
     {t:"bool",n:"Only When Blocking",v:true},
@@ -1791,7 +1804,7 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
   ] },
-  { n: "Shield Breaker", c: "SWORD", on: false, d: "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island.", s:[
+  { n: "Shield Breaker", c: "SWORD", on: false, d: "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block and inventory changes are validated by the server. Shields are not voted off the island.", s:[
     {t:"num",n:"Range",v:4.5,min:1.0,max:12.0},
     {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
     {t:"num",n:"Shield Hit Delay",v:6.0,min:0.0,max:40.0},
@@ -1799,9 +1812,9 @@ const MODULES = [
     {t:"bool",n:"Only Players",v:true},
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
-    {t:"bool",n:"Private Server Note",v:false},
+    {t:"bool",n:"Server Validation Note",v:false},
   ] },
-  { n: "Auto GG", c: "UTIL", on: false, d: "Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers.", s:[
+  { n: "Auto GG", c: "UTIL", on: false, d: "Sends a friendly chat message after a nearby player dies. Chat is visible to everyone on the server.", s:[
     {t:"num",n:"Delay",v:400.0,min:0.0,max:3000.0},
     {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
     {t:"bool",n:"Only My Kills",v:true},
@@ -2051,7 +2064,7 @@ $("infoBtn").addEventListener("click", () => {
   $("setTitle").textContent = "Onyx Client Menu";
   $("setStatus").textContent = "INFO"; $("setStatus").className = "status on";
   $("setDesc").textContent = "Onyx Client's shared three-column menu shell. Right Shift opens it in game; Menu Theme switches palette, layout and scale.";
-  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">82</span></div>
+  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">95</span></div>
     <div class="setting"><span class="label">Themes available</span><span class="value">37</span></div>
     <div class="setting"><span class="label">Layout</span><span class="value">${state.layout === "DROPDOWN" ? "DROPDOWN" : "CLICK GUI"}</span></div>
     <div class="setting"><span class="label">Theme</span><span class="value">${document.documentElement.dataset.theme.toUpperCase()}</span></div>

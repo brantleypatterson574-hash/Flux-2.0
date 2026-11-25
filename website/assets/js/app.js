@@ -19,6 +19,32 @@ const MODULES = [
 
   { n: "Auto Crystal", c: "CRYSTAL", t: "Server validated", d: "Places and detonates end crystals around the nearest target. Server still validates every action." },
 
+  { n: "Anchor Aura", c: "CRYSTAL", t: "Server validated", d: "Charges and lights respawn anchors near a target from your hotbar. All block and damage rules stay server side." },
+
+  { n: "Anti Anchor", c: "CRYSTAL", t: "Server validated", d: "Covers your head space when a nearby respawn anchor could hit you." },
+
+  { n: "Anti Anvil", c: "CRYSTAL", t: "Server validated", d: "Covers your head space when a falling anvil is overhead." },
+
+  { n: "Auto Anvil", c: "CRYSTAL", t: "Server validated", d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server." },
+
+  { n: "Auto City", c: "CRYSTAL", t: "Server validated", d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side." },
+
+  { n: "Auto Trap", c: "CRYSTAL", t: "Server validated", d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar." },
+
+  { n: "Bed Aura", c: "CRYSTAL", t: "Server validated", d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server." },
+
+  { n: "Burrow", c: "CRYSTAL", t: "Server validated", d: "Places a block under your feet while falling. The server still decides whether the space can change." },
+
+  { n: "Hole Filler", c: "CRYSTAL", t: "Server validated", d: "Fills empty holes around a nearby target with hotbar blocks." },
+
+  { n: "Offhand", c: "CRYSTAL", t: "Server synced", d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot." },
+
+  { n: "Self Anvil", c: "CRYSTAL", t: "Server validated", d: "Places an anvil above your head from the hotbar as quick cover." },
+
+  { n: "Self Trap", c: "CRYSTAL", t: "Server validated", d: "Places blocks above and around your own head from the hotbar." },
+
+  { n: "Self Web", c: "CRYSTAL", t: "Server validated", d: "Places cobweb around your own feet when an enemy is close." },
+
   { n: "Kill Aura", c: "SWORD", t: "Client", d: "Attacks nearby players and mobs with any held item, with range and target filtering." },
 
   { n: "Sword Aura", c: "SWORD", t: "Client", d: "Attacks nearby targets only while a sword is held. Optional cooldown and critical-hit gates." },
@@ -33,7 +59,7 @@ const MODULES = [
 
   { n: "Combo Assister", c: "SWORD", t: "Client", d: "Locks onto a target and spaces attacks into a steady combo instead of rapid target flipping." },
 
-  { n: "Reach", c: "PLAYER", t: "Server synced", d: "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server." },
+  { n: "Reach", c: "PLAYER", t: "Server synced", d: "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach depends on what the server accepts." },
 
   { n: "Mace Swap", c: "MACE", t: "Client", d: "Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback." },
 
@@ -55,7 +81,7 @@ const MODULES = [
 
   { n: "Auto Jump", c: "MOVEMENT", t: "Client", d: "Jumps automatically while walking, for smooth obstacle traversal." },
 
-  { n: "Velocity", c: "MOVEMENT", t: "Server synced", d: "Controls knockback and liquid push. Requires this jar on your private server." },
+  { n: "Velocity", c: "MOVEMENT", t: "Server synced", d: "Controls knockback and liquid push. Requires matching server-side support for the changed values." },
 
   { n: "Fast Place", c: "PLAYER", t: "Client", d: "Repeats item use on a delay for faster block placement." },
 
@@ -99,7 +125,7 @@ const MODULES = [
 
   { n: "Config", c: "UTIL", t: "GUI", d: "Saves and restores module enabled states in five persistent slots." },
 
-  { n: "Hitbox Adjuster", c: "UTIL", t: "Server synced", d: "Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server." },
+  { n: "Hitbox Adjuster", c: "UTIL", t: "Server synced", d: "Widens the attack hitbox so targets are easier to hit. Server-side checks decide what actually lands." },
 
   { n: "Auto Obsidian", c: "UTIL", t: "Server validated", d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement." },
 
@@ -141,23 +167,23 @@ const MODULES = [
 
   { n: "Break Indicators", c: "RENDER", t: "Visual", d: "Outlines the block you are mining and colours it by break progress. A progress bar for your commitment issues." },
 
-  { n: "Auto Web", c: "SWORD", t: "Server validated", d: "Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed." },
+  { n: "Auto Web", c: "SWORD", t: "Server validated", d: "Places cobweb around a nearby target. Block changes are validated by the server." },
 
-  { n: "Surround", c: "CRYSTAL", t: "Server validated", d: "Places obsidian or cobweb around you. Changes blocks - private server with the jar only." },
+  { n: "Surround", c: "CRYSTAL", t: "Server validated", d: "Places obsidian or cobweb around you. Block changes are validated by the server." },
 
-  { n: "Anti Bed", c: "CRYSTAL", t: "Server validated", d: "Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only." },
+  { n: "Anti Bed", c: "CRYSTAL", t: "Server validated", d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server." },
 
   { n: "Bow Aimbot", c: "SWORD", t: "Client", d: "Turns your view towards a target while holding a bow or crossbow. Fires nothing. Your arrows still need your help." },
 
-  { n: "No Web", c: "MOVEMENT", t: "Client", d: "Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion." },
+  { n: "No Web", c: "MOVEMENT", t: "Client", d: "Cancels the client-side slow from cobwebs and similar blocks. The server still decides your final speed; cobwebs are now a suggestion." },
 
   { n: "Mace AI", c: "MACE", t: "Client", d: "Rule-based mace decisions: wind-charge setup, shield stun, Density smash, Breach hit or a plain follow-up. Stands down while Mace Swap is on. Server rules still decide what lands." },
 
-  { n: "Stun Slam", c: "MACE", t: "Client", d: "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only." },
+  { n: "Stun Slam", c: "MACE", t: "Client", d: "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land." },
 
-  { n: "Shield Breaker", c: "SWORD", t: "Server validated", d: "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island." },
+  { n: "Shield Breaker", c: "SWORD", t: "Server validated", d: "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block and inventory changes are validated by the server. Shields are not voted off the island." },
 
-  { n: "Auto GG", c: "UTIL", t: "Server validated", d: "Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers." },
+  { n: "Auto GG", c: "UTIL", t: "Server validated", d: "Sends a friendly chat message after a nearby player dies. Chat is visible to everyone on the server." },
 
   { n: "Toast Remover", c: "UTIL", t: "Client", d: "Clears Minecraft's vanilla pop-up toasts so advancement and recipe cards never block the view." },
 
