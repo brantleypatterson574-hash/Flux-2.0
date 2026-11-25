@@ -116,6 +116,21 @@ def item_icon(x, y, name, size=16):
     img.alpha_composite(icon, (sc(x), sc(y)))
 
 
+def chevron(x, y, color, direction="right", size=7):
+    """Draw a solid arrow as geometry; the semibold font has no triangle glyph."""
+    r, g, b, a = argb(color)
+    if direction == "down":
+        points = [(0, 0), (size, 0), (size / 2, size * 0.7)]
+    elif direction == "up":
+        points = [(size / 2, size * 0.3), (size, size), (0, size)]
+    else:
+        points = [(0, 0), (size * 0.7, size / 2), (0, size)]
+    layer = Image.new("RGBA", (sc(size) + 4, sc(size) + 4), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    d.polygon([((px + 1) * S, (py + 1) * S) for px, py in points], fill=(r, g, b, a))
+    img.alpha_composite(layer, (sc(x), sc(y)))
+
+
 def label(x, y, value, size, color, font=BODY_FONT, shadow=False, fit_w=None):
     f = ImageFont.truetype(font, max(1, sc(size)))
     if fit_w is not None and f.getlength(value) > fit_w * S:
@@ -227,14 +242,16 @@ def setting_row(y, sx, sw, setting):
     elif kind == "enum":
         bx = x2 - 116
         ui_button(bx, y + 11, 108, 24, False, 12)
-        label(bx + 9, y + 17, setting["value"], 10.0, TEXT, fit_w=84)
-        label(bx + 90, y + 17, "v", 11.0, ACCENT)
+        label(bx + 9, y + 17, setting["value"], 10.0, TEXT, fit_w=76)
+        chevron(bx + 92, y + 16, ACCENT, "down", 7)
     elif kind == "checklist":
-        value = setting["value"] + "  >"
-        pw = text_width(value, 10.0) + 20
+        value = setting["value"]
+        value_w = text_width(value, 10.0)
+        pw = value_w + 34
         bx = x2 - 8 - pw
         rect(bx, y + 11, x2 - 8, y + 35, alpha_mul(ACCENT, 0.16), 12)
         label(bx + 10, y + 17, value, 10.0, ACCENT)
+        chevron(bx + 12 + value_w, y + 18, ACCENT, "right", 7)
 
 
 def advanced_header(y, sx, sw, expanded):
@@ -243,9 +260,11 @@ def advanced_header(y, sx, sw, expanded):
     rect(sx, y, x2, y + SETTING_ROW_HEIGHT, CARD_BG, 8)
     rect(sx + 1, y + 8, sx + 4, y + SETTING_ROW_HEIGHT - 8, alpha_mul(ACCENT, 0.88), 2)
     label(sx + 12, y + 15, "Advanced", 11.5, title_color(TEXT), TITLE_FONT, shadow=False)
-    hint = "HIDE  ^" if expanded else "PLACEMENT  v"
-    label(x2 - 10 - text_width(hint, 11.0), y + 17, hint, 11.0,
-          ACCENT if expanded else TEXT_DIM)
+    hint = "HIDE" if expanded else "PLACEMENT"
+    hint_w = text_width(hint, 11.0)
+    color = ACCENT if expanded else TEXT_DIM
+    label(x2 - 10 - hint_w - 13, y + 17, hint, 11.0, color)
+    chevron(x2 - 10 - 7, y + 18, color, "up" if expanded else "down", 7)
 
 
 def render(path, category_index, modules, selected_index, settings, enabled_rows,
@@ -274,9 +293,11 @@ def render(path, category_index, modules, selected_index, settings, enabled_rows
 
     # Top-bar chips match the in-game theme/layout controls.
     rect(wx + 164, wy + 15, wx + 276, wy + 37, alpha_mul(ACCENT, 0.16), 10)
-    label(wx + 172, wy + 21, "CLICK GUI  >", 8.5, ACCENT)
+    label(wx + 172, wy + 21, "CLICK GUI", 8.5, ACCENT)
+    chevron(wx + 172 + text_width("CLICK GUI", 8.5) + 7, wy + 22, ACCENT, "right", 6)
     rect(wx + 284, wy + 15, wx + 386, wy + 37, alpha_mul(ACCENT, 0.12), 10)
-    label(wx + 292, wy + 21, "PRESTIGE  >", 8.5, ACCENT)
+    label(wx + 292, wy + 21, "PRESTIGE", 8.5, ACCENT)
+    chevron(wx + 292 + text_width("PRESTIGE", 8.5) + 7, wy + 22, ACCENT, "right", 6)
     for i, icon_name in enumerate(["crystal.png", "sword.png", "render.png", "util.png"]):
         item_icon(wx + 398 + i * 20, wy + 18, icon_name, 16)
 
@@ -333,8 +354,8 @@ def render(path, category_index, modules, selected_index, settings, enabled_rows
         label(lx + 16, ry + 11, name, 12.5, title_color(TEXT), TITLE_FONT,
               shadow=False, fit_w=max(40, lw - 110))
         label(lx + 16, ry + 32, desc, 9.0, TEXT_DIM, fit_w=max(40, lw - 110))
-        label(lx + lw - 74, ry + 23, "^" if selected else "v", 11.0,
-              ACCENT if selected else TEXT_DIM)
+        chevron(lx + lw - 72, ry + 23, ACCENT if selected else TEXT_DIM,
+                "up" if selected else "down", 8)
         toggle(lx + lw - 50, ry + 19, 34, 18, i in enabled_rows)
 
     # Module-list scrollbar.
