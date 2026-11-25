@@ -213,7 +213,7 @@ public class ClickGuiScreen extends Screen {
     private GuiTheme cachedGradientTheme;
 
     public ClickGuiScreen(List<Module> modules) {
-        super(Text.literal("Flux 2.0 Menu"));
+        super(Text.literal("Onyx Client Menu"));
         this.modules = modules;
         for (Module module : modules) {
             categoryCounts.merge(module.getCategory(), 1, Integer::sum);
@@ -394,12 +394,12 @@ public class ClickGuiScreen extends Screen {
         gradientOrFill(context, x + 18, y + mid - 11, 22, 22,
             accentHi, accentLo, r(7));
         drawMenuIcon(context, FLUX_LOGO, x + 19, y + mid - 10, 20, 1.0f);
-        ttl(context, textRenderer, "Flux", x + 50, y + mid - 7,
+        ttl(context, textRenderer, "Onyx", x + 50, y + mid - 7,
             ttlColor(textColor), 15.0f);
         boolean showTheme = themeModule == null || themeModule.showThemeName();
-        String tag = fit(textRenderer, showTheme ? theme.getLabel() : "2.0", 96, 9.5f);
+        String tag = fit(textRenderer, showTheme ? theme.getLabel() : "Client", 96, 9.5f);
         int tagW = tw(textRenderer, tag, 9.5f) + 14;
-        int tagX = x + 50 + tw(textRenderer, "Flux", 15.0f) + 8;
+        int tagX = x + 50 + tw(textRenderer, "Onyx", 15.0f) + 8;
         themeTagBox[0] = tagX;
         themeTagBox[1] = y + mid - 8;
         themeTagBox[2] = tagW;
@@ -501,7 +501,7 @@ public class ClickGuiScreen extends Screen {
             && fy >= sidebarTop() + CATEGORIES.length * categoryHeight() + 6) {
             uiPanel(context, sx + 12, fy, sw - 28, 40, cardBg, r(10));
             fillRounded(context, sx + 24, fy + 17, sx + 30, fy + 23, statusGreen, 3);
-            ttl(context, textRenderer, "Flux Client", sx + 38, fy + 8,
+            ttl(context, textRenderer, "Onyx Client", sx + 38, fy + 8,
                 ttlColor(textColor), 10.0f);
             txt(context, textRenderer, cachedEnabledLabel, sx + 38, fy + 23,
                 textDim, 9.0f);

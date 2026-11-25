@@ -913,7 +913,7 @@ public final class SlGuiPaint {
     public static int watermark(DrawContext context, TextRenderer renderer,
                                 int x, int y, int h, GuiTheme theme, float progress) {
         if (h <= 0) return 0;
-        String wordmark = "Flux";
+        String wordmark = "Onyx";
         int icon = Math.min(22, Math.max(12, h - 16));
         int wordW = textWidth(renderer, wordmark, 14.0f);
         int w = 46 + wordW + 18;

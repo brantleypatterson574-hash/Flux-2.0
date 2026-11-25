@@ -31,6 +31,7 @@ public class NameTagsModule extends Module implements HudOverlay {
     private final NumberSetting updateTicks = new NumberSetting("Update Interval", 2.0, 1.0, 20.0).description("Ticks between refreshes of the name tag list.");
     private final NumberSetting maxEntities = new NumberSetting("Maximum Entities", 96.0, 8.0, 256.0).description("Caps how many name tags are drawn at once.");
     private final BooleanSetting health = new BooleanSetting("Show Health", true).description("Shows health on each name tag.");
+    private final BooleanSetting healthNumbers = new BooleanSetting("Health Numbers", false).description("Shows the exact health value beside the health bar.");
     private final BooleanSetting armor = new BooleanSetting("Armor", true).description("Shows the armour value on player name tags.");
     private final BooleanSetting distance = new BooleanSetting("Show Distance", true).description("Shows how far away each tagged entity is.");
     private final BooleanSetting background = new BooleanSetting("Background", true).description("Draws a shaded panel behind each name tag.");
@@ -61,6 +62,7 @@ public class NameTagsModule extends Module implements HudOverlay {
         addSetting(updateTicks);
         addSetting(maxEntities);
         addSetting(health);
+        addSetting(healthNumbers);
         addSetting(armor);
         addSetting(distance);
         addSetting(background);
@@ -125,6 +127,10 @@ public class NameTagsModule extends Module implements HudOverlay {
             if (health.isEnabled() && entity instanceof LivingEntity living) {
                 float fraction = living.getHealth() / Math.max(1.0f, living.getMaxHealth());
                 OverlayRender.healthBar(context, x, y + 13, width, fraction, healthColor(fraction));
+                if (healthNumbers.isEnabled()) {
+                    OverlayRender.text(context, String.valueOf(Math.round(living.getHealth())),
+                        x + width + 6, y + 13, 0xFFFFFFFF);
+                }
             }
             if (armor.isEnabled() && entity instanceof PlayerEntity player) {
                 int armorValue = player.getArmor();

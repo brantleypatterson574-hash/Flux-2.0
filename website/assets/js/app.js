@@ -81,7 +81,7 @@ const MODULES = [
 
   { n: "Target HUD", c: "HUD", t: "Visual", d: "Shows a live health card and ESP box for the entity you are targeting." },
 
-  { n: "Nametags", c: "HUD", t: "Visual", d: "Draws readable name tags with health, armor and distance over chosen entity types." },
+  { n: "Nametags", c: "HUD", t: "Visual", d: "Draws readable name tags with health numbers, armor and distance over chosen entity types." },
 
   { n: "Keybinds", c: "HUD", t: "GUI", d: "Lists module keybinds on the HUD." },
 

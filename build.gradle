@@ -91,6 +91,21 @@ tasks.register('updateWebsiteDownload', Exec) {
     outputs.upToDateWhen { false }
 }
 
+// Announce each successful build in Discord. The webhook URL is read from the
+// DISCORD_WEBHOOK_URL environment variable or config/discord_webhook.txt;
+// config/ is gitignored so the secret is never committed.
+tasks.register('postDiscordUpdate', Exec) {
+    group = 'flux'
+    description = 'Posts a build update to the configured Discord webhook.'
+    dependsOn 'updateWebsiteDownload'
+    workingDir rootDir
+    commandLine 'python', file('scripts/discord_update.py').absolutePath,
+        '--version', project.minecraft_version,
+        '--jar', builtJarPath,
+        '--manifest', file('website/downloads/manifest.json').absolutePath
+    ignoreExitValue = true
+}
+
 tasks.named('build') {
-    dependsOn 'generateMockups', 'updateWebsiteDownload'
+    dependsOn 'generateMockups', 'updateWebsiteDownload', 'postDiscordUpdate'
 }

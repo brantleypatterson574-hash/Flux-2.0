@@ -1,6 +1,6 @@
 package com.yourname.utilmod.ui;
 
-/** Selectable menu shell for the Flux 2.0 menu. */
+/** Selectable menu shell for the Onyx Client menu. */
 public enum MenuLayout {
     DROPDOWN("Dropdown"),
     CLICK_GUI("ClickGUI");

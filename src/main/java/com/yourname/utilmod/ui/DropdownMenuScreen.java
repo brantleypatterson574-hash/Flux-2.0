@@ -149,7 +149,7 @@ public class DropdownMenuScreen extends Screen {
     private String editingText;
 
     public DropdownMenuScreen(List<Module> modules) {
-        super(Text.literal("Flux 2.0 Dropdown"));
+        super(Text.literal("Onyx Client Dropdown"));
         this.modules = modules;
         for (Category category : categories) byCategory.put(category, new ArrayList<>());
         for (Module module : modules) byCategory.get(module.getCategory()).add(module);
