@@ -164,6 +164,15 @@ Ten small joke/party modules are included. They are client-side and visual unles
 
 Alongside the original crystal and macro helpers, thirteen clean-room modules follow public names and descriptions credited to **kitpvptot**. They use ordinary hotbar interactions and are validated by the server like any other click. No Meteor code or assets are included.
 
+The **Crystal** category is deliberately narrow: it holds only anchor, crystal and automatic obsidian placement modules. Anvil, trap, bed, city, burrow, hole-fill, web, surround, offhand and totem helpers live in **Util** because they are general PvP tools rather than crystal-specific ones.
+
+Sixteen more clean-room modules were added to the four categories that still had room. Names and descriptions come from public client module lists; implementations are original and use ordinary client actions.
+
+- **Player** — **Auto Tool** (fastest hotbar tool for the targeted block), **Replenish** (refills low hotbar stacks), **Potion Saver** (stops drinking when the effect is already active) and **Fast XP** (throws held experience bottles on a delay).
+- **Sword** — **Aim Assist** (slow turn toward a nearby target), **W Tap** (brief forward-key release after a hit), **Jump Reset** (jump after taking damage) and **Hit Select** (click only when the target matches shield, grounded and health rules).
+- **Mace** — **Pearl Catch** (downward pearl before a long fall), **Mace Double Tap** (one delayed follow-up hit), **Spear Assist** (hold a trident at longer range) and **Dive Bomb** (ready a mace while gliding toward an enemy).
+- **Util** — **Chest Steal** (shift-click items out of an open container), **Chat Macro** (send a configured chat line on a key), **Sound Blocker** (mute selected sound IDs locally) and **Auto Drop** (drop listed items from the inventory).
+
 - **Auto Crystal** — places and detonates end crystals around a target.
 - **Anchor Aura** — charges and lights respawn anchors near a target from the hotbar.
 - **Anti Anchor** — covers your head space when a nearby respawn anchor could hit you.

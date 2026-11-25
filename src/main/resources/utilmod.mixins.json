@@ -15,7 +15,8 @@
     "WindChargeExplosionMixin",
     "NoWebMixin",
     "ChatFilterMixin",
-    "DinnerboneMixin"
+    "DinnerboneMixin",
+    "SoundBlockerMixin"
   ],
   "common": [
     "AttackRangeComponentMixin",

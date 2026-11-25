@@ -77,6 +77,10 @@ public class UtilModClient implements ClientModInitializer {
             new TriggerBotModule(),
             new AutoClickerModule(),
             new ComboAssisterModule(),
+            new AimAssistModule(),
+            new WTapModule(),
+            new JumpResetModule(),
+            new HitSelectModule(),
             new ReachModule(),           // Reach
             // Mace
             new AutoMaceModule(),      // Mace Swap
@@ -84,6 +88,10 @@ public class UtilModClient implements ClientModInitializer {
             new AutoBreachModule(),    // Breach Swap
             new MaceAuraModule(),
             new SmashAssistModule(),
+            new PearlCatchModule(),
+            new MaceDoubleTapModule(),
+            new SpearAssistModule(),
+            new DiveBombModule(),
             // Movement
             new SprintModule(),
             new AutoWalkModule(),
@@ -97,6 +105,10 @@ public class UtilModClient implements ClientModInitializer {
             new AutoRespawnModule(),   // Auto Respawn
             new AutoMendModule(),      // Auto Mend
             new AutoLogModule(),       // Auto Log
+            new AutoToolModule(),
+            new ReplenishModule(),
+            new PotionSaverModule(),
+            new FastXpModule(),
             // Render
             new FullbrightModule(),
             new HitFxModule(),         // Hit Color
@@ -151,6 +163,10 @@ public class UtilModClient implements ClientModInitializer {
             new AutoGgModule(),
             new ToastRemoverModule(),
             new ChatFilterModule(),
+            new ChestStealModule(),
+            new ChatMacroModule(),
+            new SoundBlockerModule(),
+            new AutoDropModule(),
             new LootAlertsModule(),
             new HonestHudModule(),
             new DinnerboneModeModule(),

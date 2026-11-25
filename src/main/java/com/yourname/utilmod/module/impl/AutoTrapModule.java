@@ -35,7 +35,7 @@ public class AutoTrapModule extends TickModule {
 
     public AutoTrapModule() {
         super("Auto Trap", "Builds an obsidian or cobblestone box around a nearby target.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(targetRange);
         addSetting(delay);
         addSetting(blocksPerTick);

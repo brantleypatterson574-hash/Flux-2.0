@@ -41,7 +41,7 @@ public class AutoObsidianModule extends Module {
     public AutoObsidianModule() {
         super("Auto Obsidian",
             "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.",
-            Category.UTIL);
+            Category.CRYSTAL);
         addSetting(mode);
         addSetting(range);
         addSetting(placeDelay);

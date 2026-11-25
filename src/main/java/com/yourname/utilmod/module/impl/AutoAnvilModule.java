@@ -30,7 +30,7 @@ public class AutoAnvilModule extends TickModule {
 
     public AutoAnvilModule() {
         super("Auto Anvil", "Places anvils above a nearby target from your hotbar. The server validates each block.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(targetRange);
         addSetting(delay);
         addSetting(height);

@@ -35,7 +35,7 @@ public class HoleFillerModule extends TickModule {
 
     public HoleFillerModule() {
         super("Hole Filler", "Fills empty holes around a nearby target with hotbar blocks.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(targetRange);
         addSetting(searchRadius);
         addSetting(delay);

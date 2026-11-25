@@ -55,7 +55,7 @@ public class SurroundModule extends Module {
 
     public SurroundModule() {
         super("Surround", "Places obsidian or cobweb around you. Block changes are validated by the server.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(blockChoice);
         addSetting(delay);
         addSetting(maxBlocksPerTick);

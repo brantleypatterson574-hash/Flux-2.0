@@ -25,7 +25,7 @@ public class SelfAnvilModule extends TickModule {
 
     public SelfAnvilModule() {
         super("Self Anvil", "Places an anvil above your head from the hotbar as quick cover.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(delay);
         addSetting(requireEnemy);
         addSetting(range);

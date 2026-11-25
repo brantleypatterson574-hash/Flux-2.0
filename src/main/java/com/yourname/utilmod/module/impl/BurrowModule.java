@@ -33,7 +33,7 @@ public class BurrowModule extends TickModule {
 
     public BurrowModule() {
         super("Burrow", "Places a block under your feet while falling from a hotbar block.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(blockChoice);
         addSetting(fallDistance);
         addSetting(cooldown);

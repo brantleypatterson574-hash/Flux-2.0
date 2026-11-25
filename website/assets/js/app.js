@@ -13,7 +13,7 @@ const CATEGORIES = [
 ];
 
 const MODULES = [
-  { n: "Auto Totem", c: "CRYSTAL", t: "Client", d: "Keeps a totem in your offhand, detects pops and damage, and holds reserves." },
+  { n: "Auto Totem", c: "UTIL", t: "Client", d: "Keeps a totem in your offhand, detects pops and damage, and holds reserves." },
 
   { n: "Crystal Aura", c: "CRYSTAL", t: "Client", d: "Attacks nearby players during crystal PvP, with optional end-crystal cleanup." },
 
@@ -23,27 +23,27 @@ const MODULES = [
 
   { n: "Anti Anchor", c: "CRYSTAL", t: "Server validated", d: "Covers your head space when a nearby respawn anchor could hit you." },
 
-  { n: "Anti Anvil", c: "CRYSTAL", t: "Server validated", d: "Covers your head space when a falling anvil is overhead." },
+  { n: "Anti Anvil", c: "UTIL", t: "Server validated", d: "Covers your head space when a falling anvil is overhead." },
 
-  { n: "Auto Anvil", c: "CRYSTAL", t: "Server validated", d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server." },
+  { n: "Auto Anvil", c: "UTIL", t: "Server validated", d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server." },
 
-  { n: "Auto City", c: "CRYSTAL", t: "Server validated", d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side." },
+  { n: "Auto City", c: "UTIL", t: "Server validated", d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side." },
 
-  { n: "Auto Trap", c: "CRYSTAL", t: "Server validated", d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar." },
+  { n: "Auto Trap", c: "UTIL", t: "Server validated", d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar." },
 
-  { n: "Bed Aura", c: "CRYSTAL", t: "Server validated", d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server." },
+  { n: "Bed Aura", c: "UTIL", t: "Server validated", d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server." },
 
-  { n: "Burrow", c: "CRYSTAL", t: "Server validated", d: "Places a block under your feet while falling. The server still decides whether the space can change." },
+  { n: "Burrow", c: "UTIL", t: "Server validated", d: "Places a block under your feet while falling. The server still decides whether the space can change." },
 
-  { n: "Hole Filler", c: "CRYSTAL", t: "Server validated", d: "Fills empty holes around a nearby target with hotbar blocks." },
+  { n: "Hole Filler", c: "UTIL", t: "Server validated", d: "Fills empty holes around a nearby target with hotbar blocks." },
 
-  { n: "Offhand", c: "CRYSTAL", t: "Server synced", d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot." },
+  { n: "Offhand", c: "UTIL", t: "Server synced", d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot." },
 
-  { n: "Self Anvil", c: "CRYSTAL", t: "Server validated", d: "Places an anvil above your head from the hotbar as quick cover." },
+  { n: "Self Anvil", c: "UTIL", t: "Server validated", d: "Places an anvil above your head from the hotbar as quick cover." },
 
-  { n: "Self Trap", c: "CRYSTAL", t: "Server validated", d: "Places blocks above and around your own head from the hotbar." },
+  { n: "Self Trap", c: "UTIL", t: "Server validated", d: "Places blocks above and around your own head from the hotbar." },
 
-  { n: "Self Web", c: "CRYSTAL", t: "Server validated", d: "Places cobweb around your own feet when an enemy is close." },
+  { n: "Self Web", c: "UTIL", t: "Server validated", d: "Places cobweb around your own feet when an enemy is close." },
 
   { n: "Kill Aura", c: "SWORD", t: "Client", d: "Attacks nearby players and mobs with any held item, with range and target filtering." },
 
@@ -127,9 +127,9 @@ const MODULES = [
 
   { n: "Hitbox Adjuster", c: "UTIL", t: "Server synced", d: "Widens the attack hitbox so targets are easier to hit. Server-side checks decide what actually lands." },
 
-  { n: "Auto Obsidian", c: "UTIL", t: "Server validated", d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement." },
+  { n: "Auto Obsidian", c: "CRYSTAL", t: "Server validated", d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement." },
 
-  { n: "Auto Anchor", c: "UTIL", t: "Server validated", d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel." },
+  { n: "Auto Anchor", c: "CRYSTAL", t: "Server validated", d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel." },
 
   { n: "Sky Mood", c: "WORLD", t: "Visual", d: "Client-only sky presets: daylight, golden hour, sunset, blue hour and night." },
 
@@ -169,9 +169,9 @@ const MODULES = [
 
   { n: "Auto Web", c: "SWORD", t: "Server validated", d: "Places cobweb around a nearby target. Block changes are validated by the server." },
 
-  { n: "Surround", c: "CRYSTAL", t: "Server validated", d: "Places obsidian or cobweb around you. Block changes are validated by the server." },
+  { n: "Surround", c: "UTIL", t: "Server validated", d: "Places obsidian or cobweb around you. Block changes are validated by the server." },
 
-  { n: "Anti Bed", c: "CRYSTAL", t: "Server validated", d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server." },
+  { n: "Anti Bed", c: "UTIL", t: "Server validated", d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server." },
 
   { n: "Bow Aimbot", c: "SWORD", t: "Client", d: "Turns your view towards a target while holding a bow or crossbow. Fires nothing. Your arrows still need your help." },
 
@@ -202,6 +202,38 @@ const MODULES = [
   { n: "Disco Overlay", c: "RENDER", t: "Visual", d: "Paints soft, slowly changing colour bands over the world. It is deliberately subtle and draws nothing else." },
 
   { n: "Confetti Deaths", c: "RENDER", t: "Visual", d: "Throws a small screen-space confetti burst when a nearby player dies. Purely cosmetic." },
+
+  { n: "Auto Tool", c: "PLAYER", t: "Client", d: "Holds the fastest hotbar tool for the block under your crosshair. Mining speed is still decided by the server." },
+
+  { n: "Replenish", c: "PLAYER", t: "Server synced", d: "Moves a matching stack from your inventory into a nearly empty hotbar slot." },
+
+  { n: "Potion Saver", c: "PLAYER", t: "Client", d: "Stops drinking a potion when the same effect is already active for long enough." },
+
+  { n: "Fast XP", c: "PLAYER", t: "Server validated", d: "Throws held experience bottles on a short delay. Each throw still uses the normal item rules." },
+
+  { n: "Aim Assist", c: "SWORD", t: "Client", d: "Turns your view slowly toward a nearby target while you attack, inside a configurable cone." },
+
+  { n: "W Tap", c: "SWORD", t: "Client", d: "Briefly releases the forward key after a hit, the same tap you can do by hand." },
+
+  { n: "Jump Reset", c: "SWORD", t: "Client", d: "Jumps shortly after you take damage so knockback is easier to control." },
+
+  { n: "Hit Select", c: "SWORD", t: "Client", d: "Only clicks when the entity under your crosshair matches your shield, grounded and health rules." },
+
+  { n: "Pearl Catch", c: "MACE", t: "Server validated", d: "Throws an ender pearl downward just before a long fall lands. The server still validates the throw." },
+
+  { n: "Mace Double Tap", c: "MACE", t: "Client", d: "Adds one delayed follow-up attack after a mace hit." },
+
+  { n: "Spear Assist", c: "MACE", t: "Client", d: "Holds a trident while the nearest enemy is outside melee range, then returns to your old slot." },
+
+  { n: "Dive Bomb", c: "MACE", t: "Client", d: "Readies a mace while you glide down toward an enemy and attacks once you are close." },
+
+  { n: "Chest Steal", c: "UTIL", t: "Server validated", d: "Shift-clicks items from an open container into your inventory using the server's inventory rules." },
+
+  { n: "Chat Macro", c: "UTIL", t: "Server visible", d: "Sends one configured chat line or command when you press a key. Everyone on the server can see it." },
+
+  { n: "Sound Blocker", c: "UTIL", t: "Client", d: "Mutes chosen sound IDs on your client only. Nothing changes for anyone else." },
+
+  { n: "Auto Drop", c: "UTIL", t: "Server validated", d: "Drops listed items from your inventory on a key press or automatically." },
 ];
 
 const iconFor = id => {

@@ -29,7 +29,7 @@ public class BedAuraModule extends TickModule {
 
     public BedAuraModule() {
         super("Bed Aura", "Places and breaks beds near a target. Bed damage and block changes are server side.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(targetRange);
         addSetting(delay);
         addSetting(autoPlace);

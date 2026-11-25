@@ -1137,7 +1137,7 @@ body.embed .stage { margin: 12px auto 0; }
 </div>
 
 <div class="footer-hint">
-  Preview of the <b>Onyx Client ClickGUI</b> — 95 registered modules across 10 categories, 37 themes, original Onyx styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
+  Preview of the <b>Onyx Client ClickGUI</b> — 111 registered modules across 10 categories, 37 themes, original Onyx styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
 </div>
 
 <script>
@@ -1145,7 +1145,7 @@ body.embed .stage { margin: 12px auto 0; }
    Settings are representative subsets of the real settings in each module. */
 /* BEGIN GENERATED: module data */
 const MODULES = [
-  { n: "Auto Totem", c: "CRYSTAL", on: true, d: "Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
+  { n: "Auto Totem", c: "UTIL", on: true, d: "Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
     {t:"mode",n:"Mode",v:"SMART"},
     {t:"num",n:"Health Threshold",v:10.0,min:1.0,max:20.0},
     {t:"bool",n:"Include Absorption",v:true},
@@ -1194,17 +1194,17 @@ const MODULES = [
   ] },
   { n: "Anchor Aura", c: "CRYSTAL", on: false, d: "Charges and lights respawn anchors near a target from your hotbar. All block and damage rules stay server side.", s:[] },
   { n: "Anti Anchor", c: "CRYSTAL", on: false, d: "Covers your head space when a nearby respawn anchor could hit you.", s:[] },
-  { n: "Anti Anvil", c: "CRYSTAL", on: false, d: "Covers your head space when a falling anvil is overhead.", s:[] },
-  { n: "Auto Anvil", c: "CRYSTAL", on: false, d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server.", s:[] },
-  { n: "Auto City", c: "CRYSTAL", on: false, d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side.", s:[] },
-  { n: "Auto Trap", c: "CRYSTAL", on: false, d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar.", s:[] },
-  { n: "Bed Aura", c: "CRYSTAL", on: false, d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server.", s:[] },
-  { n: "Burrow", c: "CRYSTAL", on: false, d: "Places a block under your feet while falling. The server still decides whether the space can change.", s:[] },
-  { n: "Hole Filler", c: "CRYSTAL", on: false, d: "Fills empty holes around a nearby target with hotbar blocks.", s:[] },
-  { n: "Offhand", c: "CRYSTAL", on: false, d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot.", s:[] },
-  { n: "Self Anvil", c: "CRYSTAL", on: false, d: "Places an anvil above your head from the hotbar as quick cover.", s:[] },
-  { n: "Self Trap", c: "CRYSTAL", on: false, d: "Places blocks above and around your own head from the hotbar.", s:[] },
-  { n: "Self Web", c: "CRYSTAL", on: false, d: "Places cobweb around your own feet when an enemy is close.", s:[] },
+  { n: "Anti Anvil", c: "UTIL", on: false, d: "Covers your head space when a falling anvil is overhead.", s:[] },
+  { n: "Auto Anvil", c: "UTIL", on: false, d: "Places anvils above a nearby target from your hotbar. Block changes are validated by the server.", s:[] },
+  { n: "Auto City", c: "UTIL", on: false, d: "Attacks mineable blocks around a target's feet. Break timing and block rules stay server side.", s:[] },
+  { n: "Auto Trap", c: "UTIL", on: false, d: "Builds an obsidian or cobblestone box around a nearby target from your hotbar.", s:[] },
+  { n: "Bed Aura", c: "UTIL", on: false, d: "Places and breaks beds near a target. Bed damage and block changes are validated by the server.", s:[] },
+  { n: "Burrow", c: "UTIL", on: false, d: "Places a block under your feet while falling. The server still decides whether the space can change.", s:[] },
+  { n: "Hole Filler", c: "UTIL", on: false, d: "Fills empty holes around a nearby target with hotbar blocks.", s:[] },
+  { n: "Offhand", c: "UTIL", on: false, d: "Keeps a chosen utility item in your offhand. Turn off Auto Totem if both want the slot.", s:[] },
+  { n: "Self Anvil", c: "UTIL", on: false, d: "Places an anvil above your head from the hotbar as quick cover.", s:[] },
+  { n: "Self Trap", c: "UTIL", on: false, d: "Places blocks above and around your own head from the hotbar.", s:[] },
+  { n: "Self Web", c: "UTIL", on: false, d: "Places cobweb around your own feet when an enemy is close.", s:[] },
   { n: "Kill Aura", c: "SWORD", on: false, d: "Attacks nearby players and mobs with any held item, with range and target filtering.", s:[
     {t:"bool",n:"Only On Cooldown",v:true},
   ] },
@@ -1564,7 +1564,7 @@ const MODULES = [
     {t:"num",n:"Size Multiplier",v:5.0,min:1.0,max:20.0},
     {t:"bool",n:"Sync To Server",v:true},
   ] },
-  { n: "Auto Obsidian", c: "UTIL", on: false, d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
+  { n: "Auto Obsidian", c: "CRYSTAL", on: false, d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
     {t:"mode",n:"Mode",v:"TRAP"},
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Place Delay",v:3.0,min:0.0,max:40.0},
@@ -1573,7 +1573,7 @@ const MODULES = [
     {t:"bool",n:"Auto Switch",v:true},
     {t:"bool",n:"Swap Back",v:true},
   ] },
-  { n: "Auto Anchor", c: "UTIL", on: false, d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
+  { n: "Auto Anchor", c: "CRYSTAL", on: false, d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Action Delay",v:6.0,min:0.0,max:40.0},
     {t:"bool",n:"Auto Charge",v:true},
@@ -1748,7 +1748,7 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
   ] },
-  { n: "Surround", c: "CRYSTAL", on: false, d: "Places obsidian or cobweb around you. Block changes are validated by the server.", s:[
+  { n: "Surround", c: "UTIL", on: false, d: "Places obsidian or cobweb around you. Block changes are validated by the server.", s:[
     {t:"mode",n:"Block Choice",v:"OBSIDIAN"},
     {t:"num",n:"Delay",v:3.0,min:0.0,max:40.0},
     {t:"num",n:"Max Blocks Per Tick",v:2.0,min:1.0,max:9.0},
@@ -1756,7 +1756,7 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
   ] },
-  { n: "Anti Bed", c: "CRYSTAL", on: false, d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server.", s:[
+  { n: "Anti Bed", c: "UTIL", on: false, d: "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server.", s:[
     {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
     {t:"bool",n:"Warn Only",v:true},
     {t:"num",n:"Place Block Delay",v:6.0,min:1.0,max:40.0},
@@ -1878,7 +1878,23 @@ const MODULES = [
     {t:"bool",n:"Include Yourself",v:false},
     {t:"bool",n:"Players Only",v:true},
     {t:"bool",n:"Use Theme Colors",v:true},
-  ] }
+  ] },
+  { n: "Auto Tool", c: "PLAYER", on: false, d: "Holds the fastest hotbar tool for the block under your crosshair. Mining speed is still decided by the server.", s:[] },
+  { n: "Replenish", c: "PLAYER", on: false, d: "Moves a matching stack from your inventory into a nearly empty hotbar slot.", s:[] },
+  { n: "Potion Saver", c: "PLAYER", on: false, d: "Stops drinking a potion when the same effect is already active for long enough.", s:[] },
+  { n: "Fast XP", c: "PLAYER", on: false, d: "Throws held experience bottles on a short delay. Each throw still uses the normal item rules.", s:[] },
+  { n: "Aim Assist", c: "SWORD", on: false, d: "Turns your view slowly toward a nearby target while you attack, inside a configurable cone.", s:[] },
+  { n: "W Tap", c: "SWORD", on: false, d: "Briefly releases the forward key after a hit, the same tap you can do by hand.", s:[] },
+  { n: "Jump Reset", c: "SWORD", on: false, d: "Jumps shortly after you take damage so knockback is easier to control.", s:[] },
+  { n: "Hit Select", c: "SWORD", on: false, d: "Only clicks when the entity under your crosshair matches your shield, grounded and health rules.", s:[] },
+  { n: "Pearl Catch", c: "MACE", on: false, d: "Throws an ender pearl downward just before a long fall lands. The server still validates the throw.", s:[] },
+  { n: "Mace Double Tap", c: "MACE", on: false, d: "Adds one delayed follow-up attack after a mace hit.", s:[] },
+  { n: "Spear Assist", c: "MACE", on: false, d: "Holds a trident while the nearest enemy is outside melee range, then returns to your old slot.", s:[] },
+  { n: "Dive Bomb", c: "MACE", on: false, d: "Readies a mace while you glide down toward an enemy and attacks once you are close.", s:[] },
+  { n: "Chest Steal", c: "UTIL", on: false, d: "Shift-clicks items from an open container into your inventory using the server's inventory rules.", s:[] },
+  { n: "Chat Macro", c: "UTIL", on: false, d: "Sends one configured chat line or command when you press a key. Everyone on the server can see it.", s:[] },
+  { n: "Sound Blocker", c: "UTIL", on: false, d: "Mutes chosen sound IDs on your client only. Nothing changes for anyone else.", s:[] },
+  { n: "Auto Drop", c: "UTIL", on: false, d: "Drops listed items from your inventory on a key press or automatically.", s:[] }
 ];
 /* END GENERATED: module data */
 
@@ -2064,7 +2080,7 @@ $("infoBtn").addEventListener("click", () => {
   $("setTitle").textContent = "Onyx Client Menu";
   $("setStatus").textContent = "INFO"; $("setStatus").className = "status on";
   $("setDesc").textContent = "Onyx Client's shared three-column menu shell. Right Shift opens it in game; Menu Theme switches palette, layout and scale.";
-  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">95</span></div>
+  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">111</span></div>
     <div class="setting"><span class="label">Themes available</span><span class="value">37</span></div>
     <div class="setting"><span class="label">Layout</span><span class="value">${state.layout === "DROPDOWN" ? "DROPDOWN" : "CLICK GUI"}</span></div>
     <div class="setting"><span class="label">Theme</span><span class="value">${document.documentElement.dataset.theme.toUpperCase()}</span></div>

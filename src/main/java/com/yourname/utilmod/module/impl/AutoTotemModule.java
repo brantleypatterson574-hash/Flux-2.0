@@ -139,7 +139,7 @@ public class AutoTotemModule extends Module implements HudOverlay {
     private int doubleSelectedSlot = -1;
 
     public AutoTotemModule() {
-        super("Auto Totem", "Keeps a totem in your offhand, detects pops and damage, and holds reserves.", Category.CRYSTAL);
+        super("Auto Totem", "Keeps a totem in your offhand, detects pops and damage, and holds reserves.", Category.UTIL);
         INSTANCE = this;
         addSetting(mode);
         addSetting(healthThreshold);

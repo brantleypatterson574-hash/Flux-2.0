@@ -3,6 +3,8 @@ package com.yourname.utilmod.mixin;
 import com.yourname.utilmod.module.impl.AutoBreachModule;
 import com.yourname.utilmod.module.impl.AutoGgModule;
 import com.yourname.utilmod.module.impl.HitFxModule;
+import com.yourname.utilmod.module.impl.MaceDoubleTapModule;
+import com.yourname.utilmod.module.impl.WTapModule;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.Entity;
@@ -25,5 +27,7 @@ public class ClientPlayerInteractionManagerMixin {
         }
         HitFxModule.onAttack(player, target);
         AutoGgModule.onAttack(player, target);
+        WTapModule.onAttack(player, target);
+        MaceDoubleTapModule.onAttack(player, target);
     }
 }

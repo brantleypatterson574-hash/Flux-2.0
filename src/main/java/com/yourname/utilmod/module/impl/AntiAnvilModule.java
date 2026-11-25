@@ -32,7 +32,7 @@ public class AntiAnvilModule extends TickModule {
 
     public AntiAnvilModule() {
         super("Anti Anvil", "Covers your head space when a falling anvil is overhead.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(range);
         addSetting(delay);
         addSetting(cover);

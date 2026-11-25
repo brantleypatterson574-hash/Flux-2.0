@@ -25,7 +25,7 @@ public class SelfWebModule extends TickModule {
 
     public SelfWebModule() {
         super("Self Web", "Places cobweb around your own feet from the hotbar when an enemy is close.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(range);
         addSetting(delay);
         addSetting(doublePlace);

@@ -28,7 +28,7 @@ public class OffhandModule extends TickModule {
 
     public OffhandModule() {
         super("Offhand", "Keeps a chosen item in your offhand. Turn off Auto Totem if both want that slot.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(holdItem);
         addSetting(delay);
         addSetting(minHealth);

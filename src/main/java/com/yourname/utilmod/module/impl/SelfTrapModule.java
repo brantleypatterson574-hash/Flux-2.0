@@ -32,7 +32,7 @@ public class SelfTrapModule extends TickModule {
 
     public SelfTrapModule() {
         super("Self Trap", "Places blocks above and around your own head from the hotbar.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(blockChoice);
         addSetting(delay);
         addSetting(blocksPerTick);

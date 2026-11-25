@@ -50,7 +50,7 @@ public class AntiBedModule extends Module implements HudOverlay {
 
     public AntiBedModule() {
         super("Anti Bed", "Warns about nearby beds and can cover them with a block. Placement changes are validated by the server.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(range);
         addSetting(warnOnly);
         addSetting(placeBlockDelay);

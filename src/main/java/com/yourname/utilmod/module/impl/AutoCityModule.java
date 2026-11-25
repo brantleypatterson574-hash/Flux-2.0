@@ -27,7 +27,7 @@ public class AutoCityModule extends TickModule {
 
     public AutoCityModule() {
         super("Auto City", "Attacks mineable blocks around a nearby target's feet. Break rules are server side.",
-            Category.CRYSTAL);
+            Category.UTIL);
         addSetting(targetRange);
         addSetting(delay);
         addSetting(breakRange);

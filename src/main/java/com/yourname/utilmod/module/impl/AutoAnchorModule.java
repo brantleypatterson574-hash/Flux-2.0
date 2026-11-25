@@ -30,7 +30,7 @@ public class AutoAnchorModule extends Module {
     public AutoAnchorModule() {
         super("Auto Anchor",
             "Charges nearby respawn anchors with glowstone and ignites them with flint and steel.",
-            Category.UTIL);
+            Category.CRYSTAL);
         addSetting(range);
         addSetting(actionDelay);
         addSetting(autoCharge);
