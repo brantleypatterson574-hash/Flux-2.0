@@ -1,0 +1,23 @@
+name: Site update webhook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "website/**"
+      - "scripts/discord_update.py"
+      - "scripts/decrypt_webhook.ps1"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Post Discord site update
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python scripts/discord_update.py --site-update --version 1.21.11

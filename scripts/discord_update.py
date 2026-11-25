@@ -84,9 +84,9 @@ def download_url(version: str) -> str:
     return f"{SITE_BASE}/downloads/{version}/flux-2.0-{version}.jar"
 
 
-def whats_new(last_commit: str, current_commit: str) -> str:
+def whats_new(last_commit: str, current_commit: str, label: str = "Rebuilt jar") -> str:
     if not current_commit:
-        return "- Rebuilt jar with no git history available."
+        return f"- {label}; no git history available."
 
     if last_commit and last_commit != current_commit:
         log = git("log", "--pretty=format:- %s (%h)", f"{last_commit}..{current_commit}")
@@ -96,12 +96,23 @@ def whats_new(last_commit: str, current_commit: str) -> str:
 
     log = git("log", "--pretty=format:- %s (%h)", "-5", current_commit)
     if not log:
-        return "- Rebuilt jar; no new commits since the last announcement."
+        return f"- {label}; no new commits since the last announcement."
 
     lines = [line for line in log.splitlines() if line.strip()][:5]
     if last_commit == current_commit:
-        return "\n".join(["- Rebuilt jar; no new commits since the last build.", *lines])
+        return "\n".join([f"- {label}; no new commits since the last update.", *lines])
     return "\n".join(lines)
+
+
+def changed_site_files(last_commit: str, current_commit: str) -> str:
+    if last_commit and current_commit:
+        output = git("diff", "--name-only", f"{last_commit}..{current_commit}", "--", "website")
+    elif current_commit:
+        output = git("show", "--pretty=format:", "--name-only", current_commit, "--", "website")
+    else:
+        output = ""
+    files = [line for line in output.splitlines() if line.strip()][:12]
+    return "\n".join(f"- `{name}`" for name in files) or "- Website files updated."
 
 
 def truncate(value: str, limit: int = 1000) -> str:
@@ -110,31 +121,16 @@ def truncate(value: str, limit: int = 1000) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", required=True)
-    parser.add_argument("--jar", required=True)
-    parser.add_argument("--manifest", required=True)
+    parser.add_argument("--version", default="1.21.11")
+    parser.add_argument("--jar")
+    parser.add_argument("--manifest")
+    parser.add_argument("--site-update", action="store_true")
     args = parser.parse_args()
 
     webhook = read_webhook()
     if not webhook:
         print("DISCORD_UPDATE_SKIPPED no webhook configured")
         return 0
-
-    jar_path = Path(args.jar)
-    manifest_path = Path(args.manifest)
-    if not jar_path.is_file():
-        print(f"DISCORD_UPDATE_SKIPPED jar not found: {jar_path}")
-        return 0
-
-    manifest = {}
-    if manifest_path.is_file():
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            manifest = {}
-
-    size = jar_path.stat().st_size
-    checksum = sha256(jar_path)
 
     state = {}
     if STATE_FILE.is_file():
@@ -144,22 +140,51 @@ def main() -> int:
             state = {}
 
     current_commit = git("rev-parse", "HEAD")
-    changes = whats_new(state.get("last_commit", ""), current_commit)
+    last_commit = state.get("last_commit", "")
+    checksum = "site"
+    now = dt.datetime.now(dt.timezone.utc).isoformat()
 
-    embed = {
-        "title": f"Onyx Client {args.version} build ready",
-        "description": "A fresh jar was built and the website download was refreshed.",
-        "color": 0x9F7AEA,
-        "fields": [
-            {"name": "Version", "value": args.version, "inline": True},
-            {"name": "Size", "value": human_size(size), "inline": True},
-            {"name": "SHA-256", "value": f"```{checksum}```", "inline": False},
-            {"name": "What's new", "value": truncate(changes), "inline": False},
-            {"name": "Download", "value": download_url(args.version), "inline": False},
-        ],
-        "footer": {"text": "Built by kitpvptot"},
-        "timestamp": dt.datetime.now(dt.timezone.utc).isoformat(),
-    }
+    if args.site_update:
+        changes = whats_new(last_commit, current_commit, "Site refresh")
+        files = changed_site_files(last_commit, current_commit)
+        embed = {
+            "title": "Onyx Client website updated",
+            "description": "The download page and previews were refreshed.",
+            "color": 0x4ADE80,
+            "fields": [
+                {"name": "Site", "value": SITE_BASE, "inline": False},
+                {"name": "What's new", "value": truncate(changes), "inline": False},
+                {"name": "Changed files", "value": truncate(files), "inline": False},
+            ],
+            "footer": {"text": "Built by kitpvptot"},
+            "timestamp": now,
+        }
+    else:
+        if not args.jar:
+            print("DISCORD_UPDATE_SKIPPED no jar supplied")
+            return 0
+        jar_path = Path(args.jar)
+        if not jar_path.is_file():
+            print(f"DISCORD_UPDATE_SKIPPED jar not found: {jar_path}")
+            return 0
+
+        size = jar_path.stat().st_size
+        checksum = sha256(jar_path)
+        changes = whats_new(last_commit, current_commit)
+        embed = {
+            "title": f"Onyx Client {args.version} build ready",
+            "description": "A fresh jar was built and the website download was refreshed.",
+            "color": 0x9F7AEA,
+            "fields": [
+                {"name": "Version", "value": args.version, "inline": True},
+                {"name": "Size", "value": human_size(size), "inline": True},
+                {"name": "SHA-256", "value": f"```{checksum}```", "inline": False},
+                {"name": "What's new", "value": truncate(changes), "inline": False},
+                {"name": "Download", "value": download_url(args.version), "inline": False},
+            ],
+            "footer": {"text": "Built by kitpvptot"},
+            "timestamp": now,
+        }
 
     payload = json.dumps({"embeds": [embed]}).encode("utf-8")
     request = urllib.request.Request(
@@ -183,14 +208,15 @@ def main() -> int:
                 "last_commit": current_commit,
                 "last_hash": checksum,
                 "version": args.version,
-                "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+                "mode": "site" if args.site_update else "jar",
+                "updated_at": now,
             },
             indent=2,
         )
         + "\n",
         encoding="utf-8",
     )
-    print(f"DISCORD_UPDATE_POSTED {args.version} {checksum}")
+    print(f"DISCORD_UPDATE_POSTED {'site' if args.site_update else args.version} {checksum}")
     return 0
 
 
