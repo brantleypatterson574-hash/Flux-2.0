@@ -71,6 +71,16 @@ tasks.register('generateMockups', Exec) {
     outputs.upToDateWhen { false }
 }
 
+// Regenerate the standalone website screenshots on every build as well.
+tasks.register('generateSiteMockups', Exec) {
+    group = 'flux'
+    description = 'Regenerates the Onyx website gallery images with drawn-geometry chevrons.'
+    workingDir rootDir
+    commandLine 'python', file('mockups/render_site_mockup.py').absolutePath
+    dependsOn 'generateIcons'
+    outputs.upToDateWhen { false }
+}
+
 def websiteDir = file('website')
 def remapJarFile = tasks.named('remapJar').flatMap { it.archiveFile }
 def builtJarPath = remapJarFile.get().asFile.absolutePath
@@ -117,5 +127,5 @@ tasks.register('postDiscordUpdate', Exec) {
 }
 
 tasks.named('build') {
-    dependsOn 'generateMockups', 'updateWebsiteDownload', 'postDiscordUpdate'
+    dependsOn 'generateMockups', 'generateSiteMockups', 'updateWebsiteDownload', 'postDiscordUpdate'
 }
