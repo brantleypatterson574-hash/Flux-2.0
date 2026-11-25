@@ -319,28 +319,34 @@ public enum GuiTheme {
     ;
 
     private final String label;
-    public final int overlay;
-    public final int titleBar;
-    public final int titleAccent;
-    public final int accent;
-    public final int panel;
-    public final int panelBorder;
-    public final int header;
-    public final int headerGradientEnd;
-    public final int moduleRow;
-    public final int moduleRowEnabled;
-    public final int moduleRowHover;
-    public final int settingRow;
-    public final int settingRowHover;
-    public final int text;
-    public final int textSecondary;
-    public final int toggleOn;
-    public final int toggleOff;
-    public final int scrollTrack;
-    public final int searchBg;
-    public final int searchBorder;
-    public final int outline;
-    public final int shadow;
+    private final int[] baseColors;
+    private static boolean cloudy;
+
+    // Mutable so the optional Cloudy pass can soften every palette in place.
+    // All menu renderers read these fields, so one toggle updates both layouts
+    // and the theme swatches without duplicating palette definitions.
+    public int overlay;
+    public int titleBar;
+    public int titleAccent;
+    public int accent;
+    public int panel;
+    public int panelBorder;
+    public int header;
+    public int headerGradientEnd;
+    public int moduleRow;
+    public int moduleRowEnabled;
+    public int moduleRowHover;
+    public int settingRow;
+    public int settingRowHover;
+    public int text;
+    public int textSecondary;
+    public int toggleOn;
+    public int toggleOff;
+    public int scrollTrack;
+    public int searchBg;
+    public int searchBorder;
+    public int outline;
+    public int shadow;
     public final boolean rounded;
     public final boolean light;
 
@@ -352,30 +358,15 @@ public enum GuiTheme {
              int scrollTrack, int searchBg, int searchBorder, int outline,
              int shadow, boolean rounded, boolean light) {
         this.label = label;
-        this.overlay = overlay;
-        this.titleBar = titleBar;
-        this.titleAccent = titleAccent;
-        this.accent = accent;
-        this.panel = panel;
-        this.panelBorder = panelBorder;
-        this.header = header;
-        this.headerGradientEnd = headerGradientEnd;
-        this.moduleRow = moduleRow;
-        this.moduleRowEnabled = moduleRowEnabled;
-        this.moduleRowHover = moduleRowHover;
-        this.settingRow = settingRow;
-        this.settingRowHover = settingRowHover;
-        this.text = text;
-        this.textSecondary = textSecondary;
-        this.toggleOn = toggleOn;
-        this.toggleOff = toggleOff;
-        this.scrollTrack = scrollTrack;
-        this.searchBg = searchBg;
-        this.searchBorder = searchBorder;
-        this.outline = outline;
-        this.shadow = shadow;
+        this.baseColors = new int[] {
+            overlay, titleBar, titleAccent, accent, panel, panelBorder, header,
+            headerGradientEnd, moduleRow, moduleRowEnabled, moduleRowHover,
+            settingRow, settingRowHover, text, textSecondary, toggleOn,
+            toggleOff, scrollTrack, searchBg, searchBorder, outline, shadow
+        };
         this.rounded = rounded;
         this.light = light;
+        refresh();
     }
 
     public String getLabel() {
@@ -391,6 +382,87 @@ public enum GuiTheme {
     /** Replaces only the alpha byte of an ARGB colour. */
     public static int withAlpha(int color, int alpha) {
         return (alpha << 24) | (color & 0x00FFFFFF);
+    }
+
+    public static boolean isCloudy() {
+        return cloudy;
+    }
+
+    /**
+     * Optional Cloudy pass: every shipped palette gains a hazier, lower-contrast
+     * version instead of adding separate themes. Alpha is preserved so the panel
+     * opacity and overlay settings keep working exactly as before.
+     */
+    public static void setCloudy(boolean enabled) {
+        if (cloudy == enabled) return;
+        cloudy = enabled;
+        for (GuiTheme theme : values()) theme.refresh();
+    }
+
+    private void refresh() {
+        int[] colors = cloudy ? soften(baseColors, light) : baseColors;
+        overlay = colors[0];
+        titleBar = colors[1];
+        titleAccent = colors[2];
+        accent = colors[3];
+        panel = colors[4];
+        panelBorder = colors[5];
+        header = colors[6];
+        headerGradientEnd = colors[7];
+        moduleRow = colors[8];
+        moduleRowEnabled = colors[9];
+        moduleRowHover = colors[10];
+        settingRow = colors[11];
+        settingRowHover = colors[12];
+        text = colors[13];
+        textSecondary = colors[14];
+        toggleOn = colors[15];
+        toggleOff = colors[16];
+        scrollTrack = colors[17];
+        searchBg = colors[18];
+        searchBorder = colors[19];
+        outline = colors[20];
+        shadow = colors[21];
+    }
+
+    private static int[] soften(int[] base, boolean light) {
+        int haze = light ? 0xFFDCE8F4 : 0xFF9CB3C8;
+        int textTarget = light ? 0xFF263243 : 0xFFFFFFFF;
+        int[] out = new int[base.length];
+        out[0] = mixed(base[0], haze, light ? 0.18f : 0.16f);  // overlay
+        out[1] = mixed(base[1], haze, 0.22f);                  // titleBar
+        out[2] = mixed(base[2], haze, light ? 0.18f : 0.28f);  // titleAccent
+        out[3] = mixed(base[3], haze, light ? 0.18f : 0.28f);  // accent
+        out[4] = mixed(base[4], haze, 0.24f);                  // panel
+        out[5] = mixed(base[5], haze, 0.30f);                  // panelBorder
+        out[6] = mixed(base[6], haze, 0.24f);                  // header
+        out[7] = mixed(base[7], haze, 0.24f);                  // headerGradientEnd
+        out[8] = mixed(base[8], haze, 0.22f);                  // moduleRow
+        out[9] = mixed(base[9], haze, 0.22f);                  // moduleRowEnabled
+        out[10] = mixed(base[10], haze, light ? 0.20f : 0.26f);// moduleRowHover
+        out[11] = mixed(base[11], haze, 0.22f);                // settingRow
+        out[12] = mixed(base[12], haze, light ? 0.20f : 0.26f);// settingRowHover
+        out[13] = mixed(base[13], textTarget, 0.12f);          // text
+        out[14] = mixed(base[14], textTarget, light ? 0.18f : 0.14f); // textSecondary
+        out[15] = mixed(base[15], haze, 0.24f);                // toggleOn
+        out[16] = mixed(base[16], haze, 0.18f);                // toggleOff
+        out[17] = mixed(base[17], haze, 0.22f);                // scrollTrack
+        out[18] = mixed(base[18], haze, 0.24f);                // searchBg
+        out[19] = mixed(base[19], haze, 0.30f);                // searchBorder
+        out[20] = mixed(base[20], haze, 0.24f);                // outline
+        out[21] = mixed(base[21], haze, 0.24f);                // shadow
+        return out;
+    }
+
+    private static int mixed(int color, int target, float amount) {
+        return (color & 0xFF000000)
+            | (component((color >>> 16) & 0xFF, (target >>> 16) & 0xFF, amount) << 16)
+            | (component((color >>> 8) & 0xFF, (target >>> 8) & 0xFF, amount) << 8)
+            | component(color & 0xFF, target & 0xFF, amount);
+    }
+
+    private static int component(int from, int to, float amount) {
+        return Math.max(0, Math.min(255, Math.round(from + (to - from) * amount)));
     }
 
     /**

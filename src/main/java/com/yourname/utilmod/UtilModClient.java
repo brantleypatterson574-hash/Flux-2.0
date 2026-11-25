@@ -187,6 +187,9 @@ public class UtilModClient implements ClientModInitializer {
             .registerReloadListener(MenuResourceReloadListener.INSTANCE);
 
         ConfigStore.load(modules);
+        // Cloudy Colors is a palette modifier, so apply the loaded choice once
+        // before any HUD or menu renderer reads theme colours.
+        if (GuiThemeModule.INSTANCE != null) GuiThemeModule.INSTANCE.syncPalette();
         // Module constructors can run before the run directory exists. Re-read
         // checklist selections now and push them into every checklist setting.
         SelectionStore.reload();

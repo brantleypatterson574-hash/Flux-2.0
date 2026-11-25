@@ -69,6 +69,8 @@ public class GuiThemeModule extends Module {
         .description("Adds a drop shadow behind menu panels.");
     private final BooleanSetting performanceMode = new BooleanSetting("Performance Mode", true)
         .description("Uses flat fills and instant hover states in the ClickGUI to minimise frame time.");
+    private final BooleanSetting cloudyColors = new BooleanSetting("Cloudy Colors", false)
+        .description("Softens the active palette with hazy, cloud-like tones. Works with every theme.");
     private final BooleanSetting showThemeName = new BooleanSetting("Show Theme In Title", true)
         .description("Shows the active palette name in the menu title bar.");
 
@@ -88,11 +90,18 @@ public class GuiThemeModule extends Module {
         addSetting(outlines);
         addSetting(panelShadow);
         addSetting(performanceMode);
+        addSetting(cloudyColors);
         addSetting(showThemeName);
     }
 
     public GuiTheme getTheme() {
+        syncPalette();
         return theme.getValue();
+    }
+
+    /** Keeps every renderer on the Cloudy choice, including theme swatches. */
+    public void syncPalette() {
+        GuiTheme.setCloudy(cloudyColors.isEnabled());
     }
 
     public MenuLayout menuLayout() {
@@ -214,6 +223,7 @@ public class GuiThemeModule extends Module {
         outlines.setEnabled(false);
         panelShadow.setEnabled(false);
         performanceMode.setEnabled(true);
+        cloudyColors.setEnabled(false);
         showThemeName.setEnabled(true);
     }
 }

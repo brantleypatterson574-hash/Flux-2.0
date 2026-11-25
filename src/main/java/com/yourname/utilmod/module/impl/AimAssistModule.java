@@ -37,7 +37,8 @@ public class AimAssistModule extends Module {
     }
 
     private void onTick(MinecraftClient client) {
-        if (client.player == null || client.world == null || client.currentScreen != null) return;
+        if (!isEnabled() || client.player == null || client.world == null
+            || client.currentScreen != null) return;
         if (whileAttacking.isEnabled() && !client.options.attackKey.isPressed()) return;
 
         LivingEntity target = null;

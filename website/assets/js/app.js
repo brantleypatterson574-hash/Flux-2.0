@@ -121,7 +121,7 @@ const MODULES = [
 
   { n: "Anti AFK", c: "UTIL", t: "Client", d: "Keeps the local session active with small idle animations." },
 
-  { n: "Menu Theme", c: "UTIL", t: "GUI", d: "Change the ClickGUI palette, layout, scale and typography." },
+  { n: "Menu Theme", c: "UTIL", t: "GUI", d: "Change the ClickGUI palette, layout, scale and typography. Cloudy Colors softens the active palette." },
 
   { n: "Config", c: "UTIL", t: "GUI", d: "Saves and restores module enabled states in five persistent slots." },
 
@@ -129,7 +129,7 @@ const MODULES = [
 
   { n: "Auto Obsidian", c: "CRYSTAL", t: "Server validated", d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement." },
 
-  { n: "Auto Anchor", c: "CRYSTAL", t: "Server validated", d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel." },
+  { n: "Auto Anchor", c: "CRYSTAL", t: "Server validated", d: "Tops up nearby respawn anchors to the chosen charge target and lights them once." },
 
   { n: "Sky Mood", c: "WORLD", t: "Visual", d: "Client-only sky presets: daylight, golden hour, sunset, blue hour and night." },
 
@@ -305,9 +305,9 @@ const FALLBACK_VERSIONS = {
     download: "downloads/flux-2.0.jar",
     manifest: "downloads/manifest.json",
     name: "flux-2.0.jar",
-    size: 9897354,
+    size: 9899311,
     sizeText: "9.4 MB",
-    sha256: "FACD6F2D5C2A796F85AC6519B2B2F2749357D84FA3510B4A3DB98F6D7185F3FD",
+    sha256: "6A51DFC3B41B68296A0AB27D2B88CAE8225F67A76F2250DFA608B692139A3DDF",
     recommended: true,
   },
   "26.1": {
@@ -317,9 +317,9 @@ const FALLBACK_VERSIONS = {
     download: "downloads/26.1/flux-2.0-26.1.jar",
     manifest: "downloads/26.1/manifest.json",
     name: "flux-2.0-26.1.jar",
-    size: 9913571,
+    size: 9915545,
     sizeText: "9.5 MB",
-    sha256: "DD8852BB29003AE2F389A80308139A1AA9EE54F51A8950E57C7E835BA9A6B3AC",
+    sha256: "B59FDFA05FED7C99BFBBE695CC9E14F6C4C1C0092A7C9CF69B870E43355E6B05",
     recommended: false,
   },
   "26.2": {
@@ -329,9 +329,9 @@ const FALLBACK_VERSIONS = {
     download: "downloads/26.2/flux-2.0-26.2.jar",
     manifest: "downloads/26.2/manifest.json",
     name: "flux-2.0-26.2.jar",
-    size: 9915166,
+    size: 9917156,
     sizeText: "9.5 MB",
-    sha256: "EB83254C2DDE97B4AB43F485408965BCF51670C1A2E39269158ECEFA17DAD11E",
+    sha256: "A85321DDD6BAE5220207C086AE6023D2937332840D1F66F07BB6941DD2147FC4",
     recommended: false,
   },
   "26.3": {
@@ -341,9 +341,9 @@ const FALLBACK_VERSIONS = {
     download: "downloads/26.3/flux-2.0-26.3.jar",
     manifest: "downloads/26.3/manifest.json",
     name: "flux-2.0-26.3.jar",
-    size: 9916445,
+    size: 9918434,
     sizeText: "9.5 MB",
-    sha256: "DBB76C76B46C2DFE69349387DC3063EFA34A9EAF154C2FC295EF87B01EE5CD30",
+    sha256: "23F72D8D7717C14C3070793F33A162A9122423F9A256522032117A9E5438B2AE",
     recommended: false,
   },
 };
