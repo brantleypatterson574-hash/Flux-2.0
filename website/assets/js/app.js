@@ -296,5 +296,136 @@ document.getElementById("moduleSearch").addEventListener("input", event => {
   renderModules();
 });
 
+const DEFAULT_VERSION = "1.21.11";
+const FALLBACK_VERSIONS = {
+  "1.21.11": {
+    label: "1.21.11 (Recommended)",
+    minecraft: "1.21.11",
+    loader: "Fabric",
+    download: "downloads/flux-2.0.jar",
+    manifest: "downloads/manifest.json",
+    name: "flux-2.0.jar",
+    size: 9897275,
+    sizeText: "9.4 MB",
+    sha256: "EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733",
+    recommended: true,
+  },
+  "26.1": {
+    label: "26.1",
+    minecraft: "26.1",
+    loader: "Fabric",
+    download: "downloads/26.1/flux-2.0-26.1.jar",
+    manifest: "downloads/26.1/manifest.json",
+    name: "flux-2.0-26.1.jar",
+    size: 9913470,
+    sizeText: "9.5 MB",
+    sha256: "D9C7A109F40FC4790DAAC83C629DFAD75C1523CFB0D24BC63950EB3F08A6C1B4",
+    recommended: false,
+  },
+  "26.2": {
+    label: "26.2",
+    minecraft: "26.2",
+    loader: "Fabric",
+    download: "downloads/26.2/flux-2.0-26.2.jar",
+    manifest: "downloads/26.2/manifest.json",
+    name: "flux-2.0-26.2.jar",
+    size: 9915077,
+    sizeText: "9.5 MB",
+    sha256: "DF7A6B8FF16F60C45DB3419C12701CB2409053155949A5B5713C36345CBB62C3",
+    recommended: false,
+  },
+  "26.3": {
+    label: "26.3",
+    minecraft: "26.3",
+    loader: "Fabric",
+    download: "downloads/26.3/flux-2.0-26.3.jar",
+    manifest: "downloads/26.3/manifest.json",
+    name: "flux-2.0-26.3.jar",
+    size: 9916356,
+    sizeText: "9.5 MB",
+    sha256: "E8B7D7B54CF8955DD79836E44AC0A9546B08E9DB2F28686BB86B93C5D0FDB287",
+    recommended: false,
+  },
+};
+
+let versionRegistry = JSON.parse(JSON.stringify(FALLBACK_VERSIONS));
+let selectedVersion = DEFAULT_VERSION;
+
+function versionKeys(registry) {
+  return Object.keys(registry).sort((a, b) => {
+    if (a === DEFAULT_VERSION) return -1;
+    if (b === DEFAULT_VERSION) return 1;
+    const partsA = a.split(".").map(Number);
+    const partsB = b.split(".").map(Number);
+    for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
+      const diff = (partsA[i] || 0) - (partsB[i] || 0);
+      if (diff) return diff;
+    }
+    return a.localeCompare(b);
+  });
+}
+
+function renderVersionPicker() {
+  const select = document.getElementById("versionSelect");
+  select.innerHTML = versionKeys(versionRegistry).map(key => {
+    const info = versionRegistry[key];
+    const label = info.label || key;
+    return `<option value="${escapeHtml(key)}">${escapeHtml(label)}</option>`;
+  }).join("");
+  if (!versionRegistry[selectedVersion]) selectedVersion = DEFAULT_VERSION;
+  select.value = selectedVersion;
+}
+
+function applyVersion(key) {
+  const info = versionRegistry[key] || versionRegistry[DEFAULT_VERSION];
+  if (!info) return;
+  selectedVersion = key;
+
+  document.querySelectorAll("[data-version-download]").forEach(link => {
+    link.href = info.download;
+    link.setAttribute("download", info.name || "");
+  });
+
+  document.getElementById("fileNote").textContent =
+    `${info.loader || "Fabric"} ${info.minecraft} · ${info.sizeText} · client jar`;
+  document.getElementById("hashValue").textContent = info.sha256 || "";
+  document.getElementById("heroVersion").textContent = info.minecraft;
+  document.getElementById("installVersion").textContent = info.minecraft;
+  document.getElementById("fabricVersionStep").textContent =
+    `Use Fabric Loader for Minecraft ${info.minecraft}.`;
+
+  const badge = document.getElementById("versionBadge");
+  badge.textContent = info.recommended ? "Recommended" : "Opt-in build";
+  badge.classList.toggle("optin", !info.recommended);
+
+  document.getElementById("versionHint").textContent = info.recommended
+    ? "Recommended for most players. 26.x builds are opt-in for the matching Minecraft version."
+    : `Opt-in build for Minecraft ${info.minecraft}. 1.21.11 remains the recommended default.`;
+}
+
+document.getElementById("versionSelect").addEventListener("change", event => {
+  applyVersion(event.target.value);
+});
+
+async function loadVersionRegistry() {
+  try {
+    const response = await fetch("downloads/versions.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const data = await response.json();
+    if (!data || typeof data.versions !== "object" || !data.versions) return;
+    versionRegistry = data.versions;
+    if (!versionRegistry[selectedVersion]) {
+      selectedVersion = versionRegistry[data.default] ? data.default : versionKeys(versionRegistry)[0];
+    }
+    renderVersionPicker();
+    applyVersion(selectedVersion);
+  } catch (_) {
+    // file:// previews and offline copies keep the embedded fallback registry.
+  }
+}
+
 renderFilters();
 renderModules();
+renderVersionPicker();
+applyVersion(selectedVersion);
+loadVersionRegistry();

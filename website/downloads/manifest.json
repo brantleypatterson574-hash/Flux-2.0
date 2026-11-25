@@ -4,5 +4,7 @@
   "sizeText": "9.4 MB",
   "sha256": "EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733",
   "minecraft": "1.21.11",
-  "loader": "Fabric"
+  "loader": "Fabric",
+  "download": "downloads/flux-2.0.jar",
+  "recommended": true
 }

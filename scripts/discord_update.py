@@ -171,9 +171,14 @@ def main() -> int:
         size = jar_path.stat().st_size
         checksum = sha256(jar_path)
         changes = whats_new(last_commit, current_commit)
+        download_copy = (
+            "A fresh jar was built and the website download was refreshed."
+            if args.version == "1.21.11"
+            else "A fresh jar was built and its versioned download was published."
+        )
         embed = {
             "title": f"Onyx Client {args.version} build ready",
-            "description": "A fresh jar was built and the website download was refreshed.",
+            "description": download_copy,
             "color": 0x9F7AEA,
             "fields": [
                 {"name": "Version", "value": args.version, "inline": True},

@@ -1,4 +1,16 @@
 pluginManagement {
+    // The 1.21.11 release keeps the Loom version it was built and verified with.
+    // The unobfuscated 26.x non-remap plugin needs the newer Loom line.
+    def requested = gradle.startParameter.projectProperties.get('targetVersion')
+        ?: gradle.startParameter.projectProperties.get('minecraft_version')
+        ?: '1.21.11'
+    def loomVersion = requested.toString().startsWith('26.') ? '1.17.20' : '1.14.10'
+
+    plugins {
+        id 'net.fabricmc.fabric-loom-remap' version loomVersion
+        id 'net.fabricmc.fabric-loom' version loomVersion
+    }
+
     repositories {
         maven {
             name = 'Fabric'

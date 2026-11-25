@@ -1,7 +1,31 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+    id 'net.fabricmc.fabric-loom-remap' apply false
+    id 'net.fabricmc.fabric-loom' apply false
     id 'maven-publish'
 }
+
+// A version profile is a plain gradle.properties overlay. Invoke a build with
+// -PtargetVersion=26.3 (or -Pminecraft_version=26.3) to select one; the default
+// project stays on the recommended 1.21.11 release.
+def requestedVersion = (findProperty('targetVersion') ?: findProperty('minecraft_version') ?: '1.21.11').toString()
+def versionProfile = file("versions/${requestedVersion}/gradle.properties")
+if (versionProfile.isFile()) {
+    def profile = new Properties()
+    versionProfile.withInputStream { profile.load(it) }
+    def cliProperties = gradle.startParameter.projectProperties
+    profile.each { key, value ->
+        if (!cliProperties.containsKey(key.toString())) {
+            project.ext.set(key.toString(), value.toString())
+        }
+    }
+}
+
+def targetMinecraft = project.minecraft_version.toString()
+def is26 = targetMinecraft.startsWith('26.')
+def isDefaultBuild = targetMinecraft == '1.21.11'
+// Keep the remap pipeline for 26.x too: the generated Tiny jar maps official
+// 26.x names to the Yarn 1.21.11 names used by this shared source tree.
+apply plugin: 'net.fabricmc.fabric-loom-remap'
 
 version = project.mod_version
 group = project.maven_group
@@ -26,9 +50,38 @@ repositories {
     }
 }
 
+// The 26.x profiles ship generated Tiny mappings from official game names to
+// the Yarn names this source tree uses. 1.21.11 keeps the standard Yarn setup.
+if (is26) {
+    if (!project.hasProperty('mapping_file')) {
+        throw new GradleException("26.x profile ${targetMinecraft} is missing mapping_file")
+    }
+    // Compile the generated overlay instead of the 1.21.11 source tree. The
+    // overlay is a mechanical copy with 26.x API substitutions; src/main/java
+    // stays byte-for-byte identical for the recommended release.
+    sourceSets.main.java.setSrcDirs([
+        file('build/generated26/java'),
+        file('src/compat26/java')
+    ])
+    tasks.register('prepare26Source', Exec) {
+        group = 'flux'
+        description = 'Generates the 26.x source overlay from the shared 1.21.11 sources.'
+        workingDir rootDir
+        commandLine 'python', file('versions/tools/prepare_26_source.py').absolutePath, targetMinecraft
+        outputs.upToDateWhen { false }
+    }
+    tasks.named('compileJava') {
+        dependsOn 'prepare26Source'
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    if (is26) {
+        mappings files(file(project.mapping_file))
+    } else {
+        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    }
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
@@ -42,13 +95,17 @@ processResources {
     }
 }
 
+def targetJava = (project.findProperty('java_toolchain') ?: '21') as int
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = targetJava
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.toVersion(targetJava)
+    targetCompatibility = JavaVersion.toVersion(targetJava)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(targetJava)
+    }
 }
 
 // Regenerate the original high-resolution menu icons before the previews use them.
@@ -82,8 +139,24 @@ tasks.register('generateSiteMockups', Exec) {
 }
 
 def websiteDir = file('website')
-def remapJarFile = tasks.named('remapJar').flatMap { it.archiveFile }
-def builtJarPath = remapJarFile.get().asFile.absolutePath
+// Every profile is compiled against Yarn-style names. remapJar produces the
+// production artifact (obfuscated names for 1.21.11, official names for 26.x).
+def primaryJarTask = tasks.named('remapJar')
+def builtJarFile = primaryJarTask.flatMap { it.archiveFile }
+def builtJarPath = builtJarFile.get().asFile.absolutePath
+
+def versionManifest = file(
+    isDefaultBuild ? 'website/downloads/manifest.json' : "website/downloads/${targetMinecraft}/manifest.json"
+)
+def siteOutputs = [file('website/downloads/versions.json')]
+if (isDefaultBuild) {
+    siteOutputs << file('website/downloads/flux-2.0.jar')
+    siteOutputs << file('website/downloads/manifest.json')
+    siteOutputs << file('website/index.html')
+} else {
+    siteOutputs << file("website/downloads/${targetMinecraft}/manifest.json")
+    siteOutputs << file("website/downloads/${targetMinecraft}/flux-2.0-${targetMinecraft}.jar")
+}
 
 // Keep the interactive site preview in sync with the client's real themes,
 // module names, categories and branding. Runs on every build.
@@ -95,37 +168,46 @@ tasks.register('updateWebsitePreview', Exec) {
     outputs.upToDateWhen { false }
 }
 
-tasks.register('updateWebsiteDownload', Exec) {
-    group = 'flux'
-    description = 'Copies the built jar into website/downloads and refreshes the displayed size and checksum.'
-    dependsOn 'remapJar', 'updateWebsitePreview'
-    workingDir rootDir
-    commandLine 'python', file('website/update_download.py').absolutePath,
-        builtJarPath, websiteDir.absolutePath
-    inputs.file(remapJarFile)
-    outputs.files(
-        file('website/downloads/flux-2.0.jar'),
-        file('website/index.html'),
-        file('website/downloads/manifest.json')
-    )
-    outputs.upToDateWhen { false }
+// One publisher for every profile. The default build refreshes the legacy
+// root jar and the visible index; 26.x builds only add their versioned entry.
+def registerSiteTask = { String taskName ->
+    tasks.register(taskName, Exec) {
+        group = 'flux'
+        description = "Copies the built ${targetMinecraft} jar into website/downloads and refreshes its manifest."
+        dependsOn primaryJarTask, 'updateWebsitePreview'
+        workingDir rootDir
+        commandLine 'python', file('website/update_download.py').absolutePath,
+            builtJarPath, websiteDir.absolutePath, targetMinecraft
+        inputs.file builtJarFile
+        outputs.files(*siteOutputs)
+        outputs.upToDateWhen { false }
+    }
 }
+registerSiteTask('updateWebsiteDownload')
+registerSiteTask('updateVersionDownload')
 
 // Announce each successful build in Discord. The webhook URL is read from the
-// DISCORD_WEBHOOK_URL environment variable or config/discord_webhook.txt;
+// DISCORD_WEBHOOK_URL environment variable or config/discord_webhook.enc;
 // config/ is gitignored so the secret is never committed.
-tasks.register('postDiscordUpdate', Exec) {
-    group = 'flux'
-    description = 'Posts a build update to the configured Discord webhook.'
-    dependsOn 'updateWebsiteDownload'
-    workingDir rootDir
-    commandLine 'python', file('scripts/discord_update.py').absolutePath,
-        '--version', project.minecraft_version,
-        '--jar', builtJarPath,
-        '--manifest', file('website/downloads/manifest.json').absolutePath
-    ignoreExitValue = true
+def registerDiscordTask = { String taskName, String siteTaskName ->
+    tasks.register(taskName, Exec) {
+        group = 'flux'
+        description = "Posts a ${targetMinecraft} build update to the configured Discord webhook."
+        dependsOn siteTaskName
+        workingDir rootDir
+        commandLine 'python', file('scripts/discord_update.py').absolutePath,
+            '--version', targetMinecraft,
+            '--jar', builtJarPath,
+            '--manifest', versionManifest.absolutePath
+        ignoreExitValue = true
+    }
 }
+registerDiscordTask('postDiscordUpdate', 'updateWebsiteDownload')
+registerDiscordTask('postVersionDiscordUpdate', 'updateVersionDownload')
+
+def activeSiteTask = isDefaultBuild ? 'updateWebsiteDownload' : 'updateVersionDownload'
+def activeDiscordTask = isDefaultBuild ? 'postDiscordUpdate' : 'postVersionDiscordUpdate'
 
 tasks.named('build') {
-    dependsOn 'generateMockups', 'generateSiteMockups', 'updateWebsiteDownload', 'postDiscordUpdate'
+    dependsOn 'generateMockups', 'generateSiteMockups', activeSiteTask, activeDiscordTask
 }

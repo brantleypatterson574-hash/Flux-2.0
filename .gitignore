@@ -9,3 +9,6 @@ config/
 __pycache__/
 *.pyc
 /mockups/
+/versions/tools/cache/
+/versions/*/mappings.tiny
+/versions/*/version.json

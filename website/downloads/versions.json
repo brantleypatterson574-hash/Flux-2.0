@@ -1,0 +1,53 @@
+{
+  "default": "1.21.11",
+  "versions": {
+    "1.21.11": {
+      "label": "1.21.11 (Recommended)",
+      "minecraft": "1.21.11",
+      "loader": "Fabric",
+      "download": "downloads/flux-2.0.jar",
+      "manifest": "downloads/manifest.json",
+      "name": "flux-2.0.jar",
+      "size": 9897275,
+      "sizeText": "9.4 MB",
+      "sha256": "EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733",
+      "recommended": true
+    },
+    "26.1": {
+      "label": "26.1",
+      "minecraft": "26.1",
+      "loader": "Fabric",
+      "download": "downloads/26.1/flux-2.0-26.1.jar",
+      "manifest": "downloads/26.1/manifest.json",
+      "name": "flux-2.0-26.1.jar",
+      "size": 9913470,
+      "sizeText": "9.5 MB",
+      "sha256": "D9C7A109F40FC4790DAAC83C629DFAD75C1523CFB0D24BC63950EB3F08A6C1B4",
+      "recommended": false
+    },
+    "26.2": {
+      "label": "26.2",
+      "minecraft": "26.2",
+      "loader": "Fabric",
+      "download": "downloads/26.2/flux-2.0-26.2.jar",
+      "manifest": "downloads/26.2/manifest.json",
+      "name": "flux-2.0-26.2.jar",
+      "size": 9915077,
+      "sizeText": "9.5 MB",
+      "sha256": "DF7A6B8FF16F60C45DB3419C12701CB2409053155949A5B5713C36345CBB62C3",
+      "recommended": false
+    },
+    "26.3": {
+      "label": "26.3",
+      "minecraft": "26.3",
+      "loader": "Fabric",
+      "download": "downloads/26.3/flux-2.0-26.3.jar",
+      "manifest": "downloads/26.3/manifest.json",
+      "name": "flux-2.0-26.3.jar",
+      "size": 9916356,
+      "sizeText": "9.5 MB",
+      "sha256": "E8B7D7B54CF8955DD79836E44AC0A9546B08E9DB2F28686BB86B93C5D0FDB287",
+      "recommended": false
+    }
+  }
+}

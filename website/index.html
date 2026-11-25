@@ -22,13 +22,13 @@
       <a href="#gallery">Gallery</a>
       <a href="#download">Download</a>
     </nav>
-    <a class="nav-cta" href="downloads/flux-2.0.jar" download>Download jar</a>
+    <a class="nav-cta" href="downloads/flux-2.0.jar" download data-version-download>Download jar</a>
   </header>
 
   <main id="top">
     <section class="hero" id="overview">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="pulse"></span> Fabric 1.21.11 · Client menu</div>
+        <div class="eyebrow"><span class="pulse"></span> Fabric <span id="heroVersion">1.21.11</span> · Client menu</div>
         <h1>A cleaner way to<br><span>run your mod menu.</span></h1>
         <p class="lead">
           Onyx Client is a Minecraft Fabric menu rebuilt around spacing, readability and speed.
@@ -36,7 +36,7 @@
           GUI shell for ClickGUI and Dropdown layouts. Clean-room crystal-PvP additions are credited to kitpvptot.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="downloads/flux-2.0.jar" download>
+          <a class="btn primary" href="downloads/flux-2.0.jar" download data-version-download>
             <span class="btn-icon">↓</span> Download Onyx Client
           </a>
           <a class="btn ghost" href="preview.html">Open interactive preview</a>
@@ -164,19 +164,30 @@
         <div class="download-copy">
           <span class="kicker">READY TO INSTALL</span>
           <h2>Get Onyx Client.</h2>
-          <p>Drop the jar in your Fabric mods folder and press <kbd>Right Shift</kbd>. No external dependencies beyond Fabric for Minecraft 1.21.11.</p>
+          <p>Drop the jar in your Fabric mods folder and press <kbd>Right Shift</kbd>. No external dependencies beyond Fabric for Minecraft <span id="installVersion">1.21.11</span>.</p>
+          <div class="version-picker">
+            <label for="versionSelect">Minecraft version</label>
+            <select id="versionSelect">
+              <option value="1.21.11">1.21.11 (Recommended)</option>
+              <option value="26.1">26.1</option>
+              <option value="26.2">26.2</option>
+              <option value="26.3">26.3</option>
+            </select>
+            <span class="version-badge" id="versionBadge">Recommended</span>
+          </div>
+          <p class="version-hint" id="versionHint">1.21.11 is the recommended build. 26.x builds are opt-in for the matching Minecraft version.</p>
           <div class="download-actions">
-            <a class="btn primary" href="downloads/flux-2.0.jar" download>
+            <a class="btn primary" href="downloads/flux-2.0.jar" download data-version-download>
               <span class="btn-icon">↓</span> Onyx Client jar
             </a>
             <a class="btn ghost" href="preview.html">Try the preview</a>
           </div>
-          <p class="file-note">Fabric 1.21.11 · 9.4 MB · client jar</p>
-          <p class="file-note">SHA-256: <code>EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733</code></p>
+          <p class="file-note" id="fileNote">Fabric 1.21.11 · 9.4 MB · client jar</p>
+          <p class="file-note">SHA-256: <code id="hashValue">EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733</code></p>
         </div>
 
         <ol class="steps">
-          <li><span>01</span><div><b>Install Fabric</b><small>Use Fabric Loader for Minecraft 1.21.11.</small></div></li>
+          <li><span>01</span><div><b>Install Fabric</b><small id="fabricVersionStep">Use Fabric Loader for Minecraft 1.21.11.</small></div></li>
           <li><span>02</span><div><b>Copy the jar</b><small>Place the Onyx Client jar in your mods folder.</small></div></li>
           <li><span>03</span><div><b>Open the menu</b><small>Press Right Shift. Click the top chips to change theme or layout.</small></div></li>
           <li><span>04</span><div><b>Explore the menu</b><small>Switch between Dropdown and ClickGUI, filter modules, and change theme or scale.</small></div></li>

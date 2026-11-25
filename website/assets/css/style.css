@@ -32,7 +32,7 @@ body {
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 [hidden] { display: none !important; }
 
 .noise {
@@ -404,6 +404,47 @@ main { position: relative; z-index: 1; }
 }
 .download-copy h2 { margin: 12px 0 14px; font-size: clamp(32px, 4vw, 52px); letter-spacing: -.05em; }
 .download-copy > p { color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 500px; }
+.version-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: rgba(8,10,15,.42);
+}
+.version-picker label { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.version-picker select {
+  appearance: none;
+  min-width: 160px;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid rgba(192,132,252,.35);
+  border-radius: 9px;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--accent-2) 50%) calc(100% - 16px) 15px / 5px 5px no-repeat,
+    linear-gradient(135deg, var(--accent-2) 50%, transparent 50%) calc(100% - 11px) 15px / 5px 5px no-repeat,
+    rgba(255,255,255,.04);
+  color: #fff;
+  cursor: pointer;
+}
+.version-picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.version-badge {
+  padding: 4px 9px;
+  border: 1px solid rgba(74,222,128,.35);
+  border-radius: 999px;
+  background: rgba(74,222,128,.1);
+  color: #86efac;
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+.version-badge.optin {
+  border-color: rgba(192,132,252,.35);
+  background: rgba(192,132,252,.1);
+  color: var(--accent-2);
+}
+.version-hint { margin-top: 8px !important; color: var(--muted-2) !important; font-size: 11px !important; }
 .download-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .file-note { margin-top: 14px !important; color: var(--muted-2) !important; font-size: 11px !important; }
 kbd {

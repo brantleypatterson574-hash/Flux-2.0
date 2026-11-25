@@ -1,0 +1,10 @@
+{
+  "name": "flux-2.0-26.2.jar",
+  "size": 9915077,
+  "sizeText": "9.5 MB",
+  "sha256": "DF7A6B8FF16F60C45DB3419C12701CB2409053155949A5B5713C36345CBB62C3",
+  "minecraft": "26.2",
+  "loader": "Fabric",
+  "download": "downloads/26.2/flux-2.0-26.2.jar",
+  "recommended": false
+}
