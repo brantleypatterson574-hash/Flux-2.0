@@ -8,9 +8,9 @@
       "download": "downloads/flux-2.0.jar",
       "manifest": "downloads/manifest.json",
       "name": "flux-2.0.jar",
-      "size": 9897275,
+      "size": 9897354,
       "sizeText": "9.4 MB",
-      "sha256": "EAEEAC3ED123EE1D6F82A9DBE60B349995F0DE83E57C67914B1E15A9CE1F2733",
+      "sha256": "FACD6F2D5C2A796F85AC6519B2B2F2749357D84FA3510B4A3DB98F6D7185F3FD",
       "recommended": true
     },
     "26.1": {
@@ -20,9 +20,9 @@
       "download": "downloads/26.1/flux-2.0-26.1.jar",
       "manifest": "downloads/26.1/manifest.json",
       "name": "flux-2.0-26.1.jar",
-      "size": 9913470,
+      "size": 9913571,
       "sizeText": "9.5 MB",
-      "sha256": "D9C7A109F40FC4790DAAC83C629DFAD75C1523CFB0D24BC63950EB3F08A6C1B4",
+      "sha256": "DD8852BB29003AE2F389A80308139A1AA9EE54F51A8950E57C7E835BA9A6B3AC",
       "recommended": false
     },
     "26.2": {
@@ -32,9 +32,9 @@
       "download": "downloads/26.2/flux-2.0-26.2.jar",
       "manifest": "downloads/26.2/manifest.json",
       "name": "flux-2.0-26.2.jar",
-      "size": 9915077,
+      "size": 9915166,
       "sizeText": "9.5 MB",
-      "sha256": "DF7A6B8FF16F60C45DB3419C12701CB2409053155949A5B5713C36345CBB62C3",
+      "sha256": "EB83254C2DDE97B4AB43F485408965BCF51670C1A2E39269158ECEFA17DAD11E",
       "recommended": false
     },
     "26.3": {
@@ -44,9 +44,9 @@
       "download": "downloads/26.3/flux-2.0-26.3.jar",
       "manifest": "downloads/26.3/manifest.json",
       "name": "flux-2.0-26.3.jar",
-      "size": 9916356,
+      "size": 9916445,
       "sizeText": "9.5 MB",
-      "sha256": "E8B7D7B54CF8955DD79836E44AC0A9546B08E9DB2F28686BB86B93C5D0FDB287",
+      "sha256": "DBB76C76B46C2DFE69349387DC3063EFA34A9EAF154C2FC295EF87B01EE5CD30",
       "recommended": false
     }
   }

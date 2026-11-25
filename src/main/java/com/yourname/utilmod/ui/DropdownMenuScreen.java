@@ -57,8 +57,6 @@ public class DropdownMenuScreen extends Screen {
 
     // The dropped copy carried a private seven-colour palette. It is removed so
     // this screen uses the same GuiTheme/GuiThemeModule selection as the ClickGUI.
-    private static final int TEXT = 0xFFF4F4F5;
-    private static final int TEXT_DIM = 0xFF8E8E93;
     private static final int TOGGLE_OFF = 0xFF303030;
     private static final int STATUS_GREEN = 0xFF3DDC84;
     private static final int STATUS_RED = 0xFFFF5555;
@@ -89,6 +87,16 @@ public class DropdownMenuScreen extends Screen {
     private int hoverColor() { return theme().moduleRowHover; }
     private int inner() { return theme().settingRow; }
     private int border() { return theme().panelBorder; }
+
+    private int text() { return theme().text; }
+    private int textDim() { return theme().textSecondary; }
+
+    /** Match the ClickGUI's light-theme contrast rule instead of lightening dark labels. */
+    private int titleText(int color) {
+        return theme().light
+            ? mixColor(color, 0xFF101014, 0.18f)
+            : SlGuiPaint.titleColor(color);
+    }
 
     private boolean perf() {
         GuiThemeModule module = themeModule();
@@ -341,7 +349,7 @@ public class DropdownMenuScreen extends Screen {
             SlGuiPaint.fillRoundedGradient(context, x, y, w, h, top(), bg(), r(12));
         }
         SlGuiPaint.titleMid(context, textRenderer, "Themes  /  Layout", x + 12, y + head / 2,
-            SlGuiPaint.titleColor(theme().text), 12.0f);
+            titleText(theme().text), 12.0f);
         fillRounded(context, x + 2, y + head / 2 - 2, x + 6, y + head / 2 + 2, accent(), 2);
         context.fill(x + 1, y + head - 1, x + w - 1, y + head, border());
         for (int i = 0; i < themes.length; i++) {
@@ -392,7 +400,7 @@ public class DropdownMenuScreen extends Screen {
         int gx = x + (w - groupW) / 2;
         MenuItemIcons.draw(context, category, gx, mid - chip / 2, chip);
         SlGuiPaint.titleMid(context, textRenderer, name, gx + chip + 9, mid,
-            SlGuiPaint.titleColor(theme().text), 13.0f);
+            titleText(theme().text), 13.0f);
         context.fill(x + 1, y + HEADER_H - 1, x + w - 1, y + HEADER_H, border());
         hits.add(new Hit(x, y, w, HEADER_H, Kind.HEADER, category, null, null, null, 0, 0));
 
@@ -452,7 +460,7 @@ public class DropdownMenuScreen extends Screen {
             String label = SlGuiPaint.fit(textRenderer, module.getName(), w - 36, 11.5f);
             int labelW = SlGuiPaint.textWidth(textRenderer, label, 11.5f);
             SlGuiPaint.titleMid(context, textRenderer, label, x + (w - labelW) / 2, mid,
-                SlGuiPaint.titleColor(mixColor(0xFFB4B4B8, hi(), on)), 11.5f);
+                titleText(mixColor(textDim(), hi(), on)), 11.5f);
             // Dot: green while the settings are folded open, red while folded shut.
             fillRounded(context, x + w - 15, mid - 2, x + w - 11, mid + 2, open ? STATUS_GREEN : STATUS_RED, 2);
             hits.add(new Hit(x, y, w, ROW_H, Kind.MODULE, category, module, null, null, 0, 0));
@@ -473,7 +481,7 @@ public class DropdownMenuScreen extends Screen {
             boolean showAdvanced = advancedOpen.contains(module);
             if (fits(y, 24, top, bodyH)) {
                 context.fill(x, y, x + w, y + 24, inner());
-                SlGuiPaint.textMid(context, textRenderer, "More settings", x + PAD, y + 12, TEXT_DIM, 10.0f);
+                SlGuiPaint.textMid(context, textRenderer, "More settings", x + PAD, y + 12, textDim(), 10.0f);
                 SlGuiPaint.textMid(context, textRenderer, showAdvanced ? "^" : "v",
                     x + w - PAD - 6, y + 12, accent(), 10.0f);
                 hits.add(new Hit(x, y, w, 24, Kind.ADVANCED, category, module, null, null, 0, 0));
@@ -541,15 +549,15 @@ public class DropdownMenuScreen extends Screen {
             }
             SlGuiPaint.textMid(context, textRenderer,
                 SlGuiPaint.fit(textRenderer, setting.getName(), w - box - PAD * 2 - 6, 10.0f),
-                textX + box + 7, mid, value ? TEXT : TEXT_DIM, 10.0f);
+                textX + box + 7, mid, value ? text() : textDim(), 10.0f);
             hits.add(new Hit(x, y, w, h, Kind.BOOL, category, module, setting, null, 0, 0));
         } else if (setting instanceof NumberSetting number) {
             String valueText = number.getDisplayValue();
             int valueW = SlGuiPaint.textWidth(textRenderer, valueText, 10.0f);
             SlGuiPaint.textMid(context, textRenderer,
                 SlGuiPaint.fit(textRenderer, setting.getName(), w - valueW - PAD * 2 - 8, 10.0f),
-                textX, y + 12, TEXT_DIM, 10.0f);
-            SlGuiPaint.textMid(context, textRenderer, valueText, x + w - PAD - valueW, y + 12, TEXT, 10.0f);
+                textX, y + 12, textDim(), 10.0f);
+            SlGuiPaint.textMid(context, textRenderer, valueText, x + w - PAD - valueW, y + 12, text(), 10.0f);
             int trackW = w - PAD * 2;
             int trackY = y + 27;
             fillRounded(context, textX, trackY, textX + trackW, trackY + 5, TOGGLE_OFF, 2);
@@ -568,12 +576,12 @@ public class DropdownMenuScreen extends Screen {
                 String value = SlGuiPaint.fit(textRenderer, enumer.getDisplayValue(), w / 2 - PAD, 10.0f);
                 SlGuiPaint.textMid(context, textRenderer,
                     SlGuiPaint.fit(textRenderer, setting.getName() + ":", w / 2 - PAD, 10.0f),
-                    textX, mid, TEXT_DIM, 10.0f);
+                    textX, mid, textDim(), 10.0f);
                 SlGuiPaint.textMid(context, textRenderer, value,
                     x + w - PAD - SlGuiPaint.textWidth(textRenderer, value, 10.0f), mid, hi(), 10.0f);
                 hits.add(new Hit(x, y, w, h, Kind.ENUM_CYCLE, category, module, setting, null, 0, 0));
             } else {
-                SlGuiPaint.textMid(context, textRenderer, setting.getName() + ":", textX, mid, TEXT_DIM, 10.0f);
+                SlGuiPaint.textMid(context, textRenderer, setting.getName() + ":", textX, mid, textDim(), 10.0f);
                 int cx = textX;
                 int rowTop = y + 22;
                 int avail = w - PAD * 2;
@@ -590,7 +598,7 @@ public class DropdownMenuScreen extends Screen {
                     String label = enumLabel(option);
                     int lw = SlGuiPaint.textWidth(textRenderer, label, 9.5f);
                     SlGuiPaint.textMid(context, textRenderer, label, cx + (pillW - lw) / 2, rowTop + 7,
-                        isSelected ? hi() : TEXT_DIM, 9.5f);
+                        isSelected ? hi() : textDim(), 9.5f);
                     hits.add(new Hit(cx, rowTop, pillW, 14, Kind.ENUM_OPTION, category, module, setting, option, 0, 0));
                     cx += ow;
                 }
@@ -600,15 +608,15 @@ public class DropdownMenuScreen extends Screen {
             String shown = SlGuiPaint.fit(textRenderer, capturing ? "Press a key" : keybind.getDisplayValue(),
                 w / 2 - PAD, 10.0f);
             SlGuiPaint.textMid(context, textRenderer,
-                SlGuiPaint.fit(textRenderer, setting.getName(), w / 2 - PAD, 10.0f), textX, mid, TEXT_DIM, 10.0f);
+                SlGuiPaint.fit(textRenderer, setting.getName(), w / 2 - PAD, 10.0f), textX, mid, textDim(), 10.0f);
             SlGuiPaint.textMid(context, textRenderer, shown,
                 x + w - PAD - SlGuiPaint.textWidth(textRenderer, shown, 10.0f), mid,
-                capturing ? accent() : TEXT, 10.0f);
+                capturing ? accent() : text(), 10.0f);
             hits.add(new Hit(x, y, w, h, Kind.KEYBIND, category, module, setting, null, 0, 0));
         } else if (setting instanceof ChecklistSetting checklist) {
             String shown = SlGuiPaint.fit(textRenderer, checklist.getDisplayValue() + "  >", w / 2 - PAD, 10.0f);
             SlGuiPaint.textMid(context, textRenderer,
-                SlGuiPaint.fit(textRenderer, setting.getName(), w / 2 - PAD, 10.0f), textX, mid, TEXT_DIM, 10.0f);
+                SlGuiPaint.fit(textRenderer, setting.getName(), w / 2 - PAD, 10.0f), textX, mid, textDim(), 10.0f);
             SlGuiPaint.textMid(context, textRenderer, shown,
                 x + w - PAD - SlGuiPaint.textWidth(textRenderer, shown, 10.0f), mid, accent(), 10.0f);
             hits.add(new Hit(x, y, w, h, Kind.CHECKLIST, category, module, setting, null, 0, 0));
@@ -616,11 +624,11 @@ public class DropdownMenuScreen extends Screen {
             boolean editing = editingString == text;
             String value = editing ? editingText : text.getDisplayValue();
             SlGuiPaint.textMid(context, textRenderer,
-                SlGuiPaint.fit(textRenderer, setting.getName(), w / 3, 10.0f), textX, mid, TEXT_DIM, 10.0f);
+                SlGuiPaint.fit(textRenderer, setting.getName(), w / 3, 10.0f), textX, mid, textDim(), 10.0f);
             String shown = SlGuiPaint.fit(textRenderer, value, w * 3 / 5 - PAD, 10.0f);
             int shownW = SlGuiPaint.textWidth(textRenderer, shown, 10.0f);
             int shownX = x + w - PAD - shownW;
-            SlGuiPaint.textMid(context, textRenderer, shown, shownX, mid, editing ? accent() : TEXT, 10.0f);
+            SlGuiPaint.textMid(context, textRenderer, shown, shownX, mid, editing ? accent() : text(), 10.0f);
             if (editing && (System.nanoTime() / 500_000_000L) % 2 == 0) {
                 fillRounded(context, shownX + shownW + 1, mid - 6, shownX + shownW + 2, mid + 6, accent(), 1);
             }
