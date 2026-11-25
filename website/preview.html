@@ -5,84 +5,769 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Onyx Client — Menu Mockup (all current modules)</title>
 <style>
-/* ---------- Theme palettes (ported from GuiTheme.java) ---------- */
+/* BEGIN GENERATED: theme palettes */
 :root {
   --scale: 1;
-  --overlay: rgba(11, 10, 18, .58);
-  --accent: #DDD6FE;
-  --accent-lo: #C4B5FD;
-  --panel: #1B1826;
-  --border: #3B3355;
-  --header-a: #262041;
-  --header-b: #342A52;
-  --row: #1F1B2C;
-  --row-on: #322A4C;
-  --row-hover: #40365E;
-  --setting: #231E34;
-  --text: #F7F5FF;
-  --dim: #B9B2CC;
-  --on: #CDBAFF;
-  --off: #5C5572;
-  --track: #171423;
-  --search: #131019;
-  --green: #4ADE80;
+  --overlay: rgba(28, 30, 36, 0.600);
+  --accent: #CF00FF;
+  --accent-lo: #78B4FF;
+  --panel: rgba(15, 17, 23, 0.902);
+  --border: rgba(181, 173, 202, 0.220);
+  --header-a: #1C1E24;
+  --header-b: #0F1117;
+  --row: rgba(9, 10, 16, 0.941);
+  --row-on: rgba(207, 0, 255, 0.165);
+  --row-hover: rgba(120, 180, 255, 0.165);
+  --setting: rgba(9, 10, 16, 0.941);
+  --text: #FDF5FF;
+  --dim: #B9BCC2;
+  --on: #50DC78;
+  --off: #4A4C5A;
+  --track: #2A2D36;
+  --search: #0F1117;
+  --green: #50DC78;
 }
 html[data-theme="matrix"] {
-  --overlay: rgba(7, 8, 10, .60); --accent: #FF3B3B; --accent-lo: #FF3B3B;
-  --panel: #141417; --border: #2C2C33; --header-a: #1A1A1F; --header-b: #101013;
-  --row: #1A1A1E; --row-on: #2A1417; --row-hover: #25252B; --setting: #17171B;
-  --text: #ECECF0; --dim: #8B8B95; --on: #FF3B3B; --off: #4B4B54;
-  --track: #0D0D10; --search: #0E0E11; --green: #3FB950;
+  --overlay: rgba(7, 8, 10, 0.600);
+  --accent: #FF3B3B;
+  --accent-lo: #FF3B3B;
+  --panel: #141417;
+  --border: #2C2C33;
+  --header-a: #1A1A1F;
+  --header-b: #101013;
+  --row: #1A1A1E;
+  --row-on: #2A1417;
+  --row-hover: #25252B;
+  --setting: #17171B;
+  --text: #ECECF0;
+  --dim: #8B8B95;
+  --on: #FF3B3B;
+  --off: #4B4B54;
+  --track: #0D0D10;
+  --search: #0E0E11;
+  --green: #FF3B3B;
 }
 html[data-theme="utilmod"] {
-  --overlay: rgba(6, 6, 8, .56); --accent: #38BDF8; --accent-lo: #E51617;
-  --panel: #1C1C20; --border: #3F3F46; --header-a: #26262C; --header-b: #1E2A33;
-  --row: #232327; --row-on: #23323B; --row-hover: #3F3F46; --setting: #161619;
-  --text: #E4E4E7; --dim: #A1A1AA; --on: #22C55E; --off: #EF4444;
-  --track: #0A0A0A; --search: #18181B; --green: #22C55E;
+  --overlay: rgba(6, 6, 8, 0.561);
+  --accent: #38BDF8;
+  --accent-lo: #E51617;
+  --panel: #1C1C20;
+  --border: #3F3F46;
+  --header-a: #26262C;
+  --header-b: #1E2A33;
+  --row: #232327;
+  --row-on: #23323B;
+  --row-hover: #3F3F46;
+  --setting: #161619;
+  --text: #E4E4E7;
+  --dim: #A1A1AA;
+  --on: #22C55E;
+  --off: #EF4444;
+  --track: #0A0A0A;
+  --search: #18181B;
+  --green: #22C55E;
 }
-html[data-theme="meteor"] {
-  --overlay: rgba(11, 13, 16, .56); --accent: #3E8CFF; --accent-lo: #3E8CFF;
-  --panel: #1B1E22; --border: #30363D; --header-a: #24282D; --header-b: #16304A;
-  --row: #22262B; --row-on: #1E2B38; --row-hover: #30363D; --setting: #191C20;
-  --text: #E6EDF3; --dim: #8B949E; --on: #3FB950; --off: #F85149;
-  --track: #0D1117; --search: #0D1117; --green: #3FB950;
-}
-html[data-theme="lumi"] {
-  --overlay: rgba(67, 59, 107, .40); --accent: #7C5CE0; --accent-lo: #7C5CE0;
-  --panel: #F8F7FD; --border: #D8D2EA; --header-a: #EDE9FA; --header-b: #E2D9FF;
-  --row: #FFFFFF; --row-on: #EDE7FF; --row-hover: #E4DCFA; --setting: #F0ECFC;
-  --text: #241E3A; --dim: #6F6890; --on: #12A594; --off: #CFC6E8;
-  --track: #E6E0F5; --search: #FFFFFF; --green: #12A594;
-}
-html[data-theme="sakura"] {
-  --overlay: rgba(26, 18, 28, .54); --accent: #FFC6D6; --accent-lo: #FFB3C8;
-  --panel: #261C28; --border: #5A3A50; --header-a: #382739; --header-b: #482D43;
-  --row: #2C2130; --row-on: #473245; --row-hover: #5A3E54; --setting: #2C202B;
-  --text: #FFF5F9; --dim: #D8B9C7; --on: #FFB0C9; --off: #6B5361;
-  --track: #1C151E; --search: #161119; --green: #7BD88F;
-}
-html[data-theme="ocean"] {
-  --overlay: rgba(10, 24, 34, .56); --accent: #BAE6FD; --accent-lo: #7DD3FC;
-  --panel: #162633; --border: #2E5670; --header-a: #1D3748; --header-b: #23465B;
-  --row: #1A2E3D; --row-on: #244659; --row-hover: #315F7E; --setting: #1B3040;
-  --text: #F0FAFF; --dim: #B4CDDC; --on: #8EE1FF; --off: #527286;
-  --track: #11212D; --search: #0C1822; --green: #4ADE80;
-}
-html[data-theme="slate"] {
-  --overlay: rgba(20, 22, 24, .54); --accent: #DDE1E6; --accent-lo: #BFC6CF;
-  --panel: #202328; --border: #3A3F47; --header-a: #292D33; --header-b: #31363E;
-  --row: #24272C; --row-on: #343A42; --row-hover: #414851; --setting: #252930;
-  --text: #EEF1F4; --dim: #A5ACB6; --on: #D2D8DF; --off: #5A616B;
-  --track: #1A1D21; --search: #121417; --green: #4ADE80;
+html[data-theme="prestige"] {
+  --overlay: rgba(28, 30, 36, 0.600);
+  --accent: #CF00FF;
+  --accent-lo: #78B4FF;
+  --panel: rgba(15, 17, 23, 0.902);
+  --border: rgba(181, 173, 202, 0.220);
+  --header-a: #1C1E24;
+  --header-b: #0F1117;
+  --row: rgba(9, 10, 16, 0.941);
+  --row-on: rgba(207, 0, 255, 0.165);
+  --row-hover: rgba(120, 180, 255, 0.165);
+  --setting: rgba(9, 10, 16, 0.941);
+  --text: #FDF5FF;
+  --dim: #B9BCC2;
+  --on: #50DC78;
+  --off: #4A4C5A;
+  --track: #2A2D36;
+  --search: #0F1117;
+  --green: #50DC78;
 }
 html[data-theme="flux"] {
-  --overlay: rgba(4, 4, 4, .60); --accent: #E4E4E7; --accent-lo: #B8B8BE;
-  --panel: #101010; --border: rgba(184, 184, 190, .38); --header-a: #050505; --header-b: #1A1A1A;
-  --row: #141414; --row-on: rgba(184, 184, 190, .22); --row-hover: #202024; --setting: #141414;
-  --text: #F4F4F5; --dim: #9A9AA0; --on: #B8B8BE; --off: #333338;
-  --track: #050505; --search: #101010; --green: #B8B8BE;
+  --overlay: rgba(4, 4, 4, 0.600);
+  --accent: #E4E4E7;
+  --accent-lo: #B8B8BE;
+  --panel: #101010;
+  --border: rgba(184, 184, 190, 0.380);
+  --header-a: #050505;
+  --header-b: #1A1A1A;
+  --row: #141414;
+  --row-on: rgba(184, 184, 190, 0.220);
+  --row-hover: #202024;
+  --setting: #141414;
+  --text: #F4F4F5;
+  --dim: #9A9AA0;
+  --on: #B8B8BE;
+  --off: #333338;
+  --track: #050505;
+  --search: #101010;
+  --green: #B8B8BE;
 }
+html[data-theme="meteor"] {
+  --overlay: rgba(11, 13, 16, 0.561);
+  --accent: #3E8CFF;
+  --accent-lo: #3E8CFF;
+  --panel: #1B1E22;
+  --border: #010409;
+  --header-a: #24282D;
+  --header-b: #16304A;
+  --row: #22262B;
+  --row-on: #1E2B38;
+  --row-hover: #30363D;
+  --setting: #191C20;
+  --text: #E6EDF3;
+  --dim: #8B949E;
+  --on: #3FB950;
+  --off: #F85149;
+  --track: #0D1117;
+  --search: #0D1117;
+  --green: #3FB950;
+}
+html[data-theme="lumi"] {
+  --overlay: rgba(67, 59, 107, 0.400);
+  --accent: #7C5CE0;
+  --accent-lo: #7C5CE0;
+  --panel: #F8F7FD;
+  --border: #D8D2EA;
+  --header-a: #EDE9FA;
+  --header-b: #E2D9FF;
+  --row: #FFFFFF;
+  --row-on: #EDE7FF;
+  --row-hover: #E4DCFA;
+  --setting: #F0ECFC;
+  --text: #241E3A;
+  --dim: #6F6890;
+  --on: #12A594;
+  --off: #CFC6E8;
+  --track: #E6E0F5;
+  --search: #FFFFFF;
+  --green: #12A594;
+}
+html[data-theme="sakura"] {
+  --overlay: rgba(26, 18, 28, 0.541);
+  --accent: #FFC6D6;
+  --accent-lo: #FFB3C8;
+  --panel: #261C28;
+  --border: #5A3A50;
+  --header-a: #382739;
+  --header-b: #482D43;
+  --row: #2C2130;
+  --row-on: #473245;
+  --row-hover: #5A3E54;
+  --setting: #2C202B;
+  --text: #FFF5F9;
+  --dim: #D8B9C7;
+  --on: #FFB0C9;
+  --off: #6B5361;
+  --track: #1C151E;
+  --search: #161119;
+  --green: #FFB0C9;
+}
+html[data-theme="ocean"] {
+  --overlay: rgba(10, 24, 34, 0.561);
+  --accent: #BAE6FD;
+  --accent-lo: #7DD3FC;
+  --panel: #162633;
+  --border: #2E5670;
+  --header-a: #1D3748;
+  --header-b: #23465B;
+  --row: #1A2E3D;
+  --row-on: #244659;
+  --row-hover: #315F7E;
+  --setting: #1B3040;
+  --text: #F0FAFF;
+  --dim: #B4CDDC;
+  --on: #8EE1FF;
+  --off: #527286;
+  --track: #11212D;
+  --search: #0C1822;
+  --green: #8EE1FF;
+}
+html[data-theme="slate"] {
+  --overlay: rgba(20, 22, 24, 0.541);
+  --accent: #DDE1E6;
+  --accent-lo: #BFC6CF;
+  --panel: #202328;
+  --border: #3A3F47;
+  --header-a: #292D33;
+  --header-b: #31363E;
+  --row: #24272C;
+  --row-on: #343A42;
+  --row-hover: #414851;
+  --setting: #252930;
+  --text: #EEF1F4;
+  --dim: #A5ACB6;
+  --on: #D2D8DF;
+  --off: #5A616B;
+  --track: #1A1D21;
+  --search: #121417;
+  --green: #D2D8DF;
+}
+html[data-theme="sl_liquid_glass"] {
+  --overlay: rgba(5, 6, 7, 0.565);
+  --accent: #EAFAF6;
+  --accent-lo: #2EE6C8;
+  --panel: #0B0D0F;
+  --border: rgba(255, 255, 255, 0.220);
+  --header-a: #050607;
+  --header-b: #FFFFFF;
+  --row: #0B0D0F;
+  --row-on: rgba(255, 255, 255, 0.220);
+  --row-hover: rgba(255, 255, 255, 0.220);
+  --setting: #0B0D0F;
+  --text: #EFF2F3;
+  --dim: #B4BABE;
+  --on: #2EE6C8;
+  --off: #25282C;
+  --track: #050607;
+  --search: #0B0D0F;
+  --green: #2EE6C8;
+}
+html[data-theme="sl_flux"] {
+  --overlay: rgba(4, 4, 4, 0.600);
+  --accent: #E4E4E7;
+  --accent-lo: #B8B8BE;
+  --panel: #101010;
+  --border: rgba(184, 184, 190, 0.380);
+  --header-a: #050505;
+  --header-b: #1A1A1A;
+  --row: #141414;
+  --row-on: rgba(184, 184, 190, 0.220);
+  --row-hover: #202024;
+  --setting: #141414;
+  --text: #F4F4F5;
+  --dim: #9A9AA0;
+  --on: #B8B8BE;
+  --off: #333338;
+  --track: #050505;
+  --search: #101010;
+  --green: #B8B8BE;
+}
+html[data-theme="sl_granite"] {
+  --overlay: rgba(5, 5, 5, 0.565);
+  --accent: #F6E3B4;
+  --accent-lo: #D9B56E;
+  --panel: #0E0C0A;
+  --border: rgba(217, 181, 110, 0.400);
+  --header-a: #050505;
+  --header-b: #F5E6C8;
+  --row: #0E0C0A;
+  --row-on: rgba(217, 181, 110, 0.400);
+  --row-hover: rgba(217, 181, 110, 0.400);
+  --setting: #0E0C0A;
+  --text: #F6F2E9;
+  --dim: #ADA79B;
+  --on: #D9B56E;
+  --off: #2C2A26;
+  --track: #050505;
+  --search: #0E0C0A;
+  --green: #D9B56E;
+}
+html[data-theme="sl_nero_portoro"] {
+  --overlay: rgba(3, 3, 4, 0.565);
+  --accent: #F3E6C0;
+  --accent-lo: #DBB872;
+  --panel: #0A0A0C;
+  --border: rgba(219, 184, 114, 0.345);
+  --header-a: #030304;
+  --header-b: #E8DCC0;
+  --row: #0A0A0C;
+  --row-on: rgba(219, 184, 114, 0.345);
+  --row-hover: rgba(219, 184, 114, 0.345);
+  --setting: #0A0A0C;
+  --text: #F1EFE9;
+  --dim: #A7A39E;
+  --on: #DBB872;
+  --off: #2A2927;
+  --track: #030304;
+  --search: #0A0A0C;
+  --green: #DBB872;
+}
+html[data-theme="sl_teal"] {
+  --overlay: rgba(2, 7, 8, 0.565);
+  --accent: #8FF5E6;
+  --accent-lo: #2DD4BF;
+  --panel: #061416;
+  --border: rgba(45, 212, 191, 0.400);
+  --header-a: #020708;
+  --header-b: #BFF7EE;
+  --row: #061416;
+  --row-on: rgba(45, 212, 191, 0.400);
+  --row-hover: rgba(45, 212, 191, 0.400);
+  --setting: #061416;
+  --text: #EAFAF7;
+  --dim: #93B8B3;
+  --on: #2DD4BF;
+  --off: #1C2B2E;
+  --track: #020708;
+  --search: #061416;
+  --green: #2DD4BF;
+}
+html[data-theme="sl_ruby"] {
+  --overlay: rgba(8, 2, 4, 0.565);
+  --accent: #FF9DB0;
+  --accent-lo: #F0486B;
+  --panel: #18060B;
+  --border: rgba(240, 72, 107, 0.400);
+  --header-a: #080204;
+  --header-b: #FFC8D2;
+  --row: #18060B;
+  --row-on: rgba(240, 72, 107, 0.400);
+  --row-hover: rgba(240, 72, 107, 0.400);
+  --setting: #18060B;
+  --text: #FDECEF;
+  --dim: #BC9EA5;
+  --on: #F0486B;
+  --off: #2F1D22;
+  --track: #080204;
+  --search: #18060B;
+  --green: #F0486B;
+}
+html[data-theme="sl_catppuccin"] {
+  --overlay: rgba(17, 17, 27, 0.565);
+  --accent: #F5C2E7;
+  --accent-lo: #CBA6F7;
+  --panel: #1E1E2E;
+  --border: rgba(203, 166, 247, 0.400);
+  --header-a: #11111B;
+  --header-b: #B4BEFE;
+  --row: #1E1E2E;
+  --row-on: rgba(203, 166, 247, 0.400);
+  --row-hover: rgba(203, 166, 247, 0.400);
+  --setting: #1E1E2E;
+  --text: #CDD6F4;
+  --dim: #A6ADC8;
+  --on: #CBA6F7;
+  --off: #313244;
+  --track: #11111B;
+  --search: #1E1E2E;
+  --green: #CBA6F7;
+}
+html[data-theme="sl_purple"] {
+  --overlay: rgba(5, 2, 10, 0.565);
+  --accent: #D8B4FF;
+  --accent-lo: #A86EFF;
+  --panel: #0E071C;
+  --border: rgba(168, 110, 255, 0.400);
+  --header-a: #05020A;
+  --header-b: #DCC8FF;
+  --row: #0E071C;
+  --row-on: rgba(168, 110, 255, 0.400);
+  --row-hover: rgba(168, 110, 255, 0.400);
+  --setting: #0E071C;
+  --text: #F3ECFF;
+  --dim: #AD9FCB;
+  --on: #A86EFF;
+  --off: #241B38;
+  --track: #05020A;
+  --search: #0E071C;
+  --green: #A86EFF;
+}
+html[data-theme="sl_emerald"] {
+  --overlay: rgba(2, 8, 5, 0.565);
+  --accent: #9BF5C2;
+  --accent-lo: #34D37D;
+  --panel: #06140D;
+  --border: rgba(52, 211, 125, 0.400);
+  --header-a: #020805;
+  --header-b: #C4F5D8;
+  --row: #06140D;
+  --row-on: rgba(52, 211, 125, 0.400);
+  --row-hover: rgba(52, 211, 125, 0.400);
+  --setting: #06140D;
+  --text: #EBFAF1;
+  --dim: #92BCA4;
+  --on: #34D37D;
+  --off: #1B2C22;
+  --track: #020805;
+  --search: #06140D;
+  --green: #34D37D;
+}
+html[data-theme="sl_ocean"] {
+  --overlay: rgba(2, 4, 10, 0.565);
+  --accent: #9DC0FF;
+  --accent-lo: #3B82F6;
+  --panel: #070D18;
+  --border: rgba(59, 130, 246, 0.400);
+  --header-a: #02040A;
+  --header-b: #C8D8F7;
+  --row: #070D18;
+  --row-on: rgba(59, 130, 246, 0.400);
+  --row-hover: rgba(59, 130, 246, 0.400);
+  --setting: #070D18;
+  --text: #EAF1FD;
+  --dim: #96AAC8;
+  --on: #3B82F6;
+  --off: #1B2636;
+  --track: #02040A;
+  --search: #070D18;
+  --green: #3B82F6;
+}
+html[data-theme="sl_sunset"] {
+  --overlay: rgba(8, 4, 2, 0.565);
+  --accent: #FFC08A;
+  --accent-lo: #FF8C42;
+  --panel: #18100A;
+  --border: rgba(255, 140, 66, 0.400);
+  --header-a: #080402;
+  --header-b: #FFE0C4;
+  --row: #18100A;
+  --row-on: rgba(255, 140, 66, 0.400);
+  --row-hover: rgba(255, 140, 66, 0.400);
+  --setting: #18100A;
+  --text: #FDF0E8;
+  --dim: #C8AC98;
+  --on: #FF8C42;
+  --off: #2F241B;
+  --track: #080402;
+  --search: #18100A;
+  --green: #FF8C42;
+}
+html[data-theme="sl_rose"] {
+  --overlay: rgba(8, 2, 5, 0.565);
+  --accent: #FFA6C8;
+  --accent-lo: #FF5FA2;
+  --panel: #18070F;
+  --border: rgba(255, 95, 162, 0.400);
+  --header-a: #080205;
+  --header-b: #FFCADB;
+  --row: #18070F;
+  --row-on: rgba(255, 95, 162, 0.400);
+  --row-hover: rgba(255, 95, 162, 0.400);
+  --setting: #18070F;
+  --text: #FDECF3;
+  --dim: #C79EAF;
+  --on: #FF5FA2;
+  --off: #2F1D26;
+  --track: #080205;
+  --search: #18070F;
+  --green: #FF5FA2;
+}
+html[data-theme="sl_midnight"] {
+  --overlay: rgba(2, 2, 6, 0.565);
+  --accent: #AEB6FF;
+  --accent-lo: #5B6CFF;
+  --panel: #08090F;
+  --border: rgba(91, 108, 255, 0.400);
+  --header-a: #020206;
+  --header-b: #C8CCF7;
+  --row: #08090F;
+  --row-on: rgba(91, 108, 255, 0.400);
+  --row-hover: rgba(91, 108, 255, 0.400);
+  --setting: #08090F;
+  --text: #E9EBFD;
+  --dim: #9EA2C8;
+  --on: #5B6CFF;
+  --off: #1C1E36;
+  --track: #020206;
+  --search: #08090F;
+  --green: #5B6CFF;
+}
+html[data-theme="sl_gold"] {
+  --overlay: rgba(7, 5, 2, 0.565);
+  --accent: #F3DCA0;
+  --accent-lo: #E3B341;
+  --panel: #14110A;
+  --border: rgba(227, 179, 65, 0.400);
+  --header-a: #070502;
+  --header-b: #F0E2C0;
+  --row: #14110A;
+  --row-on: rgba(227, 179, 65, 0.400);
+  --row-hover: rgba(227, 179, 65, 0.400);
+  --setting: #14110A;
+  --text: #FAF4E6;
+  --dim: #C0B296;
+  --on: #E3B341;
+  --off: #2C261B;
+  --track: #070502;
+  --search: #14110A;
+  --green: #E3B341;
+}
+html[data-theme="sl_slate"] {
+  --overlay: rgba(4, 5, 6, 0.565);
+  --accent: #C2CDD8;
+  --accent-lo: #8AA0B4;
+  --panel: #0B0D10;
+  --border: rgba(138, 160, 180, 0.298);
+  --header-a: #040506;
+  --header-b: #D0D8E0;
+  --row: #0B0D10;
+  --row-on: rgba(138, 160, 180, 0.298);
+  --row-hover: rgba(138, 160, 180, 0.298);
+  --setting: #0B0D10;
+  --text: #EEF1F4;
+  --dim: #9EA7B1;
+  --on: #8AA0B4;
+  --off: #222831;
+  --track: #040506;
+  --search: #0B0D10;
+  --green: #8AA0B4;
+}
+html[data-theme="sl_copper"] {
+  --overlay: rgba(6, 3, 2, 0.565);
+  --accent: #E8B78A;
+  --accent-lo: #C77B4A;
+  --panel: #130D08;
+  --border: rgba(199, 123, 74, 0.400);
+  --header-a: #060302;
+  --header-b: #FFDCC0;
+  --row: #130D08;
+  --row-on: rgba(199, 123, 74, 0.400);
+  --row-hover: rgba(199, 123, 74, 0.400);
+  --setting: #130D08;
+  --text: #FAF0E8;
+  --dim: #CDAF98;
+  --on: #C77B4A;
+  --off: #2C2219;
+  --track: #060302;
+  --search: #130D08;
+  --green: #C77B4A;
+}
+html[data-theme="sl_amber"] {
+  --overlay: rgba(7, 4, 2, 0.565);
+  --accent: #FFD270;
+  --accent-lo: #FFB300;
+  --panel: #161006;
+  --border: rgba(255, 179, 0, 0.400);
+  --header-a: #070402;
+  --header-b: #FFE8B8;
+  --row: #161006;
+  --row-on: rgba(255, 179, 0, 0.400);
+  --row-hover: rgba(255, 179, 0, 0.400);
+  --setting: #161006;
+  --text: #FCF1E0;
+  --dim: #CBB388;
+  --on: #FFB300;
+  --off: #2F2410;
+  --track: #070402;
+  --search: #161006;
+  --green: #FFB300;
+}
+html[data-theme="sl_mono"] {
+  --overlay: rgba(4, 4, 4, 0.565);
+  --accent: #F5F5F7;
+  --accent-lo: #E4E4E7;
+  --panel: #0C0C0D;
+  --border: rgba(228, 228, 231, 0.298);
+  --header-a: #040404;
+  --header-b: #F0F0F2;
+  --row: #0C0C0D;
+  --row-on: rgba(228, 228, 231, 0.298);
+  --row-hover: rgba(228, 228, 231, 0.298);
+  --setting: #0C0C0D;
+  --text: #F5F5F6;
+  --dim: #AAAAAE;
+  --on: #E4E4E7;
+  --off: #28282B;
+  --track: #040404;
+  --search: #0C0C0D;
+  --green: #E4E4E7;
+}
+html[data-theme="sl_indigo"] {
+  --overlay: rgba(3, 3, 8, 0.565);
+  --accent: #AEB4FF;
+  --accent-lo: #4F5BD5;
+  --panel: #0A0B16;
+  --border: rgba(79, 91, 213, 0.400);
+  --header-a: #030308;
+  --header-b: #C8CAF5;
+  --row: #0A0B16;
+  --row-on: rgba(79, 91, 213, 0.400);
+  --row-hover: rgba(79, 91, 213, 0.400);
+  --setting: #0A0B16;
+  --text: #EBEBFC;
+  --dim: #9EA2CB;
+  --on: #4F5BD5;
+  --off: #1E2038;
+  --track: #030308;
+  --search: #0A0B16;
+  --green: #4F5BD5;
+}
+html[data-theme="sl_lime"] {
+  --overlay: rgba(4, 7, 2, 0.565);
+  --accent: #C8F78F;
+  --accent-lo: #A3E635;
+  --panel: #0E1408;
+  --border: rgba(163, 230, 53, 0.400);
+  --header-a: #040702;
+  --header-b: #DDF5B8;
+  --row: #0E1408;
+  --row-on: rgba(163, 230, 53, 0.400);
+  --row-hover: rgba(163, 230, 53, 0.400);
+  --setting: #0E1408;
+  --text: #F4FBE6;
+  --dim: #BED198;
+  --on: #A3E635;
+  --off: #26301A;
+  --track: #040702;
+  --search: #0E1408;
+  --green: #A3E635;
+}
+html[data-theme="sl_coral"] {
+  --overlay: rgba(8, 3, 3, 0.565);
+  --accent: #FFA698;
+  --accent-lo: #FF6B5B;
+  --panel: #180A08;
+  --border: rgba(255, 107, 91, 0.400);
+  --header-a: #080303;
+  --header-b: #FFC9C0;
+  --row: #180A08;
+  --row-on: rgba(255, 107, 91, 0.400);
+  --row-hover: rgba(255, 107, 91, 0.400);
+  --setting: #180A08;
+  --text: #FDEDE9;
+  --dim: #CBA29B;
+  --on: #FF6B5B;
+  --off: #2F1C19;
+  --track: #080303;
+  --search: #180A08;
+  --green: #FF6B5B;
+}
+html[data-theme="sl_lavender"] {
+  --overlay: rgba(5, 4, 10, 0.565);
+  --accent: #DCC8FF;
+  --accent-lo: #C4A3FF;
+  --panel: #120E1C;
+  --border: rgba(196, 163, 255, 0.400);
+  --header-a: #05040A;
+  --header-b: #E4D4FF;
+  --row: #120E1C;
+  --row-on: rgba(196, 163, 255, 0.400);
+  --row-hover: rgba(196, 163, 255, 0.400);
+  --setting: #120E1C;
+  --text: #F6F0FF;
+  --dim: #B9ABD0;
+  --on: #C4A3FF;
+  --off: #2A2238;
+  --track: #05040A;
+  --search: #120E1C;
+  --green: #C4A3FF;
+}
+html[data-theme="sl_crimson"] {
+  --overlay: rgba(7, 2, 2, 0.565);
+  --accent: #FF8A8A;
+  --accent-lo: #DC2626;
+  --panel: #160707;
+  --border: rgba(220, 38, 38, 0.400);
+  --header-a: #070202;
+  --header-b: #FFC4C4;
+  --row: #160707;
+  --row-on: rgba(220, 38, 38, 0.400);
+  --row-hover: rgba(220, 38, 38, 0.400);
+  --setting: #160707;
+  --text: #FDECEC;
+  --dim: #CB9B9B;
+  --on: #DC2626;
+  --off: #2F1818;
+  --track: #070202;
+  --search: #160707;
+  --green: #DC2626;
+}
+html[data-theme="sl_graphite"] {
+  --overlay: rgba(6, 6, 7, 0.565);
+  --accent: #BCD4FF;
+  --accent-lo: #6EA8FF;
+  --panel: #101114;
+  --border: rgba(110, 168, 255, 0.345);
+  --header-a: #060607;
+  --header-b: #D4DEF0;
+  --row: #101114;
+  --row-on: rgba(110, 168, 255, 0.345);
+  --row-hover: rgba(110, 168, 255, 0.345);
+  --setting: #101114;
+  --text: #ECEEF2;
+  --dim: #A4A8B0;
+  --on: #6EA8FF;
+  --off: #26282D;
+  --track: #060607;
+  --search: #101114;
+  --green: #6EA8FF;
+}
+html[data-theme="sl_aurora_night"] {
+  --overlay: rgba(2, 5, 10, 0.565);
+  --accent: #A8FAD6;
+  --accent-lo: #5AF2B0;
+  --panel: #060D14;
+  --border: rgba(90, 242, 176, 0.400);
+  --header-a: #02050A;
+  --header-b: #C4F8E4;
+  --row: #060D14;
+  --row-on: rgba(90, 242, 176, 0.400);
+  --row-hover: rgba(90, 242, 176, 0.400);
+  --setting: #060D14;
+  --text: #E9F8F3;
+  --dim: #93B8B4;
+  --on: #5AF2B0;
+  --off: #182630;
+  --track: #02050A;
+  --search: #060D14;
+  --green: #5AF2B0;
+}
+html[data-theme="sl_sakura"] {
+  --overlay: rgba(7, 4, 7, 0.565);
+  --accent: #FFD0E2;
+  --accent-lo: #FFA8C8;
+  --panel: #160D12;
+  --border: rgba(255, 168, 200, 0.400);
+  --header-a: #070407;
+  --header-b: #FFE0EC;
+  --row: #160D12;
+  --row-on: rgba(255, 168, 200, 0.400);
+  --row-hover: rgba(255, 168, 200, 0.400);
+  --setting: #160D12;
+  --text: #FDF0F5;
+  --dim: #C9AEBB;
+  --on: #FFA8C8;
+  --off: #2C1D25;
+  --track: #070407;
+  --search: #160D12;
+  --green: #FFA8C8;
+}
+html[data-theme="sl_abyss"] {
+  --overlay: rgba(1, 2, 4, 0.565);
+  --accent: #D0EAFF;
+  --accent-lo: #A5D8FF;
+  --panel: #04080E;
+  --border: rgba(165, 216, 255, 0.345);
+  --header-a: #010204;
+  --header-b: #D8ECFF;
+  --row: #04080E;
+  --row-on: rgba(165, 216, 255, 0.345);
+  --row-hover: rgba(165, 216, 255, 0.345);
+  --setting: #04080E;
+  --text: #E8F2FB;
+  --dim: #90A6BA;
+  --on: #A5D8FF;
+  --off: #111C28;
+  --track: #010204;
+  --search: #04080E;
+  --green: #A5D8FF;
+}
+html[data-theme="pink"] {
+  --overlay: rgba(21, 16, 21, 0.600);
+  --accent: #EE8EEA;
+  --accent-lo: #D96AD8;
+  --panel: rgba(21, 16, 21, 0.902);
+  --border: #382F37;
+  --header-a: #3F343F;
+  --header-b: #302A30;
+  --row: #1E191E;
+  --row-on: #3F343F;
+  --row-hover: #272127;
+  --setting: #1A1519;
+  --text: #F4F4F5;
+  --dim: #9E909E;
+  --on: #D96AD8;
+  --off: #3A343A;
+  --track: #1E191E;
+  --search: #1E191E;
+  --green: #D96AD8;
+}
+/* END GENERATED: theme palettes */
 
 * { box-sizing: border-box; }
 body {
@@ -342,17 +1027,45 @@ body.embed .stage { margin: 12px auto 0; }
 <body>
 
 <div class="toolbar">
-  <strong>Theme</strong>
-  <button data-theme="prestige" class="active">Prestige</button>
+  <!-- BEGIN GENERATED: theme buttons -->
   <button data-theme="matrix">Matrix</button>
   <button data-theme="utilmod">UtilMod</button>
-  <button data-theme="meteor">Meteor</button>
+  <button data-theme="prestige" class="active">Orchard</button>
   <button data-theme="flux">Flux</button>
+  <button data-theme="meteor">Meteor</button>
   <button data-theme="lumi">Lumi</button>
   <button data-theme="sakura">Sakura</button>
   <button data-theme="ocean">Ocean</button>
   <button data-theme="slate">Slate</button>
-  <span class="sep"></span>
+  <button data-theme="sl_liquid_glass">Liquid Glass</button>
+  <button data-theme="sl_flux">Flux (SL)</button>
+  <button data-theme="sl_granite">Granite</button>
+  <button data-theme="sl_nero_portoro">Nero Portoro</button>
+  <button data-theme="sl_teal">Teal</button>
+  <button data-theme="sl_ruby">Ruby</button>
+  <button data-theme="sl_catppuccin">Catppuccin</button>
+  <button data-theme="sl_purple">Purple</button>
+  <button data-theme="sl_emerald">Emerald</button>
+  <button data-theme="sl_ocean">Ocean (SL)</button>
+  <button data-theme="sl_sunset">Sunset</button>
+  <button data-theme="sl_rose">Rose</button>
+  <button data-theme="sl_midnight">Midnight</button>
+  <button data-theme="sl_gold">Gold</button>
+  <button data-theme="sl_slate">Slate (SL)</button>
+  <button data-theme="sl_copper">Copper</button>
+  <button data-theme="sl_amber">Amber</button>
+  <button data-theme="sl_mono">Mono</button>
+  <button data-theme="sl_indigo">Indigo</button>
+  <button data-theme="sl_lime">Lime</button>
+  <button data-theme="sl_coral">Coral</button>
+  <button data-theme="sl_lavender">Lavender</button>
+  <button data-theme="sl_crimson">Crimson</button>
+  <button data-theme="sl_graphite">Graphite</button>
+  <button data-theme="sl_aurora_night">Aurora Night</button>
+  <button data-theme="sl_sakura">Sakura (SL)</button>
+  <button data-theme="sl_abyss">Abyss</button>
+  <button data-theme="pink">Pink</button>
+<!-- END GENERATED: theme buttons -->
   <strong>Layout</strong>
   <button data-layout="CLICK_GUI" class="active">ClickGUI</button>
   <button data-layout="DROPDOWN">Dropdown</button>
@@ -365,11 +1078,11 @@ body.embed .stage { margin: 12px auto 0; }
 <div class="stage">
   <div class="window" id="window">
     <div class="titlebar">
-      <div class="logo">U</div>
-      <div class="brand">UTILMOD</div>
+      <div class="logo">O</div>
+      <div class="brand">ONYX CLIENT</div>
       <div class="tag">CLICK GUI</div>
       <div class="layout-chip" id="layoutChip" title="Switch menu layout">CLICK GUI  &gt;</div>
-      <div class="layout-chip" id="themeChip" title="Cycle theme">PRESTIGE  &gt;</div>
+      <div class="layout-chip" id="themeChip" title="Cycle theme">ORCHARD  &gt;</div>
       <div class="item-strip" title="Loadout">
         <img class="item-icon" src="assets/img/icons/end_crystal.png" alt="End Crystal">
         <img class="item-icon" src="assets/img/icons/sword.png" alt="Sword">
@@ -387,7 +1100,7 @@ body.embed .stage { margin: 12px auto 0; }
         <div id="sidebar"></div>
         <div class="client-card">
           <span class="dot"></span>
-          <div><div class="name">UTILMOD</div><div class="sub" id="enabledCount">0 enabled</div></div>
+          <div><div class="name">ONYX CLIENT</div><div class="sub" id="enabledCount">0 enabled</div></div>
         </div>
       </div>
 
@@ -424,14 +1137,15 @@ body.embed .stage { margin: 12px auto 0; }
 </div>
 
 <div class="footer-hint">
-  Preview of the <b>UtilMod click GUI</b> — 82 registered modules across 10 categories, original Prestige-inspired styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
+  Preview of the <b>Onyx Client ClickGUI</b> — 82 registered modules across 10 categories, 37 themes, original Onyx styling. The top chips cycle the theme and switch layouts; toggles, search and settings are interactive. This is not the live game renderer.
 </div>
 
 <script>
 /* Exact display names, categories and descriptions from the module constructors.
    Settings are representative subsets of the real settings in each module. */
+/* BEGIN GENERATED: module data */
 const MODULES = [
-  { n:"Auto Totem", c:"CRYSTAL", on:true, d:"Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
+  { n: "Auto Totem", c: "CRYSTAL", on: true, d: "Keeps a totem in your offhand, detects pops and damage, and holds reserves.", s:[
     {t:"mode",n:"Mode",v:"SMART"},
     {t:"num",n:"Health Threshold",v:10.0,min:1.0,max:20.0},
     {t:"bool",n:"Include Absorption",v:true},
@@ -464,12 +1178,12 @@ const MODULES = [
     {t:"num",n:"Pop Ticks",v:20.0,min:0.0,max:80.0,adv:true},
     {t:"num",n:"Pop Board Position X",v:4.0,min:0.0,max:1000.0,adv:true},
     {t:"num",n:"Pop Board Position Y",v:170.0,min:0.0,max:1000.0,adv:true},
-  ]},
-  { n:"Crystal Aura", c:"CRYSTAL", on:true, d:"Attacks nearby players during crystal PvP, with optional end-crystal cleanup.", s:[
+  ] },
+  { n: "Crystal Aura", c: "CRYSTAL", on: true, d: "Attacks nearby players during crystal PvP, with optional end-crystal cleanup.", s:[
     {t:"bool",n:"Attack Crystals",v:true},
     {t:"bool",n:"Only When Crystal Near",v:false},
-  ]},
-  { n:"Auto Crystal", c:"CRYSTAL", on:false, d:"Places and detonates end crystals around the nearest target. Server still validates every action.", s:[
+  ] },
+  { n: "Auto Crystal", c: "CRYSTAL", on: false, d: "Places and detonates end crystals around the nearest target. Server still validates every action.", s:[
     {t:"num",n:"Range",v:8.0,min:2.0,max:16.0},
     {t:"num",n:"Place Delay",v:10.0,min:0.0,max:40.0},
     {t:"num",n:"Break Delay",v:2.0,min:0.0,max:40.0},
@@ -477,43 +1191,43 @@ const MODULES = [
     {t:"bool",n:"Auto Break",v:true},
     {t:"bool",n:"Require Crystal",v:true},
     {t:"num",n:"Min Target Health",v:1.0,min:1.0,max:20.0},
-  ]},
-  { n:"Kill Aura", c:"SWORD", on:false, d:"Attacks nearby players and mobs with any held item, with range and target filtering.", s:[
+  ] },
+  { n: "Kill Aura", c: "SWORD", on: false, d: "Attacks nearby players and mobs with any held item, with range and target filtering.", s:[
     {t:"bool",n:"Only On Cooldown",v:true},
-  ]},
-  { n:"Sword Aura", c:"SWORD", on:false, d:"Attacks nearby targets only while a sword is held. Optional cooldown and critical-hit gates.", s:[
+  ] },
+  { n: "Sword Aura", c: "SWORD", on: false, d: "Attacks nearby targets only while a sword is held. Optional cooldown and critical-hit gates.", s:[
     {t:"bool",n:"Only On Cooldown",v:true},
     {t:"bool",n:"Critical Only",v:false},
-  ]},
-  { n:"Sword Swap", c:"SWORD", on:false, d:"Equips the best hotbar sword when an enemy is nearby, then optionally returns to your old slot.", s:[
+  ] },
+  { n: "Sword Swap", c: "SWORD", on: false, d: "Equips the best hotbar sword when an enemy is nearby, then optionally returns to your old slot.", s:[
     {t:"num",n:"Range",v:6.0,min:2.0,max:16.0},
     {t:"num",n:"Swap Delay",v:2.0,min:0.0,max:20.0},
     {t:"bool",n:"Swap Back",v:true},
     {t:"bool",n:"Prefer Sharpest",v:true},
-  ]},
-  { n:"Crit Assist", c:"SWORD", on:false, d:"Only swings when the vanilla critical-hit conditions are met: airborne, falling and cooldown ready.", s:[
+  ] },
+  { n: "Crit Assist", c: "SWORD", on: false, d: "Only swings when the vanilla critical-hit conditions are met: airborne, falling and cooldown ready.", s:[
     {t:"num",n:"Range",v:4.0,min:1.0,max:10.0},
     {t:"num",n:"Attack Delay",v:2.0,min:0.0,max:20.0},
     {t:"bool",n:"Require Sword",v:true},
     {t:"bool",n:"Require Falling",v:true},
-  ]},
-  { n:"Trigger Bot", c:"SWORD", on:false, d:"Attacks the entity under your crosshair after a configurable human-like delay.", s:[
+  ] },
+  { n: "Trigger Bot", c: "SWORD", on: false, d: "Attacks the entity under your crosshair after a configurable human-like delay.", s:[
     {t:"num",n:"Reaction Delay (Ms)",v:80.0,min:0.0,max:600.0},
     {t:"num",n:"Range",v:5.0,min:1.0,max:16.0},
     {t:"bool",n:"Players",v:true},
     {t:"bool",n:"Mobs",v:true},
     {t:"bool",n:"Require Sword",v:false},
     {t:"bool",n:"Swing Hand",v:true},
-  ]},
-  { n:"Auto Clicker", c:"SWORD", on:false, d:"Repeats real attack/use presses with configurable CPS and timing jitter.", s:[
+  ] },
+  { n: "Auto Clicker", c: "SWORD", on: false, d: "Repeats real attack/use presses with configurable CPS and timing jitter.", s:[
     {t:"mode",n:"Button",v:"LEFT"},
     {t:"num",n:"Minimum CPS",v:8.0,min:1.0,max:40.0},
     {t:"num",n:"Maximum CPS",v:12.0,min:1.0,max:40.0},
     {t:"num",n:"Jitter",v:18.0,min:0.0,max:60.0},
     {t:"bool",n:"Require Target",v:false},
     {t:"bool",n:"Pause In Menus",v:true},
-  ]},
-  { n:"Combo Assister", c:"SWORD", on:false, d:"Locks onto a target and spaces attacks into a steady combo instead of rapid target flipping.", s:[
+  ] },
+  { n: "Combo Assister", c: "SWORD", on: false, d: "Locks onto a target and spaces attacks into a steady combo instead of rapid target flipping.", s:[
     {t:"num",n:"Range",v:4.0,min:1.0,max:12.0},
     {t:"num",n:"View Angle",v:110.0,min:20.0,max:360.0},
     {t:"num",n:"Combo Delay (Ms)",v:220.0,min:50.0,max:900.0},
@@ -522,12 +1236,12 @@ const MODULES = [
     {t:"bool",n:"Players",v:true},
     {t:"bool",n:"Mobs",v:true},
     {t:"bool",n:"Swing Hand",v:true},
-  ]},
-  { n:"Reach", c:"PLAYER", on:false, d:"Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server.", s:[
+  ] },
+  { n: "Reach", c: "PLAYER", on: false, d: "Gives you super long arms. Extra block reach affects client-side interactions; extra entity reach is mirrored to the private server.", s:[
     {t:"num",n:"Extra Block Reach",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Extra Entity Reach",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Mace Swap", c:"MACE", on:true, d:"Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback.", s:[
+  ] },
+  { n: "Mace Swap", c: "MACE", on: true, d: "Swaps to the mace for fall-strike hits, with Breach/Density swapping, shield stun and snapback.", s:[
     {t:"mode",n:"Trigger",v:"SMART"},
     {t:"mode",n:"Trigger Key",v:"X"},
     {t:"bool",n:"Require Key",v:false},
@@ -557,15 +1271,15 @@ const MODULES = [
     {t:"num",n:"Attack Delay",v:0.0,min:0.0,max:20.0},
     {t:"num",n:"Combo Delay",v:2.0,min:0.0,max:20.0},
     {t:"bool",n:"Require Cooldown",v:true},
-  ]},
-  { n:"Density Assist", c:"MACE", on:false, d:"Shows your fall distance and the mace smash bonus damage it would deal.", s:[
+  ] },
+  { n: "Density Assist", c: "MACE", on: false, d: "Shows your fall distance and the mace smash bonus damage it would deal.", s:[
     {t:"num",n:"Ready Distance",v:1.5,min:0.5,max:20.0},
     {t:"bool",n:"Show Bonus Damage",v:true},
     {t:"bool",n:"Background",v:true},
     {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
     {t:"num",n:"Y",v:120.0,min:0.0,max:1000.0,adv:true},
-  ]},
-  { n:"Breach Swap", c:"MACE", on:false, d:"Same-tick Breach mace swap on attack (attribute swapping).", s:[
+  ] },
+  { n: "Breach Swap", c: "MACE", on: false, d: "Same-tick Breach mace swap on attack (attribute swapping).", s:[
     {t:"num",n:"Mace Slot",v:1.0,min:1.0,max:9.0},
     {t:"bool",n:"Smart Switch",v:true},
     {t:"bool",n:"Prefer Density",v:false},
@@ -578,28 +1292,28 @@ const MODULES = [
     {t:"num",n:"Click Pacing (Ms)",v:3.0,min:0.0,max:12.0},
     {t:"bool",n:"Pause Combat In Menus",v:true},
     {t:"bool",n:"Respect User Swaps",v:true},
-  ]},
-  { n:"Mace Aura", c:"MACE", on:false, d:"Attacks nearby targets while holding a mace. Optional smash-only mode waits for a fall strike.", s:[
+  ] },
+  { n: "Mace Aura", c: "MACE", on: false, d: "Attacks nearby targets while holding a mace. Optional smash-only mode waits for a fall strike.", s:[
     {t:"bool",n:"Smash Only",v:false},
     {t:"num",n:"Minimum Fall Distance",v:1.5,min:0.5,max:20.0},
-  ]},
-  { n:"Smash Assist", c:"MACE", on:false, d:"Automatically holds a Density mace when a fall strike is ready, then returns to your previous slot.", s:[
+  ] },
+  { n: "Smash Assist", c: "MACE", on: false, d: "Automatically holds a Density mace when a fall strike is ready, then returns to your previous slot.", s:[
     {t:"num",n:"Minimum Fall Distance",v:1.5,min:0.5,max:20.0},
     {t:"num",n:"Target Range",v:6.0,min:2.0,max:16.0},
     {t:"num",n:"Snap Back Delay",v:3.0,min:0.0,max:20.0},
     {t:"bool",n:"Swap Back",v:true},
     {t:"bool",n:"Require Density",v:true},
-  ]},
-  { n:"Sprint", c:"MOVEMENT", on:true, d:"Keeps you sprinting while you move, so you never have to double-tap.", s:[
+  ] },
+  { n: "Sprint", c: "MOVEMENT", on: true, d: "Keeps you sprinting while you move, so you never have to double-tap.", s:[
     {t:"bool",n:"All Directions",v:false},
     {t:"bool",n:"While Using Items",v:false},
     {t:"num",n:"Minimum Hunger",v:7.0,min:0.0,max:20.0},
-  ]},
-  { n:"Auto Walk", c:"MOVEMENT", on:false, d:"Automatically holds a movement key.", s:[
+  ] },
+  { n: "Auto Walk", c: "MOVEMENT", on: false, d: "Automatically holds a movement key.", s:[
     {t:"mode",n:"Direction",v:"FORWARD"},
     {t:"bool",n:"Stop On Height Change",v:false},
-  ]},
-  { n:"Snap Tap", c:"MOVEMENT", on:false, d:"Press a key to replay your last movement exactly. Local input only; disable Auto Walk so the two modules do not fight over the keys.", s:[
+  ] },
+  { n: "Snap Tap", c: "MOVEMENT", on: false, d: "Press a key to replay your last movement exactly. Local input only; disable Auto Walk so the two modules do not fight over the keys.", s:[
     {t:"mode",n:"Replay Key",v:"V"},
     {t:"num",n:"Replay Length (Ticks)",v:10.0,min:1.0,max:120.0},
     {t:"num",n:"Memory Length (Ticks)",v:60.0,min:5.0,max:240.0},
@@ -607,8 +1321,8 @@ const MODULES = [
     {t:"bool",n:"Record Sneak",v:true},
     {t:"bool",n:"Record Sprint",v:true},
     {t:"bool",n:"Restore Live Keys",v:true},
-  ]},
-  { n:"Wind Charge Jump", c:"MOVEMENT", on:false, d:"Keybind macro that throws a wind charge at a configured pitch for a quick boost.", s:[
+  ] },
+  { n: "Wind Charge Jump", c: "MOVEMENT", on: false, d: "Keybind macro that throws a wind charge at a configured pitch for a quick boost.", s:[
     {t:"mode",n:"Key",v:"G"},
     {t:"num",n:"Throw Pitch",v:90.0,min:-90.0,max:90.0},
     {t:"bool",n:"Silent Aim",v:true},
@@ -616,25 +1330,25 @@ const MODULES = [
     {t:"num",n:"Delay",v:1.0,min:0.0,max:20.0},
     {t:"bool",n:"Only When Falling",v:false},
     {t:"bool",n:"Perfect Jump",v:true},
-  ]},
-  { n:"Auto Jump", c:"MOVEMENT", on:false, d:"Jumps automatically while walking, for smooth obstacle traversal.", s:[
+  ] },
+  { n: "Auto Jump", c: "MOVEMENT", on: false, d: "Jumps automatically while walking, for smooth obstacle traversal.", s:[
     {t:"bool",n:"Require Forward",v:false},
     {t:"bool",n:"Require Sprint",v:false},
     {t:"bool",n:"Avoid On Stairs",v:true},
-  ]},
-  { n:"Velocity", c:"MOVEMENT", on:false, d:"Controls knockback and liquid push. Requires this jar on your private server.", s:[
+  ] },
+  { n: "Velocity", c: "MOVEMENT", on: false, d: "Controls knockback and liquid push. Requires this jar on your private server.", s:[
     {t:"num",n:"Horizontal Knockback",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Vertical Knockback",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"No Sinking",v:false},
-  ]},
-  { n:"Fast Place", c:"PLAYER", on:false, d:"Repeats item use on a delay for faster block placement.", s:[
+  ] },
+  { n: "Fast Place", c: "PLAYER", on: false, d: "Repeats item use on a delay for faster block placement.", s:[
     {t:"mode",n:"Key",v:"F"},
     {t:"num",n:"Delay",v:2.0,min:0.0,max:60.0},
     {t:"bool",n:"Only When Holding",v:true},
     {t:"bool",n:"Require Block In Hand",v:true},
     {t:"bool",n:"Right Click Only",v:false},
-  ]},
-  { n:"Auto Eat", c:"PLAYER", on:false, d:"Automatically eats food when your health gets low.", s:[
+  ] },
+  { n: "Auto Eat", c: "PLAYER", on: false, d: "Automatically eats food when your health gets low.", s:[
     {t:"num",n:"Health Threshold",v:10.0,min:1.0,max:20.0},
     {t:"num",n:"Minimum Hunger",v:20.0,min:0.0,max:20.0},
     {t:"bool",n:"Require Hunger",v:true},
@@ -643,27 +1357,27 @@ const MODULES = [
     {t:"bool",n:"Allow While Moving",v:false},
     {t:"bool",n:"Swap Back",v:true},
     {t:"bool",n:"Prefer Best Food",v:true},
-  ]},
-  { n:"Auto Respawn", c:"PLAYER", on:false, d:"Respawns automatically after you die.", s:[
+  ] },
+  { n: "Auto Respawn", c: "PLAYER", on: false, d: "Respawns automatically after you die.", s:[
     {t:"num",n:"Delay Ticks",v:20.0,min:0.0,max:200.0},
     {t:"bool",n:"Require Death Screen",v:true},
-  ]},
-  { n:"Auto Mend", c:"PLAYER", on:false, d:"Automatically repairs Mending gear by keeping damaged items offhand.", s:[
+  ] },
+  { n: "Auto Mend", c: "PLAYER", on: false, d: "Automatically repairs Mending gear by keeping damaged items offhand.", s:[
     {t:"bool",n:"Force",v:false},
     {t:"bool",n:"Auto Disable",v:true},
     {t:"bool",n:"Include Inventory",v:true},
-  ]},
-  { n:"Auto Log", c:"PLAYER", on:false, d:"Disconnects automatically at low health. Client-side only.", s:[
+  ] },
+  { n: "Auto Log", c: "PLAYER", on: false, d: "Disconnects automatically at low health. Client-side only.", s:[
     {t:"num",n:"Health",v:6.0,min:1.0,max:20.0},
     {t:"bool",n:"Only In World",v:true},
-  ]},
-  { n:"Fullbright", c:"RENDER", on:true, d:"Maximizes brightness in dark areas.", s:[
+  ] },
+  { n: "Fullbright", c: "RENDER", on: true, d: "Maximizes brightness in dark areas.", s:[
     {t:"mode",n:"Mode",v:"GAMMA"},
     {t:"num",n:"Brightness",v:16.0,min:1.0,max:32.0},
     {t:"bool",n:"Update While Enabled",v:true},
     {t:"bool",n:"Restore When Disabled",v:true},
-  ]},
-  { n:"Hit Color", c:"RENDER", on:false, d:"Shows a short colored confirmation effect whenever your attack connects.", s:[
+  ] },
+  { n: "Hit Color", c: "RENDER", on: false, d: "Shows a short colored confirmation effect whenever your attack connects.", s:[
     {t:"mode",n:"Style",v:"RING"},
     {t:"num",n:"Duration (Milliseconds)",v:260.0,min:80.0,max:900.0},
     {t:"num",n:"Radius",v:18.0,min:6.0,max:64.0},
@@ -671,12 +1385,12 @@ const MODULES = [
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"Only Players",v:false},
     {t:"bool",n:"Target Box",v:true},
-  ]},
-  { n:"Zoom", c:"RENDER", on:true, d:"Hold a key to zoom in and release to return to your normal FOV.", s:[
+  ] },
+  { n: "Zoom", c: "RENDER", on: true, d: "Hold a key to zoom in and release to return to your normal FOV.", s:[
     {t:"mode",n:"Zoom Key",v:"C"},
     {t:"num",n:"Zoom FOV",v:30.0,min:30.0,max:90.0},
-  ]},
-  { n:"Crosshair", c:"RENDER", on:false, d:"Draws a custom client-side crosshair style.", s:[
+  ] },
+  { n: "Crosshair", c: "RENDER", on: false, d: "Draws a custom client-side crosshair style.", s:[
     {t:"mode",n:"Style",v:"PLUS"},
     {t:"num",n:"Size",v:6.0,min:2.0,max:24.0},
     {t:"num",n:"Gap",v:3.0,min:0.0,max:16.0},
@@ -684,8 +1398,8 @@ const MODULES = [
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Offset X",v:0.0,min:-200.0,max:200.0,adv:true},
     {t:"num",n:"Offset Y",v:0.0,min:-200.0,max:200.0,adv:true},
-  ]},
-  { n:"Xray", c:"HUD", on:false, d:"Highlights selected blocks through walls. Personal, client-side overlay.", s:[
+  ] },
+  { n: "Xray", c: "HUD", on: false, d: "Highlights selected blocks through walls. Personal, client-side overlay.", s:[
     {t:"mode",n:"Blocks",v:"Custom"},
     {t:"num",n:"Range",v:40.0,min:8.0,max:96.0},
     {t:"num",n:"Maximum Blocks",v:160.0,min:16.0,max:512.0},
@@ -699,8 +1413,8 @@ const MODULES = [
     {t:"bool",n:"Tracers",v:false},
     {t:"bool",n:"Show Names",v:true},
     {t:"bool",n:"Show Distance",v:true},
-  ]},
-  { n:"Entity ESP", c:"HUD", on:true, d:"Prestige-style entity ESP with a selectable list of every entity type.", s:[
+  ] },
+  { n: "Entity ESP", c: "HUD", on: true, d: "Prestige-style entity ESP with a selectable list of every entity type.", s:[
     {t:"mode",n:"Entity Types",v:"Custom"},
     {t:"num",n:"Range",v:64.0,min:4.0,max:256.0},
     {t:"num",n:"Update Interval",v:2.0,min:1.0,max:20.0},
@@ -725,8 +1439,8 @@ const MODULES = [
     {t:"num",n:"Fade Minimum %",v:35.0,min:0.0,max:100.0},
     {t:"num",n:"Glow Layers",v:2.0,min:1.0,max:4.0},
     {t:"num",n:"Glow Scale",v:1.08,min:1.0,max:1.5},
-  ]},
-  { n:"Target HUD", c:"HUD", on:true, d:"Shows a live health card and ESP box for the entity you are targeting.", s:[
+  ] },
+  { n: "Target HUD", c: "HUD", on: true, d: "Shows a live health card and ESP box for the entity you are targeting.", s:[
     {t:"mode",n:"Priority",v:"CROSSHAIR"},
     {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
     {t:"num",n:"View Angle",v:90.0,min:20.0,max:360.0},
@@ -739,13 +1453,14 @@ const MODULES = [
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
     {t:"num",n:"Y",v:160.0,min:0.0,max:1000.0,adv:true},
-  ]},
-  { n:"Nametags", c:"HUD", on:true, d:"Draws readable name tags with health, armor and distance over chosen entity types.", s:[
+  ] },
+  { n: "Nametags", c: "HUD", on: true, d: "Draws readable name tags with health numbers, armor and distance over chosen entity types.", s:[
     {t:"mode",n:"Entity Types",v:"Custom"},
     {t:"num",n:"Range",v:64.0,min:4.0,max:256.0},
     {t:"num",n:"Update Interval",v:2.0,min:1.0,max:20.0},
     {t:"num",n:"Maximum Entities",v:96.0,min:8.0,max:256.0},
     {t:"bool",n:"Show Health",v:true},
+    {t:"bool",n:"Health Numbers",v:false},
     {t:"bool",n:"Armor",v:true},
     {t:"bool",n:"Show Distance",v:true},
     {t:"bool",n:"Background",v:true},
@@ -757,16 +1472,16 @@ const MODULES = [
     {t:"bool",n:"Distance Fade",v:false},
     {t:"num",n:"Fade Start %",v:60.0,min:0.0,max:100.0},
     {t:"num",n:"Fade Minimum %",v:50.0,min:0.0,max:100.0},
-  ]},
-  { n:"Keybinds", c:"HUD", on:false, d:"Lists module keybinds on the HUD.", s:[
+  ] },
+  { n: "Keybinds", c: "HUD", on: false, d: "Lists module keybinds on the HUD.", s:[
     {t:"bool",n:"Show All",v:false},
     {t:"num",n:"X",v:4.0,min:0.0,max:1000.0,adv:true},
     {t:"num",n:"Y",v:60.0,min:0.0,max:1000.0,adv:true},
     {t:"bool",n:"Background",v:true},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Spacing",v:12.0,min:8.0,max:32.0},
-  ]},
-  { n:"Stats HUD", c:"HUD", on:true, d:"Configurable FPS, coordinates, biome, speed, ping and memory overlay.", s:[
+  ] },
+  { n: "Stats HUD", c: "HUD", on: true, d: "Configurable FPS, coordinates, biome, speed, ping and memory overlay.", s:[
     {t:"bool",n:"Show FPS",v:true},
     {t:"bool",n:"Show Coordinates",v:true},
     {t:"bool",n:"Show Biome",v:true},
@@ -781,20 +1496,20 @@ const MODULES = [
     {t:"bool",n:"Background",v:true},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Accent",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Weather", c:"WORLD", on:true, d:"Hides rain, snow and clouds on your screen. Nothing changes on the server.", s:[
+  ] },
+  { n: "Weather", c: "WORLD", on: true, d: "Hides rain, snow and clouds on your screen. Nothing changes on the server.", s:[
     {t:"bool",n:"Hide Rain And Snow",v:true},
     {t:"bool",n:"Hide Clouds",v:false},
-  ]},
-  { n:"Base Finder", c:"DONUT", on:false, d:"Scans nearby blocks for player-built structures and reports dense clusters.", s:[
+  ] },
+  { n: "Base Finder", c: "DONUT", on: false, d: "Scans nearby blocks for player-built structures and reports dense clusters.", s:[
     {t:"num",n:"Radius",v:16.0,min:6.0,max:48.0},
     {t:"num",n:"Scan Interval",v:40.0,min:10.0,max:200.0},
     {t:"num",n:"Minimum Signals",v:4.0,min:2.0,max:20.0},
     {t:"bool",n:"Show HUD",v:true},
     {t:"num",n:"X",v:6.0,min:0.0,max:1000.0},
     {t:"num",n:"Y",v:96.0,min:0.0,max:1000.0},
-  ]},
-  { n:"Reaction Monitor", c:"UTIL", on:false, d:"Warns when your own click speed, swapping or Breach automation looks inhuman. Purely client-side self-check.", s:[
+  ] },
+  { n: "Reaction Monitor", c: "UTIL", on: false, d: "Warns when your own click speed, swapping or Breach automation looks inhuman. Purely client-side self-check.", s:[
     {t:"num",n:"CPS Limit",v:40.0,min:5.0,max:80.0},
     {t:"num",n:"Swap Limit",v:8.0,min:1.0,max:30.0},
     {t:"num",n:"Auto Swap Limit",v:6.0,min:1.0,max:30.0},
@@ -803,14 +1518,14 @@ const MODULES = [
     {t:"bool",n:"Flag Fast Swaps",v:true},
     {t:"bool",n:"Flag Auto Breach",v:true},
     {t:"bool",n:"Show Alerts",v:true},
-  ]},
-  { n:"Anti AFK", c:"UTIL", on:false, d:"Keeps the local session active with small idle animations.", s:[
+  ] },
+  { n: "Anti AFK", c: "UTIL", on: false, d: "Keeps the local session active with small idle animations.", s:[
     {t:"num",n:"Interval",v:100.0,min:20.0,max:600.0},
     {t:"bool",n:"Swing Hand",v:true},
     {t:"bool",n:"Nudge View",v:true},
     {t:"num",n:"View Amount",v:2.0,min:0.1,max:15.0},
-  ]},
-  { n:"Menu Theme", c:"UTIL", on:true, d:"Change the ClickGUI palette, layout, scale and typography.", s:[
+  ] },
+  { n: "Menu Theme", c: "UTIL", on: true, d: "Change the ClickGUI palette, layout, scale and typography.", s:[
     {t:"mode",n:"Theme",v:"PINK"},
     {t:"mode",n:"Menu Layout",v:"DROPDOWN"},
     {t:"num",n:"Menu Scale",v:1.0,min:0.5,max:1.0},
@@ -825,18 +1540,18 @@ const MODULES = [
     {t:"bool",n:"Panel Shadow",v:false},
     {t:"bool",n:"Performance Mode",v:true},
     {t:"bool",n:"Show Theme In Title",v:true},
-  ]},
-  { n:"Config", c:"UTIL", on:true, d:"Saves and restores module enabled states in five persistent slots.", s:[
+  ] },
+  { n: "Config", c: "UTIL", on: true, d: "Saves and restores module enabled states in five persistent slots.", s:[
     {t:"num",n:"Profile Index",v:0.0,min:0.0,max:4.0},
     {t:"bool",n:"Save",v:false},
     {t:"bool",n:"Load",v:false},
     {t:"bool",n:"Apply When Enabled",v:true},
-  ]},
-  { n:"Hitbox Adjuster", c:"UTIL", on:false, d:"Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
+  ] },
+  { n: "Hitbox Adjuster", c: "UTIL", on: false, d: "Widens your attack hitbox so targets are easier to hit. Server-side checks need this jar on your private server.", s:[
     {t:"num",n:"Size Multiplier",v:5.0,min:1.0,max:20.0},
     {t:"bool",n:"Sync To Server",v:true},
-  ]},
-  { n:"Auto Obsidian", c:"UTIL", on:false, d:"Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
+  ] },
+  { n: "Auto Obsidian", c: "UTIL", on: false, d: "Places obsidian traps, pillars or floors around the nearest player. Server validates every placement.", s:[
     {t:"mode",n:"Mode",v:"TRAP"},
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Place Delay",v:3.0,min:0.0,max:40.0},
@@ -844,15 +1559,15 @@ const MODULES = [
     {t:"bool",n:"Require Obsidian",v:true},
     {t:"bool",n:"Auto Switch",v:true},
     {t:"bool",n:"Swap Back",v:true},
-  ]},
-  { n:"Auto Anchor", c:"UTIL", on:false, d:"Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
+  ] },
+  { n: "Auto Anchor", c: "UTIL", on: false, d: "Charges nearby respawn anchors with glowstone and ignites them with flint and steel.", s:[
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Action Delay",v:6.0,min:0.0,max:40.0},
     {t:"bool",n:"Auto Charge",v:true},
     {t:"bool",n:"Auto Ignite",v:true},
     {t:"bool",n:"Swap Back",v:true},
-  ]},
-  { n:"Sky Mood", c:"WORLD", on:false, d:"Client-only sky presets: daylight, golden hour, sunset, blue hour and night.", s:[
+  ] },
+  { n: "Sky Mood", c: "WORLD", on: false, d: "Client-only sky presets: daylight, golden hour, sunset, blue hour and night.", s:[
     {t:"mode",n:"Mood",v:"GOLDEN HOUR"},
     {t:"bool",n:"Custom Colors",v:false},
     {t:"num",n:"Sky Color",v:0.0,min:0.0,max:1.0},
@@ -860,8 +1575,8 @@ const MODULES = [
     {t:"num",n:"Sun Angle Override",v:-1.0,min:-1.0,max:1.0},
     {t:"num",n:"Star Override",v:-1.0,min:-1.0,max:1.0},
     {t:"bool",n:"Clear Rain Visuals",v:true},
-  ]},
-  { n:"Threat Radar", c:"RENDER", on:false, d:"Highlights combat dangers around you. Only draws on your screen.", s:[
+  ] },
+  { n: "Threat Radar", c: "RENDER", on: false, d: "Highlights combat dangers around you. Only draws on your screen.", s:[
     {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
     {t:"num",n:"Maximum Threats",v:32.0,min:4.0,max:96.0},
     {t:"num",n:"Scan Interval",v:2.0,min:1.0,max:20.0},
@@ -880,8 +1595,8 @@ const MODULES = [
     {t:"num",n:"Hostile Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Player Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"Projectile Trails", c:"RENDER", on:false, d:"Shows fading flight paths for nearby projectiles. Visual only.", s:[
+  ] },
+  { n: "Projectile Trails", c: "RENDER", on: false, d: "Shows fading flight paths for nearby projectiles. Visual only.", s:[
     {t:"num",n:"Range",v:64.0,min:8.0,max:192.0},
     {t:"num",n:"Trail Length",v:16.0,min:3.0,max:64.0},
     {t:"num",n:"Record Interval",v:1.0,min:1.0,max:10.0},
@@ -890,8 +1605,8 @@ const MODULES = [
     {t:"bool",n:"Show Other Projectiles",v:true},
     {t:"num",n:"Your Trail Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Other Trail Color",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Totem Pop FX", c:"RENDER", on:false, d:"Purely cosmetic rings and ghost outlines when a totem saves a player.", s:[
+  ] },
+  { n: "Totem Pop FX", c: "RENDER", on: false, d: "Purely cosmetic rings and ghost outlines when a totem saves a player.", s:[
     {t:"mode",n:"Effect Style",v:"BOTH"},
     {t:"num",n:"Duration",v:900.0,min:200.0,max:3000.0},
     {t:"num",n:"Ring Radius",v:28.0,min:8.0,max:90.0},
@@ -899,8 +1614,8 @@ const MODULES = [
     {t:"num",n:"Effect Color",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"Include Yourself",v:true},
     {t:"bool",n:"Show Pop Count",v:true},
-  ]},
-  { n:"Safe Spot ESP", c:"RENDER", on:false, d:"Marks nearby bedrock and obsidian holes. Does not change any blocks.", s:[
+  ] },
+  { n: "Safe Spot ESP", c: "RENDER", on: false, d: "Marks nearby bedrock and obsidian holes. Does not change any blocks.", s:[
     {t:"num",n:"Horizontal Range",v:14.0,min:4.0,max:48.0},
     {t:"num",n:"Vertical Range",v:3.0,min:1.0,max:12.0},
     {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
@@ -911,8 +1626,8 @@ const MODULES = [
     {t:"bool",n:"Show Distance",v:true},
     {t:"bool",n:"Glow",v:true},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"Tracers", c:"RENDER", on:false, d:"Draws client-side lines from your crosshair toward chosen entities nearby. Lines of mystery, mostly.", s:[
+  ] },
+  { n: "Tracers", c: "RENDER", on: false, d: "Draws client-side lines from your crosshair toward chosen entities nearby. Lines of mystery, mostly.", s:[
     {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
     {t:"num",n:"Maximum Entities",v:64.0,min:8.0,max:200.0},
     {t:"num",n:"Scan Interval",v:3.0,min:1.0,max:30.0},
@@ -921,16 +1636,16 @@ const MODULES = [
     {t:"bool",n:"Show Items",v:true},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Item Highlight", c:"RENDER", on:false, d:"Outlines dropped items nearby so they are easier to spot. Ground loot, but louder.", s:[
+  ] },
+  { n: "Item Highlight", c: "RENDER", on: false, d: "Outlines dropped items nearby so they are easier to spot. Ground loot, but louder.", s:[
     {t:"num",n:"Range",v:40.0,min:6.0,max:160.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"Show Name",v:true},
     {t:"bool",n:"Show Distance",v:false},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
     {t:"bool",n:"Glow",v:true},
-  ]},
-  { n:"Storage ESP", c:"RENDER", on:false, d:"Finds nearby chests, barrels and similar blocks. Draws on your screen only. Loot radar; opening the chest is still your job.", s:[
+  ] },
+  { n: "Storage ESP", c: "RENDER", on: false, d: "Finds nearby chests, barrels and similar blocks. Draws on your screen only. Loot radar; opening the chest is still your job.", s:[
     {t:"num",n:"Range",v:36.0,min:6.0,max:160.0},
     {t:"num",n:"Maximum Containers",v:48.0,min:4.0,max:160.0},
     {t:"bool",n:"Show Tracers",v:false},
@@ -938,29 +1653,29 @@ const MODULES = [
     {t:"num",n:"Box Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Tracer Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"City ESP", c:"RENDER", on:false, d:"Outlines mineable blocks next to nearby players. Never places or breaks blocks. No blocks were harmed in the making of this overlay.", s:[
+  ] },
+  { n: "City ESP", c: "RENDER", on: false, d: "Outlines mineable blocks next to nearby players. Never places or breaks blocks. No blocks were harmed in the making of this overlay.", s:[
     {t:"num",n:"Range",v:40.0,min:8.0,max:160.0},
     {t:"num",n:"Maximum Marks",v:48.0,min:4.0,max:160.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"Void ESP", c:"RENDER", on:false, d:"Marks nearby holes and open void edges. Only draws an overlay. Holes are just floors with confidence issues.", s:[
+  ] },
+  { n: "Void ESP", c: "RENDER", on: false, d: "Marks nearby holes and open void edges. Only draws an overlay. Holes are just floors with confidence issues.", s:[
     {t:"num",n:"Radius",v:16.0,min:4.0,max:64.0},
     {t:"num",n:"Depth Check",v:12.0,min:2.0,max:48.0},
     {t:"num",n:"Maximum Spots",v:48.0,min:4.0,max:160.0},
     {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"Breadcrumbs", c:"RENDER", on:false, d:"Draws a fading trail of your recent footsteps. Visual only. Hansel and Gretel, but local.", s:[
+  ] },
+  { n: "Breadcrumbs", c: "RENDER", on: false, d: "Draws a fading trail of your recent footsteps. Visual only. Hansel and Gretel, but local.", s:[
     {t:"num",n:"Maximum Points",v:96.0,min:12.0,max:240.0},
     {t:"num",n:"Record Interval",v:3.0,min:1.0,max:20.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
     {t:"bool",n:"Fade",v:true},
-  ]},
-  { n:"Trajectories", c:"RENDER", on:false, d:"Predicts throwable flight paths and marks nearby projectiles. Visual only. Math, but with confetti.", s:[
+  ] },
+  { n: "Trajectories", c: "RENDER", on: false, d: "Predicts throwable flight paths and marks nearby projectiles. Visual only. Math, but with confetti.", s:[
     {t:"bool",n:"Show Wind Charges",v:true},
     {t:"bool",n:"Show Ender Pearls",v:true},
     {t:"bool",n:"Show Snowballs",v:true},
@@ -970,33 +1685,33 @@ const MODULES = [
     {t:"num",n:"Gravity",v:0.03,min:0.0,max:0.12},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Logout Spots", c:"RENDER", on:false, d:"Marks the last known position of players who vanish nearby. Visual only. The client remembers the good times.", s:[
+  ] },
+  { n: "Logout Spots", c: "RENDER", on: false, d: "Marks the last known position of players who vanish nearby. Visual only. The client remembers the good times.", s:[
     {t:"num",n:"Range",v:96.0,min:16.0,max:256.0},
     {t:"num",n:"Maximum Spots",v:16.0,min:2.0,max:64.0},
     {t:"num",n:"Scan Interval",v:10.0,min:2.0,max:60.0},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"Show Name",v:true},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
-  ]},
-  { n:"Block Selection", c:"RENDER", on:false, d:"Highlights the block you are looking at. Visual only. Even blocks deserve a spotlight.", s:[
+  ] },
+  { n: "Block Selection", c: "RENDER", on: false, d: "Highlights the block you are looking at. Visual only. Even blocks deserve a spotlight.", s:[
     {t:"bool",n:"Fill",v:true},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
     {t:"bool",n:"Glow",v:true},
-  ]},
-  { n:"Auto Armor", c:"SWORD", on:false, d:"Moves better armor into your own armor slots. Only touches your inventory. Diamond pants are a lifestyle upgrade.", s:[
+  ] },
+  { n: "Auto Armor", c: "SWORD", on: false, d: "Moves better armor into your own armor slots. Only touches your inventory. Diamond pants are a lifestyle upgrade.", s:[
     {t:"num",n:"Delay Ticks",v:10.0,min:1.0,max:100.0},
     {t:"bool",n:"Replace Weaker",v:true},
     {t:"num",n:"Min Durability %",v:25.0,min:0.0,max:100.0},
-  ]},
-  { n:"Weather Changer", c:"WORLD", on:false, d:"Sets your own rain and sky shade for visuals only. Server weather is untouched. Personal weather, zero meteorological consequences.", s:[
+  ] },
+  { n: "Weather Changer", c: "WORLD", on: false, d: "Sets your own rain and sky shade for visuals only. Server weather is untouched. Personal weather, zero meteorological consequences.", s:[
     {t:"num",n:"Rain Amount",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Thunder Shade Amount",v:0.0,min:0.0,max:1.0},
     {t:"bool",n:"Override Clouds",v:false},
     {t:"bool",n:"Keep Stars",v:true},
-  ]},
-  { n:"Light Overlay", c:"RENDER", on:false, d:"Shows safe and unsafe light levels as crosses on nearby block tops. Visual only. Tiny crosses with strong opinions.", s:[
+  ] },
+  { n: "Light Overlay", c: "RENDER", on: false, d: "Shows safe and unsafe light levels as crosses on nearby block tops. Visual only. Tiny crosses with strong opinions.", s:[
     {t:"num",n:"Radius",v:12.0,min:3.0,max:40.0},
     {t:"num",n:"Maximum Spots",v:80.0,min:4.0,max:250.0},
     {t:"num",n:"Scan Interval",v:8.0,min:2.0,max:60.0},
@@ -1004,14 +1719,14 @@ const MODULES = [
     {t:"num",n:"Safe Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Unsafe Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:5.0},
-  ]},
-  { n:"Break Indicators", c:"RENDER", on:false, d:"Outlines the block you are mining and colours it by break progress. A progress bar for your commitment issues.", s:[
+  ] },
+  { n: "Break Indicators", c: "RENDER", on: false, d: "Outlines the block you are mining and colours it by break progress. A progress bar for your commitment issues.", s:[
     {t:"num",n:"Color Start",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Color End",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Line Width",v:2.0,min:1.0,max:6.0},
     {t:"bool",n:"Fill",v:true},
-  ]},
-  { n:"Auto Web", c:"SWORD", on:false, d:"Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed.", s:[
+  ] },
+  { n: "Auto Web", c: "SWORD", on: false, d: "Places cobweb around a nearby target. Changes blocks - use only on a private server with the jar installed.", s:[
     {t:"num",n:"Range",v:8.0,min:2.0,max:24.0},
     {t:"num",n:"Place Delay",v:4.0,min:0.0,max:40.0},
     {t:"num",n:"Max Webs Per Tick",v:2.0,min:1.0,max:8.0},
@@ -1019,37 +1734,37 @@ const MODULES = [
     {t:"bool",n:"Require On Ground",v:true},
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
-  ]},
-  { n:"Surround", c:"CRYSTAL", on:false, d:"Places obsidian or cobweb around you. Changes blocks - private server with the jar only.", s:[
+  ] },
+  { n: "Surround", c: "CRYSTAL", on: false, d: "Places obsidian or cobweb around you. Changes blocks - private server with the jar only.", s:[
     {t:"mode",n:"Block Choice",v:"OBSIDIAN"},
     {t:"num",n:"Delay",v:3.0,min:0.0,max:40.0},
     {t:"num",n:"Max Blocks Per Tick",v:2.0,min:1.0,max:9.0},
     {t:"bool",n:"Include Underfoot",v:true},
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
-  ]},
-  { n:"Anti Bed", c:"CRYSTAL", on:false, d:"Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only.", s:[
+  ] },
+  { n: "Anti Bed", c: "CRYSTAL", on: false, d: "Warns about nearby beds and can cover them with a block. Placement changes blocks - private server only.", s:[
     {t:"num",n:"Range",v:12.0,min:3.0,max:48.0},
     {t:"bool",n:"Warn Only",v:true},
     {t:"num",n:"Place Block Delay",v:6.0,min:1.0,max:40.0},
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"num",n:"Color",v:0.0,min:0.0,max:1.0},
-  ]},
-  { n:"Bow Aimbot", c:"SWORD", on:false, d:"Turns your view towards a target while holding a bow or crossbow. Fires nothing. Your arrows still need your help.", s:[
+  ] },
+  { n: "Bow Aimbot", c: "SWORD", on: false, d: "Turns your view towards a target while holding a bow or crossbow. Fires nothing. Your arrows still need your help.", s:[
     {t:"num",n:"Range",v:32.0,min:4.0,max:96.0},
     {t:"num",n:"View Angle",v:120.0,min:15.0,max:360.0},
     {t:"num",n:"Smoothing Speed",v:12.0,min:0.5,max:45.0},
     {t:"bool",n:"Visible Only",v:true},
     {t:"bool",n:"Players Only",v:false},
-  ]},
-  { n:"No Web", c:"MOVEMENT", on:false, d:"Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion.", s:[
+  ] },
+  { n: "No Web", c: "MOVEMENT", on: false, d: "Walk through cobwebs and other slowing blocks at full speed. Needs the private-server jar if the server enforces the slow. Cobwebs are now a suggestion.", s:[
     {t:"bool",n:"Cobwebs",v:true},
     {t:"bool",n:"Powder Snow",v:true},
     {t:"bool",n:"Honey Blocks",v:true},
     {t:"bool",n:"Soul Sand",v:true},
     {t:"bool",n:"Other Blocks",v:true},
-  ]},
-  { n:"Mace AI", c:"MACE", on:false, d:"Rule-based mace decisions: wind-charge setup, shield stun, Density smash, Breach hit or a plain follow-up. Stands down while Mace Swap is on. Server rules still decide what lands.", s:[
+  ] },
+  { n: "Mace AI", c: "MACE", on: false, d: "Rule-based mace decisions: wind-charge setup, shield stun, Density smash, Breach hit or a plain follow-up. Stands down while Mace Swap is on. Server rules still decide what lands.", s:[
     {t:"num",n:"Range",v:4.5,min:1.0,max:12.0},
     {t:"num",n:"View Angle",v:100.0,min:15.0,max:360.0},
     {t:"mode",n:"Target Priority",v:"NEAREST"},
@@ -1064,8 +1779,8 @@ const MODULES = [
     {t:"bool",n:"Throw Wind Charges",v:true},
     {t:"num",n:"Wind Charge Pitch",v:90.0,min:-90.0,max:90.0},
     {t:"num",n:"Wind Charge Cooldown",v:20.0,min:2.0,max:120.0},
-  ]},
-  { n:"Stun Slam", c:"MACE", on:false, d:"Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only.", s:[
+  ] },
+  { n: "Stun Slam", c: "MACE", on: false, d: "Axe shield disable followed by a mace hit. At zero delay both attacks are sent in one tick; servers still decide if they land. Private-server/client-only.", s:[
     {t:"num",n:"Range",v:4.5,min:1.0,max:8.0},
     {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
     {t:"bool",n:"Only When Blocking",v:true},
@@ -1075,8 +1790,8 @@ const MODULES = [
     {t:"num",n:"Swap Back Delay",v:3.0,min:0.0,max:20.0},
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
-  ]},
-  { n:"Shield Breaker", c:"SWORD", on:false, d:"Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island.", s:[
+  ] },
+  { n: "Shield Breaker", c: "SWORD", on: false, d: "Faces a shielding opponent, swaps briefly to an axe to stun the shield, then swaps back. Block/inventory changes require this jar on your private server if applicable. Shields are not voted off the island.", s:[
     {t:"num",n:"Range",v:4.5,min:1.0,max:12.0},
     {t:"num",n:"View Angle",v:90.0,min:15.0,max:360.0},
     {t:"num",n:"Shield Hit Delay",v:6.0,min:0.0,max:40.0},
@@ -1085,28 +1800,28 @@ const MODULES = [
     {t:"bool",n:"Silent Rotate",v:true},
     {t:"bool",n:"Swing",v:true},
     {t:"bool",n:"Private Server Note",v:false},
-  ]},
-  { n:"Auto GG", c:"UTIL", on:false, d:"Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers.", s:[
+  ] },
+  { n: "Auto GG", c: "UTIL", on: false, d: "Sends a friendly chat message after a nearby player dies. Chat is visible to the server, so keep this to private servers.", s:[
     {t:"num",n:"Delay",v:400.0,min:0.0,max:3000.0},
     {t:"num",n:"Range",v:48.0,min:8.0,max:160.0},
     {t:"bool",n:"Only My Kills",v:true},
     {t:"bool",n:"Players Only",v:true},
-  ]},
-  { n:"Toast Remover", c:"UTIL", on:false, d:"Clears Minecraft's vanilla pop-up toasts so advancement and recipe cards never block the view.", s:[
+  ] },
+  { n: "Toast Remover", c: "UTIL", on: false, d: "Clears Minecraft's vanilla pop-up toasts so advancement and recipe cards never block the view.", s:[
     {t:"num",n:"Check Interval",v:2.0,min:1.0,max:40.0},
     {t:"bool",n:"Only In World",v:true},
-  ]},
-  { n:"Chat Filter", c:"UTIL", on:false, d:"Hides chat lines containing your own list of words. Only the text shown to you is affected.", s:[
+  ] },
+  { n: "Chat Filter", c: "UTIL", on: false, d: "Hides chat lines containing your own list of words. Only the text shown to you is affected.", s:[
     {t:"bool",n:"Ignore Case",v:true},
     {t:"bool",n:"Hide System Messages",v:false},
-  ]},
-  { n:"Loot Alerts", c:"HUD", on:false, d:"Shows a corner alert when valuable items drop nearby. Reads local entities only; it never picks items up.", s:[
+  ] },
+  { n: "Loot Alerts", c: "HUD", on: false, d: "Shows a corner alert when valuable items drop nearby. Reads local entities only; it never picks items up.", s:[
     {t:"mode",n:"Item Mode",v:"VALUABLE"},
     {t:"num",n:"Range",v:28.0,min:6.0,max:96.0},
     {t:"num",n:"Scan Interval",v:10.0,min:2.0,max:60.0},
     {t:"bool",n:"Show Stack Count",v:true},
-  ]},
-  { n:"Honest HUD", c:"HUD", on:false, d:"A tiny HUD that reports only what your client actually knows, with a few reminders about the rest.", s:[
+  ] },
+  { n: "Honest HUD", c: "HUD", on: false, d: "A tiny HUD that reports only what your client actually knows, with a few reminders about the rest.", s:[
     {t:"bool",n:"Show Position",v:true},
     {t:"bool",n:"Show Health",v:true},
     {t:"bool",n:"Show Ping",v:true},
@@ -1117,24 +1832,24 @@ const MODULES = [
     {t:"num",n:"Line Spacing",v:11.0,min:8.0,max:24.0},
     {t:"num",n:"Update Interval",v:10.0,min:1.0,max:60.0},
     {t:"bool",n:"Background",v:true},
-  ]},
-  { n:"Dinnerbone Mode", c:"RENDER", on:false, d:"Turns nearby living models upside down using Minecraft's own rendering flag. Hitboxes and names stay normal.", s:[
+  ] },
+  { n: "Dinnerbone Mode", c: "RENDER", on: false, d: "Turns nearby living models upside down using Minecraft's own rendering flag. Hitboxes and names stay normal.", s:[
     {t:"mode",n:"Affected Entities",v:"PLAYERS"},
     {t:"bool",n:"Include Yourself",v:false},
     {t:"num",n:"Chance",v:100.0,min:5.0,max:100.0},
-  ]},
-  { n:"Moon Jump", c:"MOVEMENT", on:false, d:"Makes your own jumps springy and floaty, like the moon has poor customer service. Servers may correct the motion.", s:[
+  ] },
+  { n: "Moon Jump", c: "MOVEMENT", on: false, d: "Makes your own jumps springy and floaty, like the moon has poor customer service. Servers may correct the motion.", s:[
     {t:"num",n:"Jump Strength",v:1.4,min:0.5,max:3.0},
     {t:"bool",n:"Require Space",v:true},
     {t:"bool",n:"Soft Fall",v:true},
     {t:"num",n:"Fall Factor",v:0.55,min:0.1,max:1.0},
-  ]},
-  { n:"Banana Tooltips", c:"RENDER", on:false, d:"Adds harmless banana jokes to item tooltips in your own menu. Items and their real stats are untouched.", s:[
+  ] },
+  { n: "Banana Tooltips", c: "RENDER", on: false, d: "Adds harmless banana jokes to item tooltips in your own menu. Items and their real stats are untouched.", s:[
     {t:"mode",n:"Line Style",v:"FUNNY"},
     {t:"bool",n:"Banana Prefix",v:true},
     {t:"num",n:"Extra Lines",v:1.0,min:1.0,max:3.0},
-  ]},
-  { n:"Disco Overlay", c:"RENDER", on:false, d:"Paints soft, slowly changing colour bands over the world. It is deliberately subtle and draws nothing else.", s:[
+  ] },
+  { n: "Disco Overlay", c: "RENDER", on: false, d: "Paints soft, slowly changing colour bands over the world. It is deliberately subtle and draws nothing else.", s:[
     {t:"mode",n:"Color Mode",v:"RAINBOW"},
     {t:"num",n:"Fixed Color",v:0.0,min:0.0,max:1.0},
     {t:"num",n:"Cycle Speed",v:1.6,min:0.3,max:6.0},
@@ -1142,27 +1857,45 @@ const MODULES = [
     {t:"bool",n:"Smooth Pulse",v:true},
     {t:"num",n:"Stripe Height",v:56.0,min:8.0,max:200.0},
     {t:"bool",n:"Only In World",v:true},
-  ]},
-  { n:"Confetti Deaths", c:"RENDER", on:false, d:"Throws a small screen-space confetti burst when a nearby player dies. Purely cosmetic.", s:[
+  ] },
+  { n: "Confetti Deaths", c: "RENDER", on: false, d: "Throws a small screen-space confetti burst when a nearby player dies. Purely cosmetic.", s:[
     {t:"num",n:"Pieces",v:54.0,min:8.0,max:160.0},
     {t:"num",n:"Duration",v:1500.0,min:400.0,max:4000.0},
     {t:"num",n:"Range",v:64.0,min:8.0,max:160.0},
     {t:"bool",n:"Include Yourself",v:false},
     {t:"bool",n:"Players Only",v:true},
     {t:"bool",n:"Use Theme Colors",v:true},
-  ]}
+  ] }
 ];
+/* END GENERATED: module data */
 
+/* BEGIN GENERATED: categories */
 const CATEGORIES = ["CRYSTAL", "SWORD", "MACE", "MOVEMENT", "PLAYER", "RENDER", "WORLD", "DONUT", "UTIL", "HUD"];
 const CATEGORY_COLORS = {
-  CRYSTAL:"#67E8F9", SWORD:"#FB7185", MACE:"#FBBF24", MOVEMENT:"#A3E635",
-  PLAYER:"#4ADE80", RENDER:"#C084FC", WORLD:"#38BDF8", DONUT:"#F472B6", UTIL:"#9CA3AF", HUD:"#F0ABFC", HUD:"#F0ABFC"
+  CRYSTAL: "#67E8F9",
+  SWORD: "#FB7185",
+  MACE: "#FBBF24",
+  MOVEMENT: "#A3E635",
+  PLAYER: "#4ADE80",
+  RENDER: "#C084FC",
+  WORLD: "#38BDF8",
+  DONUT: "#F472B6",
+  UTIL: "#9CA3AF",
+  HUD: "#F0ABFC",
 };
 const CATEGORY_ICONS = {
-  CRYSTAL:"end_crystal.png", SWORD:"sword.png", MACE:"mace.png",
-  MOVEMENT:"movement.png", PLAYER:"player.png", RENDER:"spyglass.png",
-  WORLD:"world.png", DONUT:"donut.png", UTIL:"steak.png", HUD:"hud.png", HUD:"hud.png"
+  CRYSTAL: "end_crystal.png",
+  SWORD: "sword.png",
+  MACE: "mace.png",
+  MOVEMENT: "movement.png",
+  PLAYER: "player.png",
+  RENDER: "spyglass.png",
+  WORLD: "world.png",
+  DONUT: "donut.png",
+  UTIL: "steak.png",
+  HUD: "hud.png",
 };
+/* END GENERATED: categories */
 
 const state = {
   cat: "CRYSTAL",
@@ -1317,8 +2050,9 @@ $("scale").addEventListener("input", e => {
 $("infoBtn").addEventListener("click", () => {
   $("setTitle").textContent = "Onyx Client Menu";
   $("setStatus").textContent = "INFO"; $("setStatus").className = "status on";
-  $("setDesc").textContent = "UtilMod's shared three-column menu shell. Right Shift opens it in game; Menu Theme switches palette, layout and scale.";
-  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">37</span></div>
+  $("setDesc").textContent = "Onyx Client's shared three-column menu shell. Right Shift opens it in game; Menu Theme switches palette, layout and scale.";
+  $("settingsList").innerHTML = `<div class="setting"><span class="label">Modules registered</span><span class="value">82</span></div>
+    <div class="setting"><span class="label">Themes available</span><span class="value">37</span></div>
     <div class="setting"><span class="label">Layout</span><span class="value">${state.layout === "DROPDOWN" ? "DROPDOWN" : "CLICK GUI"}</span></div>
     <div class="setting"><span class="label">Theme</span><span class="value">${document.documentElement.dataset.theme.toUpperCase()}</span></div>
     <div class="setting"><span class="label">Menu key</span><span class="value">RIGHT SHIFT</span></div>`;

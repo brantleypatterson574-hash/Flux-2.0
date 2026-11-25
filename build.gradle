@@ -75,10 +75,20 @@ def websiteDir = file('website')
 def remapJarFile = tasks.named('remapJar').flatMap { it.archiveFile }
 def builtJarPath = remapJarFile.get().asFile.absolutePath
 
+// Keep the interactive site preview in sync with the client's real themes,
+// module names, categories and branding. Runs on every build.
+tasks.register('updateWebsitePreview', Exec) {
+    group = 'flux'
+    description = 'Regenerates website/preview.html from the current client sources.'
+    workingDir rootDir
+    commandLine 'python', file('website/generate_preview.py').absolutePath
+    outputs.upToDateWhen { false }
+}
+
 tasks.register('updateWebsiteDownload', Exec) {
     group = 'flux'
     description = 'Copies the built jar into website/downloads and refreshes the displayed size and checksum.'
-    dependsOn 'remapJar'
+    dependsOn 'remapJar', 'updateWebsitePreview'
     workingDir rootDir
     commandLine 'python', file('website/update_download.py').absolutePath,
         builtJarPath, websiteDir.absolutePath
