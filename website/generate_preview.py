@@ -286,6 +286,15 @@ def sync_static_text(text: str, themes: list[dict], categories: list[dict], modu
         # preview never shows code-like fragments instead of triangles.
         ('\u00e2\u2013\u00b8', '\u25b8'),
         ('\u00e2\u2013\u00be', '\u25be'),
+        # Chevrons in the shell used literal angle brackets, which looked
+        # like stray source code. Keep the arrow glyphs on regeneration.
+        ('CLICK GUI  &gt;', 'CLICK GUI  &#9662;'),
+        ('${m.n === state.selected ? "‹" : "›"}',
+         '${m.n === state.selected ? "▾" : "▸"}'),
+        ('‹ ${esc(s.v)} ›', '◂ ${esc(s.v)} ▸'),
+        ('+ "  >"', '+ "  ▾"'),
+        ('? "DROPDOWN  >" : "CLICK GUI  >"',
+         '? "DROPDOWN  ▾" : "CLICK GUI  ▾"'),
         ('<div class="logo">U</div>', '<div class="logo">O</div>'),
         ('<div class="brand">UTILMOD</div>', '<div class="brand">ONYX CLIENT</div>'),
         ('<div class="name">UTILMOD</div>', '<div class="name">ONYX CLIENT</div>'),
@@ -297,7 +306,7 @@ def sync_static_text(text: str, themes: list[dict], categories: list[dict], modu
     default = next((theme for theme in themes if theme["key"] == "prestige"), themes[0])
     text = re.sub(
         r'(id="themeChip"[^>]*>)[^<]*(</div>)',
-        lambda match: f'{match.group(1)}{default["label"].upper()}  &gt;{match.group(2)}',
+        lambda match: f'{match.group(1)}{default["label"].upper()}  &#9662;{match.group(2)}',
         text,
         count=1,
     )

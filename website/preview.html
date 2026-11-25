@@ -1081,8 +1081,8 @@ body.embed .stage { margin: 12px auto 0; }
       <div class="logo">O</div>
       <div class="brand">ONYX CLIENT</div>
       <div class="tag">CLICK GUI</div>
-      <div class="layout-chip" id="layoutChip" title="Switch menu layout">CLICK GUI  &gt;</div>
-      <div class="layout-chip" id="themeChip" title="Cycle theme">ORCHARD  &gt;</div>
+      <div class="layout-chip" id="layoutChip" title="Switch menu layout">CLICK GUI  &#9662;</div>
+      <div class="layout-chip" id="themeChip" title="Cycle theme">ORCHARD  &#9662;</div>
       <div class="item-strip" title="Loadout">
         <img class="item-icon" src="assets/img/icons/end_crystal.png" alt="End Crystal">
         <img class="item-icon" src="assets/img/icons/sword.png" alt="Sword">
@@ -1993,7 +1993,7 @@ function renderList() {
   $("moduleList").innerHTML = list.map(m => `
     <div class="row ${m.on ? "on" : ""} ${m.n === state.selected ? "selected" : ""}" style="--cat:${CATEGORY_COLORS[m.c]}" data-name="${esc(m.n)}" title="${esc(m.d)}">
       <div class="stripe"></div><div class="name">${esc(m.n)}</div>
-      <div class="chev" data-settings="${esc(m.n)}">${m.n === state.selected ? "‹" : "›"}</div>
+      <div class="chev" data-settings="${esc(m.n)}">${m.n === state.selected ? "▾" : "▸"}</div>
       <div class="pill" data-toggle="${esc(m.n)}"></div>
     </div>`).join("");
   $("moduleList").querySelectorAll(".row").forEach(el => el.addEventListener("click", e => {
@@ -2021,7 +2021,7 @@ function renderSettings() {
     if (s.t === "bool") return `<div class="setting" title="${esc(s.n)}">
       <span class="label">${esc(s.n)}</span><span class="toggle ${s.v ? "on" : ""}" data-set="${esc(s.n)}"></span></div>`;
     if (s.t === "mode") return `<div class="setting"><span class="label">${esc(s.n)}</span>
-      <span class="value">‹ ${esc(s.v)} ›</span></div>`;
+      <span class="value">◂ ${esc(s.v)} ▸</span></div>`;
     const pct = Math.max(0, Math.min(100, (s.v - s.min) / (s.max - s.min) * 100));
     return `<div class="setting" title="${esc(s.n)}: ${s.v}">
       <span class="label">${esc(s.n)}</span><span class="value">${s.v}</span>
@@ -2051,7 +2051,7 @@ function renderAll() { renderCounts(); renderSidebar(); renderList(); renderSett
 /* ---- demo controls ---- */
 document.querySelectorAll("[data-theme]").forEach(btn => btn.addEventListener("click", () => {
   document.documentElement.dataset.theme = btn.dataset.theme;
-  $("themeChip").textContent = btn.textContent.toUpperCase() + "  >";
+  $("themeChip").textContent = btn.textContent.toUpperCase() + "  ▾";
   document.querySelectorAll("[data-theme]").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 }));
@@ -2059,7 +2059,7 @@ document.querySelectorAll("[data-layout]").forEach(btn => btn.addEventListener("
   state.layout = btn.dataset.layout;
   document.querySelectorAll("[data-layout]").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
-  $("layoutChip").textContent = state.layout === "DROPDOWN" ? "DROPDOWN  >" : "CLICK GUI  >";
+  $("layoutChip").textContent = state.layout === "DROPDOWN" ? "DROPDOWN  ▾" : "CLICK GUI  ▾";
 }));
 $("themeChip").addEventListener("click", () => {
   const buttons = [...document.querySelectorAll("[data-theme]")];
